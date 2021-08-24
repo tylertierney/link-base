@@ -7,8 +7,6 @@ import UserMenu from "./UserMenu/UserMenu";
 const Navbar = () => {
   const { user, login, logout, authReady } = useUser();
 
-  console.log(user);
-
   return (
     <>
       <nav>
