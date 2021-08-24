@@ -1,6 +1,9 @@
 import AuthContextProvider from "../context/authContext";
 import "../styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import "@fontsource/fredoka-one";
+import "@fontsource/lato";
+import "@fontsource/poppins";
 
 const theme = extendTheme({
   colors: {
@@ -18,6 +21,10 @@ const theme = extendTheme({
       text_dark: "#181114",
       text_light: "#F4F6F6",
     },
+  },
+  fonts: {
+    heading: "Lato",
+    body: "Poppins",
   },
 });
 

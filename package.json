@@ -13,6 +13,9 @@
     "@chakra-ui/react": "^1.6.6",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
+    "@fontsource/fredoka-one": "^4.5.0",
+    "@fontsource/lato": "^4.5.0",
+    "@fontsource/poppins": "^4.5.0",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "firebase": "^8.10.0",
@@ -23,7 +26,8 @@
     "next": "11.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "react-loading-skeleton": "^2.2.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",
