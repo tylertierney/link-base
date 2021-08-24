@@ -1,24 +1,53 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import netlifyIdentity from "netlify-identity-widget";
 
-export const UserContext = createContext({
+const AuthContext = createContext({
   user: null,
   login: () => {},
   logout: () => {},
   authReady: false,
 });
 
-const UserContextProvider = ({ children }) => {
+const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loadingUser, setLoadingUser] = useState(true); // Helpful, to update the UI accordingly.
+
+  useEffect(() => {
+    netlifyIdentity.on("login", (user) => {
+      setUser(user);
+      netlifyIdentity.close();
+      console.log("login event");
+    });
+
+    netlifyIdentity.on("logout", () => {
+      setUser(null);
+      console.log("logout event");
+    });
+
+    // init netlify identity
+    netlifyIdentity.init();
+
+    return () => {
+      netlifyIdentity.off("login");
+      netlifyIdentity.off("logout");
+    };
+  }, []);
+
+  const login = () => {
+    netlifyIdentity.open();
+  };
+
+  const logout = () => {
+    netlifyIdentity.logout();
+  };
+
+  const context = { user, login, logout };
 
   return (
-    <UserContext.Provider value={{ user, setUser, loadingUser }}>
-      {children}
-    </UserContext.Provider>
+    <AuthContext.Provider value={context}>{children}</AuthContext.Provider>
   );
 };
 
-export default UserContextProvider;
+export default AuthContextProvider;
 
 // Custom hook that shorthands the context!
-export const useUser = () => useContext(UserContext);
+export const useUser = () => useContext(AuthContext);

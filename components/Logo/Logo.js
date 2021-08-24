@@ -5,14 +5,6 @@ import Head from "next/head";
 const Logo = () => {
   return (
     <>
-      {/* <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"
-          rel="stylesheet"
-        />
-      </Head> */}
       <Flex justify="center" align="center" h={2}>
         <Link href="/" passHref>
           <a>

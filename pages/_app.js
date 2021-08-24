@@ -1,4 +1,4 @@
-import UserProvider from "../context/authContext";
+import AuthContextProvider from "../context/authContext";
 import "../styles/globals.css";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
@@ -23,11 +23,11 @@ const theme = extendTheme({
 
 const App = ({ Component, pageProps }) => {
   return (
-    <UserProvider>
+    <AuthContextProvider>
       <ChakraProvider theme={theme}>
         <Component {...pageProps} />
       </ChakraProvider>
-    </UserProvider>
+    </AuthContextProvider>
   );
 };
 

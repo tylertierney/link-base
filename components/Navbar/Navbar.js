@@ -1,64 +1,54 @@
-import { Flex, Icon, Text } from "@chakra-ui/react";
-import Link from "next/link";
-// import { useUser } from "../../context/userContext";
+import { Flex, Icon, Text, Button } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import { useUser } from "../../context/authContext";
 import Logo from "../Logo/Logo";
+import Login from "./Login/Login";
+import Account from "./Account/Account";
+import Logout from "./Logout/Logout";
 
 const Navbar = () => {
-  //   const { loadingUser, user, setUser } = useUser();
+  const { user, login, logout } = useUser();
 
-  //   const { id, name, username, email } = user || {
-  //     id: "na",
-  //     name: "na",
-  //     username: "na",
-  //     email: "na",
-  //   };
-
-  //   console.log(id);
+  console.log(user);
 
   return (
     <>
       <main>
-        <Flex
-          p="0 1.3rem"
-          w="100vw"
-          justify="space-between"
-          h="2rem"
-          align="center"
-          boxShadow="0px 3px 10px 2px rgb(0, 0, 0, 0.3)"
-          zIndex="1"
-          position="fixed"
-          top="0"
-          left="0"
-          backgroundColor="brand.text_light"
-        >
-          <Logo />
+        <nav>
           <Flex
+            p="0 1.3rem"
+            w="100vw"
             justify="space-between"
+            h="2rem"
             align="center"
-            transition="0.3s ease-in-out"
-            _hover={{ opacity: "0.7" }}
+            boxShadow="0px 3px 10px 2px rgb(0, 0, 0, 0.3)"
+            zIndex="1"
+            position="fixed"
+            top="0"
+            left="0"
+            backgroundColor="brand.text_light"
           >
+            <Logo />
             <Flex
-              justify="center"
+              justify="space-between"
               align="center"
-              fontSize="0.8rem"
-              cursor="pointer"
-              userSelect="none"
+              transition="0.3s ease-in-out"
+              _hover={{ opacity: "0.7" }}
             >
-              <Text as="span">username</Text>
-              <ChevronDownIcon w={5} h={5} pt="2px" />
+              {/* {user ? (
+                <Account />
+              ) : (
+                <>
+                  <Login />
+                  <Logout />
+                </>
+              )} */}
+              <Account />
+              <Login />
+              <Logout />
             </Flex>
-            <Flex
-              justify="center"
-              align="center"
-              h={2}
-              userSelect="none"
-              cursor="pointer"
-              ml="1rem"
-            ></Flex>
           </Flex>
-        </Flex>
+        </nav>
       </main>
     </>
   );
