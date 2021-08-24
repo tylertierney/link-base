@@ -1,7 +1,17 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { useUser } from "../context/authContext";
-import { VStack, Container, Flex, Avatar, Text } from "@chakra-ui/react";
+import Skeleton from "react-loading-skeleton";
+
+import {
+  VStack,
+  Container,
+  Flex,
+  Avatar,
+  Text,
+  Alert,
+  AlertIcon,
+} from "@chakra-ui/react";
 
 const Feed = () => {
   const { user, authReady } = useUser();
@@ -35,29 +45,47 @@ const Feed = () => {
     }
   }, [user, authReady]);
 
-  const postsArray = posts.map((post) => {
-    return (
-      <Container p="0" border="1px solid blue" maxW="400px" minW="400px">
-        <Flex
-          justify="flex-start"
-          align="center"
-          p="0.2rem 0.2rem"
-          border="solid green 1px"
-        >
-          <Avatar size="xs" name={post.author} src={post.prof_pic}></Avatar>
-          <Text ml="0.8rem">{post.author}</Text>
-        </Flex>
-        <Flex>
-          <Text>{post.content}</Text>
-        </Flex>
-        <img></img>
-      </Container>
-    );
-  });
-
   return (
     <Layout>
-      <VStack spacing="40px">{postsArray}</VStack>
+      {!authReady && (
+        <p>
+          <Skeleton count={5} />
+        </p>
+      )}
+      {error && (
+        //   <div>{error}</div>
+        <Alert status="error">
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
+      <VStack spacing="40px">
+        {posts &&
+          posts.map((post) => {
+            return (
+              <Container
+                p="0"
+                maxW="400px"
+                minW="400px"
+                backgroundColor="brand.text_light"
+                boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
+                key={post.id}
+              >
+                <Flex justify="flex-start" align="center" p="0.2rem 0.2rem">
+                  <Avatar
+                    size="xs"
+                    name={post.author}
+                    src={post.prof_pic}
+                  ></Avatar>
+                  <Text ml="0.8rem">{post.author}</Text>
+                </Flex>
+                <Flex>
+                  <Text p="0.2rem 0.2rem">{post.content}</Text>
+                </Flex>
+              </Container>
+            );
+          })}
+      </VStack>
     </Layout>
   );
 };
