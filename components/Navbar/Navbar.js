@@ -35,14 +35,6 @@ const Navbar = () => {
               transition="0.3s ease-in-out"
               _hover={{ opacity: "0.7" }}
             >
-              {/* {user ? (
-                <Account />
-              ) : (
-                <>
-                  <Login />
-                  <Logout />
-                </>
-              )} */}
               <Account />
               <Login />
               <Logout />

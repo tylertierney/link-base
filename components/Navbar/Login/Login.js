@@ -15,7 +15,7 @@ const Login = () => {
       onClick={login}
     >
       <Button variant="outline" colorScheme="red" size="xs">
-        Log In
+        Log In/Sign Up
       </Button>
     </Flex>
   );
