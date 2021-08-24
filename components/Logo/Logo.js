@@ -7,7 +7,7 @@ const Logo = () => {
     <>
       <Flex justify="center" align="center" h={2}>
         <Link href="/" passHref>
-          <a>
+          <a style={{ textDecoration: "none" }}>
             <Text
               fontSize={22}
               as="span"

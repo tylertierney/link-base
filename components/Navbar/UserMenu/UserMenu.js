@@ -21,8 +21,8 @@ import { useUser } from "../../../context/authContext";
 const UserMenu = () => {
   const { user, login, logout } = useUser();
 
-  const accountIcon = <Icon as={VscAccount} w={5} h={5} />;
-  const signoutIcon = <Icon as={BiLogOut} w={5} h={5} />;
+  const accountIcon = <Icon as={VscAccount} fontSize="0.8rem" />;
+  const signoutIcon = <Icon as={BiLogOut} fontSize="0.8rem" />;
 
   return (
     <>
@@ -40,9 +40,12 @@ const UserMenu = () => {
           </Flex>
         </MenuButton>
         <MenuList>
-          <MenuItem icon={accountIcon}>Account</MenuItem>
-          <MenuItem onClick={logout} icon={signoutIcon}>
-            Log Out
+          <MenuItem align="center" fontSize="0.8rem">
+            <Flex align="center">{accountIcon}&nbsp;&nbsp;Account</Flex>
+          </MenuItem>
+          <MenuDivider />
+          <MenuItem fontSize="0.8rem" onClick={logout}>
+            <Flex align="center">{signoutIcon}&nbsp;&nbsp;Log Out</Flex>
           </MenuItem>
         </MenuList>
       </Menu>
