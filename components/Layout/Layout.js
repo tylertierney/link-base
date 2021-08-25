@@ -9,7 +9,7 @@ export default function Layout({ children }) {
         direction="column"
         maxW="100vw"
         minH="100vh"
-        mt="2rem"
+        mt="2.2rem"
         p="1rem 0.5rem"
         justifyContent="flex-start"
         alignItems="center"

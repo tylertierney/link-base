@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Layout from "../components/Layout/Layout";
 import { useUser } from "../context/authContext";
-import Skeleton from "react-loading-skeleton";
 
 import {
   VStack,
