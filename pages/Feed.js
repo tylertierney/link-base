@@ -47,11 +47,7 @@ const Feed = () => {
 
   return (
     <Layout>
-      {!authReady && (
-        <p>
-          <Skeleton count={5} />
-        </p>
-      )}
+      {!authReady && <p>Loading, one moment....</p>}
       {error && (
         //   <div>{error}</div>
         <Alert status="error">
