@@ -1,6 +1,8 @@
 import { Flex, Text, Button, Icon } from "@chakra-ui/react";
 import { ChevronDownIcon, CheckCircleIcon } from "@chakra-ui/icons";
 
+import Link from "next/link";
+
 import {
   Menu,
   MenuButton,
@@ -41,7 +43,10 @@ const UserMenu = () => {
         </MenuButton>
         <MenuList>
           <MenuItem align="center" fontSize="0.8rem">
-            <Flex align="center">{accountIcon}&nbsp;&nbsp;Account</Flex>
+            <Flex align="center">
+              {accountIcon}
+              <Link href={`/${user.id}`}>&nbsp;&nbsp;Account</Link>
+            </Flex>
           </MenuItem>
           <MenuDivider />
           <MenuItem fontSize="0.8rem" onClick={logout}>

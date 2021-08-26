@@ -8,6 +8,8 @@ const AuthContext = createContext({
   authReady: false,
 });
 
+// console.log(netlifyIdentity.init);
+
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
@@ -31,7 +33,7 @@ const AuthContextProvider = ({ children }) => {
     });
 
     // init netlify identity
-    netlifyIdentity.init();
+    netlifyIdentity.init({ namePlaceholder: "Username" });
 
     return () => {
       netlifyIdentity.off("login");

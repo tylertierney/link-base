@@ -4,7 +4,6 @@ body {
   margin: 0;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
-  /* overflow-x: hidden; */
 }
 
 * {
@@ -22,4 +21,8 @@ img {
 
 .Poppins {
   font-family: "Poppins", sans-serif;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
 }

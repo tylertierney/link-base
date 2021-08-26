@@ -8,13 +8,13 @@ export default function Layout({ children }) {
       <Flex
         direction="column"
         maxW="100vw"
-        minH="100vh"
-        mt="2.2rem"
-        p="1rem 0.5rem"
+        maxH="100vh"
+        p="3rem 0.5rem"
         justifyContent="flex-start"
         alignItems="center"
         backgroundColor="blue.300"
         background="linear-gradient(180deg, rgba(237,69,81,1) 0%, rgba(249,200,206,1) 100%)"
+        overflowY="hidden"
       >
         {children}
       </Flex>

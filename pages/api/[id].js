@@ -1,6 +1,6 @@
 import dbConnect from "../../utils/dbConnect";
 import Post from "../../models/Post";
-import { tryGetPreviewData } from "next/dist/server/api-utils";
+// import { tryGetPreviewData } from "next/dist/server/api-utils";
 
 dbConnect();
 
