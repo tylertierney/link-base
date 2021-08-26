@@ -23,7 +23,7 @@
     "firebaseui": "^5.0.0",
     "framer-motion": "^4.1.17",
     "gotrue-js": "^0.9.29",
-    "mongodb": "^4.1.1",
+    "mongodb": "^3.5.9",
     "mongoose": "^6.0.0",
     "netlify-identity-widget": "^1.9.2",
     "next": "11.1.0",
@@ -36,5 +36,8 @@
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0"
+  },
+  "peerOptionalDependencies":{
+    "mongodb": "^4.1.1"
   }
 }
