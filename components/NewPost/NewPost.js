@@ -37,7 +37,7 @@ const NewPost = () => {
       borderRadius="md"
       color="brand.text_dark"
       fontSize="0.7rem"
-      p="0.5rem 0.8rem"
+      p="0.8rem"
     >
       <form onSubmit={(e) => handleSubmit(e)}>
         <Flex justify="flex-start" align="center" p="inherit" userSelect="none">

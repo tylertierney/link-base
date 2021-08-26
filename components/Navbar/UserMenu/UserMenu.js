@@ -21,7 +21,7 @@ import { VscAccount } from "react-icons/vsc";
 import { useUser } from "../../../context/authContext";
 
 const UserMenu = () => {
-  const { user, login, logout } = useUser();
+  const { user, login, signup, error, logout } = useUser();
 
   const accountIcon = <Icon as={VscAccount} fontSize="0.8rem" />;
   const signoutIcon = <Icon as={BiLogOut} fontSize="0.8rem" />;

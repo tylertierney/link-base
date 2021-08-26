@@ -26,3 +26,7 @@ img {
 .feed::-webkit-scrollbar {
   display: none;
 }
+
+.signup_form::-webkit-scrollbar {
+  display: none;
+}

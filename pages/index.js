@@ -6,17 +6,10 @@ import NewPost from "../components/NewPost/NewPost";
 
 import { VStack, Button } from "@chakra-ui/react";
 import { useUser } from "../context/authContext";
-import { signIn, signOut, useSession } from "next-auth/client";
+import Link from "next/link";
 
 const Home = ({ posts }) => {
-  const { user, login, logout, authReady } = useUser();
-
-  const [session, loading] = useSession();
-
-  // the user is stored in session
-  const currentuser = session?.user;
-
-  console.log(currentuser);
+  const { user, login, logout, signup, error, authReady } = useUser();
 
   return (
     <>
@@ -27,24 +20,17 @@ const Home = ({ posts }) => {
 
       <main>
         <Layout>
-          {!session && (
-            <Button variant="outline" onClick={() => signIn()}>
-              log in
-            </Button>
-          )}
-          {session && (
-            <>
-              <p>signed in as {session.user.name}</p>
-              <Button variant="outline" onClick={() => signOut()}>
-                log out
-              </Button>
-            </>
-          )}
-
-          <VStack overflowY="scroll" minH="200vh" className="feed">
+          <VStack
+            overflowY="scroll"
+            minH="200vh"
+            className="feed"
+            p="1rem 0.8rem 2rem 0.8rem"
+          >
             {user && <NewPost />}
             <Feed posts={posts} />
           </VStack>
+          <Link href="/login">Log In</Link>
+          <Link href="/signup">Sign Up</Link>
         </Layout>
       </main>
     </>

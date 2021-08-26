@@ -1,11 +1,11 @@
 import { Flex } from "@chakra-ui/react";
 import { useUser } from "../../context/authContext";
 import Logo from "../Logo/Logo";
-import Login from "./Login/Login";
+import NavbarControls from "./NavbarControls/NavbarControls";
 import UserMenu from "./UserMenu/UserMenu";
 
 const Navbar = () => {
-  const { user, login, logout, authReady } = useUser();
+  const { user, login, signup, logout, authReady } = useUser();
 
   return (
     <>
@@ -24,12 +24,11 @@ const Navbar = () => {
           backgroundColor="brand.text_light"
         >
           <Logo />
-          {authReady && (
-            <Flex justify="space-between" align="center">
-              {user && <UserMenu />}
-              {!user && <Login />}
-            </Flex>
-          )}
+
+          <Flex justify="space-between" align="center">
+            {user && <UserMenu />}
+            {!user && <NavbarControls />}
+          </Flex>
         </Flex>
       </nav>
     </>

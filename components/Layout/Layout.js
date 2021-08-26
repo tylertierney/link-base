@@ -8,8 +8,9 @@ export default function Layout({ children }) {
       <Flex
         direction="column"
         maxW="100vw"
+        minH="100vh"
         maxH="100vh"
-        p="3rem 0.5rem"
+        p="2rem 0.5rem 0rem 0.5rem"
         justifyContent="flex-start"
         alignItems="center"
         backgroundColor="blue.300"

@@ -10,14 +10,14 @@ import {
   Text,
   Alert,
   AlertIcon,
+  Box,
 } from "@chakra-ui/react";
 
 const Feed = ({ posts }) => {
   const { user, authReady } = useUser();
 
   return (
-    <>
-      {!authReady && <p>Loading, one moment....</p>}
+    <Box overflowY="scroll" className="feed">
       {!user && (
         <Alert status="warning">
           <AlertIcon />
@@ -32,7 +32,7 @@ const Feed = ({ posts }) => {
             })}
         </VStack>
       )}
-    </>
+    </Box>
   );
 };
 
