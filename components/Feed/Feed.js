@@ -28,7 +28,7 @@ const Feed = ({ posts }) => {
         <VStack spacing="40px">
           {posts &&
             posts.map((post) => {
-              return <Post post={post} />;
+              return <Post key={post._id} post={post} />;
             })}
         </VStack>
       )}

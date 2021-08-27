@@ -42,13 +42,8 @@ const Login = () => {
 
   return (
     <Layout>
-      <Box overflowY="scroll" className="feed" p="2rem 0 2rem 0">
-        <Container
-          as={SimpleGrid}
-          minW={"md"}
-          maxW={"2xl"}
-          spacing={{ base: 10, lg: 32 }}
-        >
+      <Box overflowY="scroll" p="2rem 0 2rem 0" className="hideScrollbar">
+        <Container as={SimpleGrid} maxW={"lg"} spacing={{ base: 10, lg: 32 }}>
           <form onSubmit={(e) => handleSubmit(e)}>
             <Stack
               bg={"gray.50"}
@@ -96,7 +91,7 @@ const Login = () => {
                     </FormLabel>
                     <FormControl isRequired id="password" isInvalid={error}>
                       <Input
-                        placeholder="Password"
+                        placeholder="********"
                         bg={"gray.100"}
                         border={0}
                         color={"gray.500"}

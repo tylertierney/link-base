@@ -36,7 +36,7 @@ const SignUp = () => {
 
   return (
     <Layout>
-      <Box overflowY="scroll" className="signup_form" p="2rem 0 2rem 0">
+      <Box overflowY="scroll" className="hideScrollbar" p="2rem 0 2rem 0">
         <Container as={SimpleGrid} maxW={"lg"} spacing={{ base: 10, lg: 32 }}>
           <form onSubmit={(e) => handleSubmit(e)} autoComplete="true">
             <Stack
@@ -63,8 +63,10 @@ const SignUp = () => {
                 </Heading>
                 <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
                   Create an account to interact with friends, create posts, and
-                  more. Or sign-in using a guest account to test out linkBase
-                  features anonymously.
+                  more. <br />
+                  <br />
+                  Or sign-in using a guest account to test out linkBase features
+                  anonymously.
                 </Text>
               </Stack>
               <Box>
@@ -96,7 +98,7 @@ const SignUp = () => {
                     </FormLabel>
                     <FormControl isRequired id="email" isInvalid={error}>
                       <Input
-                        placeholder="coolguy@email.com"
+                        placeholder="coolguy96@email.com"
                         bg={"gray.100"}
                         border={0}
                         color={"gray.500"}
@@ -118,7 +120,7 @@ const SignUp = () => {
                     </FormLabel>
                     <FormControl isRequired id="password" isInvalid={error}>
                       <Input
-                        placeholder="Password"
+                        placeholder="*******"
                         bg={"gray.100"}
                         border={0}
                         color={"gray.500"}
