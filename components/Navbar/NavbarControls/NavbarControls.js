@@ -13,7 +13,6 @@ const NavbarControls = () => {
       userSelect="none"
       cursor="pointer"
       ml="1rem"
-      onClick={login}
     >
       <Button variant="ghost" colorScheme="gray" size="xs" fontSize="0.7rem">
         <Link href="/signup">Sign Up</Link>

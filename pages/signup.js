@@ -14,9 +14,11 @@ import {
   FormErrorMessage,
   FormLabel,
   Flex,
+  Icon,
 } from "@chakra-ui/react";
 
 import Layout from "../components/Layout/Layout";
+import { SpinnerIcon } from "@chakra-ui/icons";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -78,14 +80,14 @@ const SignUp = () => {
                         border={0}
                         color={"gray.500"}
                         _placeholder={{
-                          color: "gray.500",
+                          color: "gray.300",
                         }}
                         onChange={(e) => setUsername(e.target.value)}
                         value={username}
                       />
-                      <FormErrorMessage fontSize="inherit">
+                      {/* <FormErrorMessage fontSize="inherit">
                         {error?.message}
-                      </FormErrorMessage>
+                      </FormErrorMessage> */}
                     </FormControl>
                   </Flex>
                   <Flex direction="column" fontSize="0.8rem">
@@ -99,15 +101,15 @@ const SignUp = () => {
                         border={0}
                         color={"gray.500"}
                         _placeholder={{
-                          color: "gray.500",
+                          color: "gray.300",
                         }}
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
-                      <FormErrorMessage fontSize="inherit">
+                      {/* <FormErrorMessage fontSize="inherit">
                         {error?.message}
-                      </FormErrorMessage>
+                      </FormErrorMessage> */}
                     </FormControl>
                   </Flex>
                   <Flex direction="column" fontSize="0.8rem">
@@ -121,17 +123,16 @@ const SignUp = () => {
                         border={0}
                         color={"gray.500"}
                         _placeholder={{
-                          color: "gray.500",
+                          color: "gray.300",
                         }}
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                       />
-                      <FormErrorMessage>{error?.message}</FormErrorMessage>
+                      <FormErrorMessage fontSize="inherit">
+                        {error?.message}
+                      </FormErrorMessage>
                     </FormControl>
-                    <FormErrorMessage fontSize="inherit">
-                      {error?.message}
-                    </FormErrorMessage>
                   </Flex>
                 </Stack>
                 <Button

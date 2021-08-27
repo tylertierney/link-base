@@ -29,7 +29,7 @@ const UserMenu = () => {
   return (
     <>
       <Menu>
-        <MenuButton fontSize="0.8rem">
+        <MenuButton fontSize="0.8rem" color="brand.1000">
           <Flex
             justify="center"
             align="center"
@@ -37,8 +37,10 @@ const UserMenu = () => {
             cursor="pointer"
             userSelect="none"
           >
-            <Text as="span">{user ? user.email : "no_user"}</Text>
-            <ChevronDownIcon w={5} h={5} pt="2px" />
+            <Text as="span" color="inherit">
+              {user ? user.user_metadata.username : "no_user"}
+            </Text>
+            <ChevronDownIcon color="inherit" w={5} h={5} />
           </Flex>
         </MenuButton>
         <MenuList>

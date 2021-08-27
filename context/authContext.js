@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import GoTrue from "gotrue-js";
+import { useRouter } from "next/router";
 
 const auth = new GoTrue({
   APIUrl: "https://link-base.netlify.app/.netlify/identity",
@@ -16,6 +17,8 @@ const AuthContext = createContext({
 });
 
 const AuthContextProvider = ({ children }) => {
+  const router = useRouter();
+
   const [user, setUser] = useState(null);
   const [authReady, setAuthReady] = useState(false);
   const [error, setError] = useState(null);
@@ -36,7 +39,7 @@ const AuthContextProvider = ({ children }) => {
       .then((response) => {
         console.log("login event detected");
         console.log(response);
-        window.location.href = "/";
+        router.push("/");
         setIsLoading(false);
         setUser(response);
       })
@@ -44,6 +47,7 @@ const AuthContextProvider = ({ children }) => {
         console.log("login failed");
         console.log(error);
         setError(error);
+        setIsLoading(false);
         // throw error;
       });
   };
@@ -57,10 +61,12 @@ const AuthContextProvider = ({ children }) => {
         console.log("User logged out");
         setIsLoading(false);
         setUser(null);
+        window.location.href = "/";
       })
       .catch((error) => {
         console.log("Failed to logout user: ", error);
         setError(error);
+        setIsLoading(false);
         throw error;
       });
   };
@@ -75,12 +81,11 @@ const AuthContextProvider = ({ children }) => {
         console.log("Confirmation email sent", response);
         setIsLoading(false);
         setUser(response);
-        // window.location.href = "/";
+        router.push("/");
       })
       .catch((error) => {
-        console.log(error.message);
-        console.log(typeof error);
-
+        console.log(error);
+        setIsLoading(false);
         setError(error);
       });
   };

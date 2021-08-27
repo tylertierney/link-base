@@ -4,11 +4,12 @@ import Layout from "../components/Layout/Layout";
 
 import Link from "next/link";
 
+import { SpinnerIcon } from "@chakra-ui/icons";
+
 import {
   Box,
   Stack,
   Heading,
-  Text,
   Container,
   Input,
   Button,
@@ -17,19 +18,26 @@ import {
   FormErrorMessage,
   Flex,
   FormLabel,
+  Icon,
 } from "@chakra-ui/react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { user, login, signup, logout, authReady, error } = useUser();
+  const { user, login, signup, logout, authReady, error, isLoading } =
+    useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(email, password);
 
     login(email, password);
+  };
+
+  const errorType = {
+    email: false,
+    password: false,
   };
 
   return (
@@ -64,40 +72,44 @@ const Login = () => {
                     <FormLabel fontSize="inherit" m={0}>
                       Email
                     </FormLabel>
-                    <FormControl isRequired id="email">
+                    <FormControl isRequired id="email" isInvalid={error}>
                       <Input
-                        placeholder="Email"
+                        placeholder="coolguy96@email.com"
                         bg={"gray.100"}
                         border={0}
                         color={"gray.500"}
                         _placeholder={{
-                          color: "gray.500",
+                          color: "gray.300",
                         }}
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         value={email}
                       />
-                      <FormErrorMessage>{error?.message}</FormErrorMessage>
+                      {/* <FormErrorMessage fontSize="inherit">
+                        {error?.message}
+                      </FormErrorMessage> */}
                     </FormControl>
                   </Flex>
                   <Flex direction="column" fontSize="0.8rem">
                     <FormLabel fontSize="inherit" m={0}>
                       Password
                     </FormLabel>
-                    <FormControl isRequired id="password">
+                    <FormControl isRequired id="password" isInvalid={error}>
                       <Input
                         placeholder="Password"
                         bg={"gray.100"}
                         border={0}
                         color={"gray.500"}
                         _placeholder={{
-                          color: "gray.500",
+                          color: "gray.300",
                         }}
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                       />
-                      <FormErrorMessage>{error?.message}</FormErrorMessage>
+                      <FormErrorMessage fontSize="inherit">
+                        {error?.message}
+                      </FormErrorMessage>
                     </FormControl>
                   </Flex>
                   <Flex w="100%" fontSize="0.7rem" justify="center">
@@ -122,7 +134,15 @@ const Login = () => {
                   type="submit"
                   _focus={{ outline: "none" }}
                 >
-                  Submit
+                  {isLoading ? (
+                    <SpinnerIcon
+                      color="white"
+                      className="spinnerIcon"
+                      fontSize="1.3rem"
+                    ></SpinnerIcon>
+                  ) : (
+                    "Submit"
+                  )}
                 </Button>
               </Box>
             </Stack>
