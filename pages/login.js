@@ -42,15 +42,19 @@ const Login = () => {
 
   return (
     <Layout>
-      <Box overflowY="scroll" p="2rem 0 2rem 0" className="hideScrollbar">
-        <Container as={SimpleGrid} maxW={"lg"} spacing={{ base: 10, lg: 32 }}>
+      <Box
+        overflowY="scroll"
+        p="2rem 0 2rem 0"
+        className="hideScrollbar"
+        w={[300, 400, 500]}
+      >
+        <Container as={SimpleGrid}>
           <form onSubmit={(e) => handleSubmit(e)}>
             <Stack
               bg={"gray.50"}
               rounded={"xl"}
               p={{ base: 4, sm: 6, md: 8 }}
               spacing={{ base: 8 }}
-              maxW={{ lg: "lg" }}
             >
               <Stack spacing={4}>
                 <Heading
@@ -79,6 +83,7 @@ const Login = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         type="email"
                         value={email}
+                        fontSize="inherit"
                       />
                       {/* <FormErrorMessage fontSize="inherit">
                         {error?.message}
@@ -101,6 +106,7 @@ const Login = () => {
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
+                        fontSize="inherit"
                       />
                       <FormErrorMessage fontSize="inherit">
                         {error?.message}

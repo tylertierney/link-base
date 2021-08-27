@@ -28,8 +28,8 @@ const NewPost = () => {
   return (
     <Container
       p="0"
-      maxW="400px"
-      minW="400px"
+      maxW={["xs", "sm", "md"]}
+      // minW="400px"
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
       borderRadius="md"

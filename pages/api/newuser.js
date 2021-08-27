@@ -7,31 +7,16 @@ const handler = async (req, res) => {
 
   const db = await client.db();
 
-  if (req.method === "POST") {
-    const {
-      api,
-      app_metadata,
-      aud,
-      audience,
-      confirmed_at,
-      created_at,
-      email,
-      id,
-      role,
-      token,
-      updated_at,
-      url,
-      user_metadata,
-      admin,
-      _details,
-    } = req.body;
+  mongoose.connect(process.env.MONGODB_URI);
 
+  if (req.method === "POST") {
     const newuser_obj = new User({
-      username: user_metadata.username,
+      username: req.body.user_metadata.username,
       friends: [],
       liked_posts: [],
       posts: [],
       prof_pic_url: "",
+      id: req.body.id,
       user_obj: req.body,
     });
 
@@ -40,6 +25,7 @@ const handler = async (req, res) => {
       console.log(result);
     });
 
+    console.log(req.body.user_metadata.username);
     // db.collection("users").insertOne(req.body);
 
     res.status(200).json({

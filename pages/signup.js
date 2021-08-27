@@ -14,6 +14,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Flex,
+  FormHelperText,
 } from "@chakra-ui/react";
 
 import Layout from "../components/Layout/Layout";
@@ -38,7 +39,13 @@ const SignUp = ({ users }) => {
 
   return (
     <Layout>
-      <Box overflowY="scroll" className="hideScrollbar" p="2rem 0 2rem 0">
+      <Box
+        overflowY="scroll"
+        className="hideScrollbar"
+        p="2rem 0 2rem 0"
+        // minW="md"
+        maxW={["sm", "md", "lg"]}
+      >
         <Container as={SimpleGrid} maxW={"lg"} spacing={{ base: 10, lg: 32 }}>
           <form onSubmit={(e) => handleSubmit(e)} autoComplete="true">
             <Stack
@@ -114,6 +121,9 @@ const SignUp = ({ users }) => {
                       {/* <FormErrorMessage fontSize="inherit">
                         {error?.message}
                       </FormErrorMessage> */}
+                      <FormHelperText>
+                        Your email address will never be shared publicly.
+                      </FormHelperText>
                     </FormControl>
                   </Flex>
                   <Flex direction="column" fontSize="0.8rem">

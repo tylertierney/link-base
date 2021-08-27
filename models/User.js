@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Post, { PostSchema } from "./Post";
+import clientPromise from "../utils/mongodb";
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -13,6 +14,9 @@ const UserSchema = new mongoose.Schema({
   posts: [PostSchema],
   liked_posts: [PostSchema],
   prof_pic_url: {
+    type: String,
+  },
+  id: {
     type: String,
   },
 });

@@ -11,8 +11,6 @@ import Link from "next/link";
 const Home = ({ posts }) => {
   const { user, login, logout, signup, error, authReady } = useUser();
 
-  console.log(JSON.stringify(user));
-
   return (
     <>
       <Head>
@@ -27,12 +25,13 @@ const Home = ({ posts }) => {
             minH="200vh"
             className="hideScrollbar"
             p="1rem 0.8rem 2rem 0.8rem"
+            // maxW={["xs", "sm", "md"]}
+            // w={["sm", "md", "lg"]}
+            // maxW="40px"
           >
             {user && <NewPost />}
             <Feed posts={posts} />
           </VStack>
-          <Link href="/login">Log In</Link>
-          <Link href="/signup">Sign Up</Link>
         </Layout>
       </main>
     </>
@@ -50,7 +49,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts)),
+      posts: JSON.stringify(posts),
     },
   };
 }

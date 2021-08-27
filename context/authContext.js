@@ -32,7 +32,7 @@ const AuthContextProvider = ({ children }) => {
     if (auth.currentUser()) {
       setUser(auth.currentUser());
     }
-    console.log(auth.currentUser());
+    // console.log(auth.currentUser());
   }, []);
 
   const login = (email, password) => {
@@ -56,9 +56,9 @@ const AuthContextProvider = ({ children }) => {
       });
   };
 
-  const logout = () => {
+  const logout = async () => {
     setIsLoading(true);
-    auth
+    await auth
       .currentUser()
       .logout()
       .then((response) => {
@@ -86,7 +86,7 @@ const AuthContextProvider = ({ children }) => {
         setIsLoading(false);
         setUser(response);
         addUserToDatabase(response);
-        router.push("/");
+        router.push(`/${response.id}`);
       })
       .catch((error) => {
         console.log(error);
@@ -97,7 +97,7 @@ const AuthContextProvider = ({ children }) => {
 
   const addUserToDatabase = (user) => {
     axios
-      .post("/api/newuser", { user })
+      .post("/api/newuser", user)
       .then((response) => {
         console.log("addusertodb request received", response);
       })

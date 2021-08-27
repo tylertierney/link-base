@@ -29,7 +29,11 @@ const UserMenu = () => {
   return (
     <>
       <Menu>
-        <MenuButton fontSize="0.8rem" color="brand.1000">
+        <MenuButton
+          fontSize="0.8rem"
+          color="brand.1000"
+          // _focus={{ outline: "none" }}
+        >
           <Flex
             justify="center"
             align="center"

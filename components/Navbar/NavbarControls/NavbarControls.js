@@ -14,10 +14,17 @@ const NavbarControls = () => {
       cursor="pointer"
       ml="1rem"
     >
-      <Button variant="ghost" colorScheme="gray" size="xs" fontSize="0.7rem">
+      <Button
+        variant="ghost"
+        colorScheme="gray"
+        size="xs"
+        fontSize="0.7rem"
+        _focus={{ outline: "none" }}
+      >
         <Link href="/signup">Sign Up</Link>
       </Button>
       <Button
+        _focus={{ outline: "none" }}
         variant="solid"
         p="0 0.8rem"
         color="brand.text_light"
