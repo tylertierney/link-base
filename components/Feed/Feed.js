@@ -17,7 +17,7 @@ const Feed = ({ posts }) => {
   const { user, authReady } = useUser();
 
   return (
-    <Box overflowY="scroll" className="feed">
+    <Box overflowY="scroll" className="hideScrollbar">
       {!user && (
         <Alert status="warning">
           <AlertIcon />

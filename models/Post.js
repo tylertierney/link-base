@@ -1,11 +1,23 @@
 import mongoose from "mongoose";
+import Comment from "./Comment";
 
-const PostSchema = new mongoose.Schema({
-  content: {
+export const PostSchema = new mongoose.Schema({
+  text: {
     type: String,
-    required: [true, "Please write a post to continue"],
     maxlength: [1000, "Posts cannot be more than 1000 characters."],
   },
+  photoURL: {
+    type: String,
+  },
+  posted_at: {
+    type: Date,
+    default: Date.now,
+  },
+  comments: [{ body: String, date: Date }],
 });
 
-module.exports = mongoose.models.Post || mongoose.model("Post", PostSchema);
+mongoose.models = { Comment };
+
+const Post = mongoose.model("Post", PostSchema);
+
+export default Post;

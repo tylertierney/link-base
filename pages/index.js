@@ -11,6 +11,8 @@ import Link from "next/link";
 const Home = ({ posts }) => {
   const { user, login, logout, signup, error, authReady } = useUser();
 
+  console.log(JSON.stringify(user));
+
   return (
     <>
       <Head>
@@ -23,7 +25,7 @@ const Home = ({ posts }) => {
           <VStack
             overflowY="scroll"
             minH="200vh"
-            className="feed"
+            className="hideScrollbar"
             p="1rem 0.8rem 2rem 0.8rem"
           >
             {user && <NewPost />}

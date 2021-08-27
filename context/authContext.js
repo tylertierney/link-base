@@ -1,6 +1,10 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import GoTrue from "gotrue-js";
 import { useRouter } from "next/router";
+import axios from "axios";
+// import clientPromise from "../utils/mongodb";
+
+// console.log(clientPromise);
 
 const auth = new GoTrue({
   APIUrl: "https://link-base.netlify.app/.netlify/identity",
@@ -81,12 +85,24 @@ const AuthContextProvider = ({ children }) => {
         console.log("Confirmation email sent", response);
         setIsLoading(false);
         setUser(response);
+        addUserToDatabase(response);
         router.push("/");
       })
       .catch((error) => {
         console.log(error);
         setIsLoading(false);
         setError(error);
+      });
+  };
+
+  const addUserToDatabase = (user) => {
+    axios
+      .post("/api/newuser", { user })
+      .then((response) => {
+        console.log("addusertodb request received", response);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
       });
   };
 

@@ -14,18 +14,18 @@ import {
   FormErrorMessage,
   FormLabel,
   Flex,
-  Icon,
 } from "@chakra-ui/react";
 
 import Layout from "../components/Layout/Layout";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
-const SignUp = () => {
+const SignUp = ({ users }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  const { user, login, signup, logout, authReady, error } = useUser();
+  const { user, login, signup, logout, authReady, error, isLoading } =
+    useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -33,6 +33,8 @@ const SignUp = () => {
 
     signup(email, password, username);
   };
+
+  console.log(users);
 
   return (
     <Layout>
@@ -150,7 +152,15 @@ const SignUp = () => {
                   _focus={{ outline: "none" }}
                   type="submit"
                 >
-                  Confirm
+                  {isLoading ? (
+                    <SpinnerIcon
+                      color="white"
+                      className="spinnerIcon"
+                      fontSize="1.3rem"
+                    ></SpinnerIcon>
+                  ) : (
+                    "Confirm"
+                  )}
                 </Button>
               </Box>
             </Stack>

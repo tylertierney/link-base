@@ -25,8 +25,6 @@ const NewPost = () => {
     console.log("submitted");
   };
 
-  console.log(user);
-
   return (
     <Container
       p="0"

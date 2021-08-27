@@ -1,14 +1,24 @@
 import mongoose from "mongoose";
+import Post, { PostSchema } from "./Post";
 
 const UserSchema = new mongoose.Schema({
-  firstname: {
+  username: {
     type: String,
-    required: [true, "Please enter a first name"],
-    maxlength: [40, "Your name can't be that long"],
+    required: [true, "Please enter a username"],
+    maxlength: [40, "Username can be 40 characters at the most."],
   },
-  lastname: {
+  friends: {
+    type: Array,
+  },
+  posts: [PostSchema],
+  liked_posts: [PostSchema],
+  prof_pic_url: {
     type: String,
-    required: [true, "Please enter a last name"],
-    maxlength: [40, "Your last name can't be that long"],
   },
 });
+
+mongoose.models = { Post };
+
+const User = mongoose.model("User", UserSchema, "users");
+
+export default User;
