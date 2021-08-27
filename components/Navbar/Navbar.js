@@ -16,7 +16,7 @@ const Navbar = () => {
           justify="space-between"
           h="2.2rem"
           align="center"
-          boxShadow="0px 3px 10px 2px rgb(0, 0, 0, 0.3)"
+          boxShadow="0px 3px 10px 1px rgb(0, 0, 0, 0.2)"
           zIndex="1"
           position="fixed"
           top="0"
@@ -24,7 +24,6 @@ const Navbar = () => {
           backgroundColor="brand.text_light"
         >
           <Logo />
-
           <Flex justify="space-between" align="center">
             {user && <UserMenu />}
             {!user && <NavbarControls />}

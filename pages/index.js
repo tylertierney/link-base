@@ -25,9 +25,6 @@ const Home = ({ posts }) => {
             minH="200vh"
             className="hideScrollbar"
             p="1rem 0.8rem 2rem 0.8rem"
-            // maxW={["xs", "sm", "md"]}
-            // w={["sm", "md", "lg"]}
-            // maxW="40px"
           >
             {user && <NewPost />}
             <Feed posts={posts} />
@@ -49,7 +46,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      posts: JSON.stringify(posts),
+      posts: JSON.parse(JSON.stringify(posts)),
     },
   };
 }

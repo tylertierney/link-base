@@ -16,6 +16,7 @@ const handler = async (req, res) => {
       liked_posts: [],
       posts: [],
       prof_pic_url: "",
+      cover_pic_url: "",
       id: req.body.id,
       user_obj: req.body,
     });

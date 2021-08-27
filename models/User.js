@@ -16,6 +16,9 @@ const UserSchema = new mongoose.Schema({
   prof_pic_url: {
     type: String,
   },
+  cover_pic_url: {
+    type: String,
+  },
   id: {
     type: String,
   },
