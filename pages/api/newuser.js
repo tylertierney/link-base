@@ -30,7 +30,7 @@ const handler = async (req, res) => {
     // db.collection("users").insertOne(req.body);
 
     res.status(200).json({
-      message: "Mongo DB has added this users to the 'users' collection",
+      message: "Mongo DB has added this user to the 'users' collection",
     });
   }
 };

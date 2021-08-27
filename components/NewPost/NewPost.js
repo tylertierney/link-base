@@ -1,23 +1,19 @@
 import {
-  Box,
-  VStack,
   Container,
   Flex,
   Avatar,
   Text,
   FormControl,
-  FormErrorMessage,
-  FormHelperText,
   Input,
   Button,
 } from "@chakra-ui/react";
 import { useUser } from "../../context/authContext";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
 // import clientPromise from "../../utils/mongodb";
 
-const NewPost = async () => {
+const NewPost = () => {
   const { user, authReady } = useUser();
 
   const [postText, setPostText] = useState("");
@@ -42,7 +38,6 @@ const NewPost = async () => {
     <Container
       p="0"
       maxW={["xs", "sm", "md"]}
-      // minW="400px"
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
       borderRadius="md"
@@ -54,7 +49,7 @@ const NewPost = async () => {
         <Flex justify="flex-start" align="center" p="inherit" userSelect="none">
           <Avatar size="xs" name="something"></Avatar>
           <Text color="brand.text_dark" ml="0.6rem">
-            {user.email}
+            {user.user_metadata.username}
           </Text>
         </Flex>
         <Flex m="0.4rem 0">
