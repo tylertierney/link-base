@@ -4,7 +4,7 @@ import clientPromise from "../utils/mongodb";
 import Feed from "../components/Feed/Feed";
 import NewPost from "../components/NewPost/NewPost";
 
-import { VStack, Button } from "@chakra-ui/react";
+import { Divider, VStack, Button } from "@chakra-ui/react";
 import { useUser } from "../context/authContext";
 import Link from "next/link";
 
@@ -25,7 +25,12 @@ const Home = ({ users }) => {
             className="hideScrollbar"
             p="1rem 0.8rem 2rem 0.8rem"
           >
-            {user && <NewPost />}
+            {user && (
+              <>
+                <NewPost />
+                <Divider />
+              </>
+            )}
             <Feed users={users} />
           </VStack>
         </Layout>

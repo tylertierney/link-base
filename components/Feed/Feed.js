@@ -25,7 +25,7 @@ const Feed = ({ users }) => {
         </Alert>
       )}
       {user && (
-        <VStack spacing={3} mt={6}>
+        <VStack spacing={3} mt={1}>
           {users &&
             users.map((user) => {
               return user.posts.map((post) => {
