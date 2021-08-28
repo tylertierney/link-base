@@ -47,7 +47,7 @@ const SignUp = ({ users }) => {
         maxW={["sm", "md", "lg"]}
       >
         <Container as={SimpleGrid} maxW={"lg"} spacing={{ base: 10, lg: 32 }}>
-          <form onSubmit={(e) => handleSubmit(e)} autoComplete="true">
+          <form onSubmit={(e) => handleSubmit(e)} autoComplete="on">
             <Stack
               bg={"gray.50"}
               rounded={"xl"}
