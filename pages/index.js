@@ -12,15 +12,13 @@ import Link from "next/link";
 const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
 
-  const [currentUser, setCurrentUser] = useState(null);
-
   useEffect(() => {
-    users.forEach((person) => {
+    for (const person of users) {
       if (person.id === user.id) {
         setUser(person);
+        break;
       }
-      console.log(person);
-    });
+    }
   }, []);
 
   return (
@@ -53,7 +51,7 @@ const Home = ({ users }) => {
 
 export default Home;
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const client = await clientPromise;
 
   const db = await client.db();

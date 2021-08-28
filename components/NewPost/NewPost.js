@@ -25,7 +25,7 @@ const NewPost = () => {
 
     const postObject = {
       userid: user.id,
-      author: user.user_metadata.username,
+      author: user.username,
       text: postText,
       photo_url: "placeholder.com",
     };
@@ -45,8 +45,6 @@ const NewPost = () => {
       });
   };
 
-  console.log(user);
-
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -65,7 +63,7 @@ const NewPost = () => {
             src={user.prof_pic_url}
           ></Avatar>
           <Text color="brand.text_dark" ml="0.6rem">
-            {user.user_metadata.username}
+            {user.username}
           </Text>
         </Flex>
         <Flex m="0.4rem 0">
