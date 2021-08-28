@@ -47,7 +47,6 @@ const NewPost = () => {
 
   return (
     <Container
-      p="0"
       maxW={["xs", "sm", "md"]}
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
