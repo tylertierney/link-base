@@ -64,7 +64,7 @@ const UserMenu = () => {
                 </MenuItem>
               </Link>
               <MenuDivider />
-              <Link passHref href={`/${user.id}`}>
+              <Link passHref href="/">
                 <MenuItem fontSize="0.8rem" onClick={logout}>
                   <Flex align="center">{signoutIcon}&nbsp;&nbsp;Log Out</Flex>
                 </MenuItem>

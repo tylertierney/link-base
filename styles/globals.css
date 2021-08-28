@@ -8,6 +8,7 @@ body {
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 img {
@@ -29,15 +30,6 @@ img {
 
 .spinnerIcon {
   animation: spinnericon 0.7s linear infinite;
-}
-
-.logo {
-  background-color: purple;
-  user-select: none;
-}
-
-.logo:focus {
-  background-color: transparent;
 }
 
 @keyframes spinnericon {

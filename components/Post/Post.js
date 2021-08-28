@@ -44,12 +44,32 @@ const Post = ({ post }) => {
       </Flex>
       <Divider m="0.3rem 0" />
       <Flex direction="column">
-        <Text>
+        <Text p="0.5rem 0 0 0.5rem">
           {post.text}
           <br />
         </Text>
-        <Flex justify="space-between">
-          <Icon as={FiThumbsUp} />
+        <Flex
+          justify="space-between"
+          align="center"
+          color="gray"
+          m="0.6rem 0 0 0"
+        >
+          {isLiked ? (
+            <Icon
+              as={FaThumbsUp}
+              fontSize="1.1rem"
+              color="blue.600"
+              cursor="pointer"
+              onClick={() => setIsLiked(!isLiked)}
+            />
+          ) : (
+            <Icon
+              as={FiThumbsUp}
+              fontSize="1.1rem"
+              cursor="pointer"
+              onClick={() => setIsLiked(!isLiked)}
+            />
+          )}
           <Text fontSize="0.6rem" color="gray.400" as={"p"} textAlign="right">
             {convertDate(post.posted_at)}
           </Text>
