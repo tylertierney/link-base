@@ -106,7 +106,16 @@ const AuthContextProvider = ({ children }) => {
       });
   };
 
-  const context = { user, login, logout, signup, authReady, error, isLoading };
+  const context = {
+    user,
+    setUser,
+    login,
+    logout,
+    signup,
+    authReady,
+    error,
+    isLoading,
+  };
 
   return (
     <AuthContext.Provider value={context}>{children}</AuthContext.Provider>

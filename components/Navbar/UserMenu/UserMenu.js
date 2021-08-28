@@ -45,7 +45,7 @@ const UserMenu = () => {
                 userSelect="none"
               >
                 <Text as="span" color="inherit">
-                  {user.user_metadata.username}
+                  {user.username}
                 </Text>
                 {isOpen ? (
                   <ChevronUpIcon color="inherit" w={5} h={5} />

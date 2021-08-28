@@ -1,24 +1,12 @@
-import {
-  VStack,
-  Container,
-  Flex,
-  Avatar,
-  Text,
-  Divider,
-  Icon,
-} from "@chakra-ui/react";
+import { Container, Flex, Avatar, Text, Divider, Icon } from "@chakra-ui/react";
 
-import { useUser } from "../../context/authContext";
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { FiThumbsUp } from "react-icons/fi";
 import { FaThumbsUp } from "react-icons/fa";
 
-const Post = ({ post }) => {
+const Post = ({ user, post }) => {
   const [isLiked, setIsLiked] = useState();
-
-  const { user } = useUser();
 
   const convertDate = (postedAt) => {
     const date = new Date(postedAt);
@@ -26,6 +14,8 @@ const Post = ({ post }) => {
 
     return day.substr(0, day.length - 5);
   };
+
+  console.log(post);
 
   return (
     <Container
@@ -39,7 +29,12 @@ const Post = ({ post }) => {
       p="0.5rem 0.8rem"
     >
       <Flex justify="flex-start" align="center">
-        <Avatar size="xs" name={post.author} src={post.prof_pic}></Avatar>
+        <Avatar
+          size="sm"
+          border="solid lightgray 1px"
+          name={post.author}
+          src={user.prof_pic_url}
+        ></Avatar>
         <Text ml="0.8rem">{post.author}</Text>
       </Flex>
       <Divider m="0.3rem 0" />
@@ -53,23 +48,33 @@ const Post = ({ post }) => {
           align="center"
           color="gray"
           m="0.6rem 0 0 0"
+          userSelect="none"
         >
-          {isLiked ? (
-            <Icon
-              as={FaThumbsUp}
-              fontSize="1.1rem"
-              color="blue.600"
-              cursor="pointer"
-              onClick={() => setIsLiked(!isLiked)}
-            />
-          ) : (
-            <Icon
-              as={FiThumbsUp}
-              fontSize="1.1rem"
-              cursor="pointer"
-              onClick={() => setIsLiked(!isLiked)}
-            />
-          )}
+          <Flex
+            justify="space-between"
+            align="flex-start"
+            // border="red 1px solid"
+          >
+            {isLiked ? (
+              <Icon
+                as={FaThumbsUp}
+                fontSize="1.1rem"
+                color="blue.600"
+                cursor="pointer"
+                onClick={() => setIsLiked(!isLiked)}
+              />
+            ) : (
+              <Icon
+                as={FiThumbsUp}
+                fontSize="1.1rem"
+                cursor="pointer"
+                onClick={() => setIsLiked(!isLiked)}
+              />
+            )}
+            <Text p="0 0 0 0.2rem" textDecoration="underline" fontSize="0.8rem">
+              1
+            </Text>
+          </Flex>
           <Text fontSize="0.6rem" color="gray.400" as={"p"} textAlign="right">
             {convertDate(post.posted_at)}
           </Text>

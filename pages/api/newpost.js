@@ -18,6 +18,7 @@ const handler = async (req, res) => {
       author: req.body.author,
       posted_at: Date.now(),
       comments: [],
+      likes: [],
     });
 
     const founduser = await User.findOneAndUpdate(
@@ -30,8 +31,6 @@ const handler = async (req, res) => {
         },
       }
     );
-
-    console.log(founduser);
 
     res
       .status(200)

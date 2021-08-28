@@ -3,13 +3,25 @@ import Layout from "../components/Layout/Layout";
 import clientPromise from "../utils/mongodb";
 import Feed from "../components/Feed/Feed";
 import NewPost from "../components/NewPost/NewPost";
+import { useState, useEffect } from "react";
 
 import { Divider, VStack, Button } from "@chakra-ui/react";
 import { useUser } from "../context/authContext";
 import Link from "next/link";
 
 const Home = ({ users }) => {
-  const { user, login, logout, signup, error, authReady } = useUser();
+  const { user, setUser, login, logout, signup, error, authReady } = useUser();
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+  useEffect(() => {
+    users.forEach((person) => {
+      if (person.id === user.id) {
+        setUser(person);
+      }
+      console.log(person);
+    });
+  }, []);
 
   return (
     <>
@@ -28,7 +40,7 @@ const Home = ({ users }) => {
             {user && (
               <>
                 <NewPost />
-                <Divider />
+                <Divider padding="0.5rem" w="10rem" />
               </>
             )}
             <Feed users={users} />
@@ -46,11 +58,11 @@ export async function getStaticProps(context) {
 
   const db = await client.db();
 
-  const posts = await db.collection("users").find({}).toArray();
+  const users = await db.collection("users").find({}).toArray();
 
   return {
     props: {
-      users: JSON.parse(JSON.stringify(posts)),
+      users: JSON.parse(JSON.stringify(users)),
     },
   };
 }

@@ -5,6 +5,9 @@ export const PostSchema = new mongoose.Schema({
   author: {
     type: String,
   },
+  userid: {
+    type: String,
+  },
   text: {
     type: String,
     maxlength: [1000, "Posts cannot be more than 1000 characters."],
@@ -17,6 +20,7 @@ export const PostSchema = new mongoose.Schema({
     default: Date.now,
   },
   comments: [{ body: String, author: String, date: Date }],
+  likes: [String],
 });
 
 mongoose.models = { Comment };

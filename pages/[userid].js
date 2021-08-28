@@ -15,7 +15,6 @@ const AccountPage = ({ userdata }) => {
         <Flex direction="column" position="relative" mb="75px" pt="1.2rem">
           <Image
             alt="Cover Photo"
-            // boxSize="auto"
             maxH="300px"
             minH="300px"
             align="center"

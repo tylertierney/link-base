@@ -45,6 +45,8 @@ const NewPost = () => {
       });
   };
 
+  console.log(user);
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -57,7 +59,11 @@ const NewPost = () => {
     >
       <form onSubmit={(e) => handleSubmit(e)}>
         <Flex justify="flex-start" align="center" p="inherit" userSelect="none">
-          <Avatar size="xs" name="something"></Avatar>
+          <Avatar
+            size="xs"
+            name={user.username}
+            src={user.prof_pic_url}
+          ></Avatar>
           <Text color="brand.text_dark" ml="0.6rem">
             {user.user_metadata.username}
           </Text>
