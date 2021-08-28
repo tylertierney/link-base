@@ -30,7 +30,6 @@ const handler = async (req, res) => {
       message: "Mongo DB has added this user to the 'users' collection",
     });
   }
-  //adding comment
 };
 
 export default handler;

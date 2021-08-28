@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 import { FiThumbsUp } from "react-icons/fi";
 import { FaThumbsUp } from "react-icons/fa";
+import axios from "axios";
 
 import Link from "next/link";
 
@@ -15,6 +16,21 @@ const Post = ({ user, post }) => {
     const day = date.toDateString();
 
     return day.substr(0, day.length - 5);
+  };
+
+  const handleLike = () => {
+    let addOrRemove = "add";
+    if (isLiked === true) {
+      addOrRemove = "remove";
+    }
+
+    axios.post(`/api/${post._id}`, {
+      post: post,
+      currentuser: user.id,
+      addOrRemove: addOrRemove,
+    });
+
+    setIsLiked(!isLiked);
   };
 
   console.log(post);
@@ -57,22 +73,18 @@ const Post = ({ user, post }) => {
           userSelect="none"
         >
           <Flex justify="space-between" align="flex-start">
-            {isLiked ? (
-              <Icon
-                as={FaThumbsUp}
-                fontSize="1.1rem"
-                color="blue.600"
-                cursor="pointer"
-                onClick={() => setIsLiked(!isLiked)}
-              />
-            ) : (
-              <Icon
-                as={FiThumbsUp}
-                fontSize="1.1rem"
-                cursor="pointer"
-                onClick={() => setIsLiked(!isLiked)}
-              />
-            )}
+            <Flex onClick={() => handleLike()}>
+              {isLiked ? (
+                <Icon
+                  as={FaThumbsUp}
+                  fontSize="1.1rem"
+                  color="blue.600"
+                  cursor="pointer"
+                />
+              ) : (
+                <Icon as={FiThumbsUp} fontSize="1.1rem" cursor="pointer" />
+              )}
+            </Flex>
             <Text p="0 0 0 0.2rem" fontSize="0.8rem">
               {isLiked ? post.likes.length + 1 : post.likes.length}
             </Text>
