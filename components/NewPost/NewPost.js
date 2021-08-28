@@ -45,8 +45,6 @@ const NewPost = () => {
       });
   };
 
-  console.log(user);
-
   return (
     <Container
       p="0"
