@@ -26,9 +26,6 @@ const handler = async (req, res) => {
       console.log(result);
     });
 
-    console.log(req.body.user_metadata.username);
-    // db.collection("users").insertOne(req.body);
-
     res.status(200).json({
       message: "Mongo DB has added this user to the 'users' collection",
     });

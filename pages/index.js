@@ -13,10 +13,12 @@ const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
 
   useEffect(() => {
-    for (const person of users) {
-      if (person.id === user.id) {
-        setUser(person);
-        break;
+    if (user) {
+      for (const person of users) {
+        if (person.id === user.id) {
+          setUser(person);
+          break;
+        }
       }
     }
   }, []);

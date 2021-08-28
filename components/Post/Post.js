@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import { FiThumbsUp } from "react-icons/fi";
 import { FaThumbsUp } from "react-icons/fa";
 
+import Link from "next/link";
+
 const Post = ({ user, post }) => {
   const [isLiked, setIsLiked] = useState();
 
@@ -29,13 +31,17 @@ const Post = ({ user, post }) => {
       p="0.5rem 0.8rem"
     >
       <Flex justify="flex-start" align="center">
-        <Avatar
-          size="sm"
-          border="solid lightgray 1px"
-          name={post.author}
-          src={user.prof_pic_url}
-        ></Avatar>
-        <Text ml="0.8rem">{post.author}</Text>
+        <Link href={`/${post.userid}`} passHref>
+          <Flex align="center" cursor="pointer">
+            <Avatar
+              size="sm"
+              border="solid lightgray 1px"
+              name={post.author}
+              src={user.prof_pic_url}
+            ></Avatar>
+            <Text ml="0.8rem">{post.author}</Text>
+          </Flex>
+        </Link>
       </Flex>
       <Divider m="0.3rem 0" />
       <Flex direction="column">
@@ -46,15 +52,11 @@ const Post = ({ user, post }) => {
         <Flex
           justify="space-between"
           align="center"
-          color="gray"
+          color="gray.400"
           m="0.6rem 0 0 0"
           userSelect="none"
         >
-          <Flex
-            justify="space-between"
-            align="flex-start"
-            // border="red 1px solid"
-          >
+          <Flex justify="space-between" align="flex-start">
             {isLiked ? (
               <Icon
                 as={FaThumbsUp}
@@ -71,11 +73,11 @@ const Post = ({ user, post }) => {
                 onClick={() => setIsLiked(!isLiked)}
               />
             )}
-            <Text p="0 0 0 0.2rem" textDecoration="underline" fontSize="0.8rem">
-              1
+            <Text p="0 0 0 0.2rem" fontSize="0.8rem">
+              {isLiked ? post.likes.length + 1 : post.likes.length}
             </Text>
           </Flex>
-          <Text fontSize="0.6rem" color="gray.400" as={"p"} textAlign="right">
+          <Text fontSize="0.6rem" as={"p"} textAlign="right">
             {convertDate(post.posted_at)}
           </Text>
         </Flex>

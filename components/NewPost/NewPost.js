@@ -9,6 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { useUser } from "../../context/authContext";
 
+import Link from "next/link";
+
 import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -56,16 +58,22 @@ const NewPost = () => {
       p="0.8rem 0.8rem 0.4rem 0.8rem"
     >
       <form onSubmit={(e) => handleSubmit(e)}>
-        <Flex justify="flex-start" align="center" p="inherit" userSelect="none">
-          <Avatar
-            size="xs"
-            name={user.username}
-            src={user.prof_pic_url}
-          ></Avatar>
-          <Text color="brand.text_dark" ml="0.6rem">
-            {user.username}
-          </Text>
+        <Flex justify="flex-start" align="center" p="inherit">
+          <Link href={`/${user.id}`} passHref>
+            <Flex align="center" cursor="pointer">
+              <Avatar
+                size="sm"
+                name={user.username}
+                src={user.prof_pic_url}
+                border="solid lightgray 1px"
+              ></Avatar>
+              <Text color="brand.text_dark" ml="0.6rem">
+                {user.username}
+              </Text>
+            </Flex>
+          </Link>
         </Flex>
+
         <Flex m="0.4rem 0">
           <FormControl id="postText">
             <Input
@@ -76,6 +84,7 @@ const NewPost = () => {
               value={postText}
               type="textarea"
               _focus={{ outline: "red" }}
+              disabled={isLoading}
             />
           </FormControl>
         </Flex>
@@ -88,6 +97,7 @@ const NewPost = () => {
             // color="brand.900"
             opacity={postText ? "1" : "0.5"}
             _focus={{ outline: "none" }}
+            disabled={isLoading}
           >
             {isLoading ? (
               <SpinnerIcon

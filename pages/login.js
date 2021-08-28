@@ -84,6 +84,7 @@ const Login = () => {
                         type="email"
                         value={email}
                         fontSize="inherit"
+                        disabled={isLoading}
                       />
                       {/* <FormErrorMessage fontSize="inherit">
                         {error?.message}
@@ -107,6 +108,7 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                         fontSize="inherit"
+                        disabled={isLoading}
                       />
                       <FormErrorMessage fontSize="inherit">
                         {error?.message}
@@ -134,6 +136,7 @@ const Login = () => {
                   }}
                   type="submit"
                   _focus={{ outline: "none" }}
+                  disabled={isLoading}
                 >
                   {isLoading ? (
                     <SpinnerIcon

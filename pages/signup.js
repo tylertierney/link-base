@@ -95,10 +95,8 @@ const SignUp = ({ users }) => {
                         }}
                         onChange={(e) => setUsername(e.target.value)}
                         value={username}
+                        disabled={isLoading}
                       />
-                      {/* <FormErrorMessage fontSize="inherit">
-                        {error?.message}
-                      </FormErrorMessage> */}
                     </FormControl>
                   </Flex>
                   <Flex direction="column" fontSize="0.8rem">
@@ -117,10 +115,8 @@ const SignUp = ({ users }) => {
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        disabled={isLoading}
                       />
-                      {/* <FormErrorMessage fontSize="inherit">
-                        {error?.message}
-                      </FormErrorMessage> */}
                       <FormHelperText>
                         Your email address will never be shared publicly.
                       </FormHelperText>
@@ -142,6 +138,7 @@ const SignUp = ({ users }) => {
                         type="password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
+                        disabled={isLoading}
                       />
                       <FormErrorMessage fontSize="inherit">
                         {error?.message}
@@ -161,6 +158,7 @@ const SignUp = ({ users }) => {
                   }}
                   _focus={{ outline: "none" }}
                   type="submit"
+                  disabled={isLoading}
                 >
                   {isLoading ? (
                     <SpinnerIcon
