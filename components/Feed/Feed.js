@@ -13,11 +13,11 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-const Feed = ({ posts }) => {
+const Feed = ({ users }) => {
   const { user, authReady } = useUser();
 
   return (
-    <Box overflowY="scroll" className="hideScrollbar">
+    <Box className="hideScrollbar">
       {!user && (
         <Alert status="warning">
           <AlertIcon />
@@ -25,10 +25,12 @@ const Feed = ({ posts }) => {
         </Alert>
       )}
       {user && (
-        <VStack spacing="40px">
-          {posts &&
-            posts.map((post) => {
-              return <Post key={post._id} post={post} />;
+        <VStack spacing={3} mt={6}>
+          {users &&
+            users.map((user) => {
+              return user.posts.map((post) => {
+                return <Post key={post._id} post={post} />;
+              });
             })}
         </VStack>
       )}

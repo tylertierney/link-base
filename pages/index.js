@@ -8,7 +8,7 @@ import { VStack, Button } from "@chakra-ui/react";
 import { useUser } from "../context/authContext";
 import Link from "next/link";
 
-const Home = ({ posts }) => {
+const Home = ({ users }) => {
   const { user, login, logout, signup, error, authReady } = useUser();
 
   return (
@@ -21,13 +21,12 @@ const Home = ({ posts }) => {
       <main>
         <Layout>
           <VStack
-            overflowY="scroll"
-            minH="200vh"
+            overflow="scroll"
             className="hideScrollbar"
             p="1rem 0.8rem 2rem 0.8rem"
           >
             {user && <NewPost />}
-            <Feed posts={posts} />
+            <Feed users={users} />
           </VStack>
         </Layout>
       </main>
@@ -42,11 +41,11 @@ export async function getStaticProps(context) {
 
   const db = await client.db();
 
-  const posts = await db.collection("posts").find({}).toArray();
+  const posts = await db.collection("users").find({}).toArray();
 
   return {
     props: {
-      posts: JSON.parse(JSON.stringify(posts)),
+      users: JSON.parse(JSON.stringify(posts)),
     },
   };
 }

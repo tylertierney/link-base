@@ -17,12 +17,16 @@ const AccountPage = ({ userdata }) => {
             alt="Cover Photo"
             // boxSize="auto"
             maxH="300px"
+            minH="300px"
+            align="center"
+            fallbackSrc="https://via.placeholder.com/600x300"
             src={userdata.cover_pic_url}
             borderRadius="lg"
             boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
           ></Image>
           <Image
             alt="Profile Picture"
+            fallbackSrc="https://via.placeholder.com/300x300"
             boxSize="150px"
             fit="cover"
             borderRadius="full"
@@ -32,7 +36,7 @@ const AccountPage = ({ userdata }) => {
             left="50%"
             transform="translate(-50%, 50%)"
             border="2px solid lightgray"
-            boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 1)"
+            boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 0.7)"
           ></Image>
         </Flex>
         <Flex direction="column" align="center">

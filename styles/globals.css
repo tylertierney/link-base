@@ -31,6 +31,15 @@ img {
   animation: spinnericon 0.7s linear infinite;
 }
 
+.logo {
+  background-color: purple;
+  user-select: none;
+}
+
+.logo:focus {
+  background-color: transparent;
+}
+
 @keyframes spinnericon {
   from {
     transform: rotate(0deg);

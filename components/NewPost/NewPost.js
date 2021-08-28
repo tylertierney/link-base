@@ -11,7 +11,7 @@ import { useUser } from "../../context/authContext";
 
 import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
-// import clientPromise from "../../utils/mongodb";
+import axios from "axios";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
@@ -22,17 +22,30 @@ const NewPost = () => {
   const handleSubmit = (e) => {
     setIsLoading(true);
     e.preventDefault();
-    console.log(postText, user.id);
 
+    const postObject = {
+      userid: user.id,
+      author: user.user_metadata.username,
+      text: postText,
+      photo_url: "placeholder.com",
+    };
+    createNewPost(postObject);
     setPostText("");
     setIsLoading(false);
   };
 
-  // const connectToDatabase = async () => {
-  //   const client = await clientPromise;
+  const createNewPost = (postObject) => {
+    axios
+      .post("/api/newpost", postObject)
+      .then((response) => {
+        console.log("addpost to user profile request received", response);
+      })
+      .catch((error) => {
+        console.log("error: ", error);
+      });
+  };
 
-  //   const db = await client.db();
-  // };
+  console.log(user);
 
   return (
     <Container

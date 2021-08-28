@@ -4,14 +4,28 @@ import {
   Flex,
   Avatar,
   Text,
-  Alert,
-  AlertIcon,
   Divider,
+  Icon,
 } from "@chakra-ui/react";
+
 import { useUser } from "../../context/authContext";
 
+import { useState } from "react";
+
+import { FiThumbsUp } from "react-icons/fi";
+import { FaThumbsUp } from "react-icons/fa";
+
 const Post = ({ post }) => {
+  const [isLiked, setIsLiked] = useState();
+
   const { user } = useUser();
+
+  const convertDate = (postedAt) => {
+    const date = new Date(postedAt);
+    const day = date.toDateString();
+
+    return day.substr(0, day.length - 5);
+  };
 
   return (
     <Container
@@ -29,8 +43,17 @@ const Post = ({ post }) => {
         <Text ml="0.8rem">{post.author}</Text>
       </Flex>
       <Divider m="0.3rem 0" />
-      <Flex>
-        <Text p="0.2rem 0.2rem">{post.content}</Text>
+      <Flex direction="column">
+        <Text>
+          {post.text}
+          <br />
+        </Text>
+        <Flex justify="space-between">
+          <Icon as={FiThumbsUp} />
+          <Text fontSize="0.6rem" color="gray.400" as={"p"} textAlign="right">
+            {convertDate(post.posted_at)}
+          </Text>
+        </Flex>
       </Flex>
     </Container>
   );
