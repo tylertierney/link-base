@@ -55,10 +55,7 @@ const NewPost = () => {
       fontSize="0.7rem"
       p="0.8rem 0.8rem 0.4rem 0.8rem"
     >
-      <form
-        // autoComplete="off"
-        onSubmit={(e) => handleSubmit(e)}
-      >
+      <form onSubmit={(e) => handleSubmit(e)}>
         <Flex justify="flex-start" align="center" p="inherit" userSelect="none">
           <Avatar size="xs" name="something"></Avatar>
           <Text color="brand.text_dark" ml="0.6rem">
