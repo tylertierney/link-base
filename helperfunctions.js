@@ -1,5 +1,3 @@
-import { database } from "firebase-admin";
-
 export const convertDate = (postedAt) => {
   const date = new Date(postedAt);
   const day = date.toDateString();
