@@ -55,7 +55,7 @@ const UserMenu = () => {
               </Flex>
             </MenuButton>
             <MenuList>
-              <Link passHref href={`/${user.id}`}>
+              <Link passHref href={`/user/${user.id}`}>
                 <MenuItem align="center" fontSize="0.8rem">
                   <Flex align="center">
                     {accountIcon}

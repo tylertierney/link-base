@@ -14,8 +14,15 @@ const Home = ({ users }) => {
 
   useEffect(() => {
     if (user) {
+      console.log(user);
+
       for (const person of users) {
         if (person.id === user.id) {
+          console.log("match found");
+          console.log(person.id);
+          console.log(user.id);
+          console.log(person);
+
           setUser(person);
           break;
         }
@@ -40,10 +47,10 @@ const Home = ({ users }) => {
             {user && (
               <>
                 <NewPost />
-                <Divider padding="0.5rem" w="10rem" />
+                <Divider padding="0.2rem" w="10rem" />
               </>
             )}
-            <Feed users={users} />
+            <Feed isProfilePage={false} users={users} />
           </VStack>
         </Layout>
       </main>

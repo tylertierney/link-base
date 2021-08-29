@@ -1,0 +1,14 @@
+.header {
+  padding-top: 1.2rem;
+}
+
+/* .coverPhoto{
+    border-bottom-left-radius: "lg";
+    border-bottom-right-radius: "lg";
+} */
+
+@media only screen and (max-width: 600px) {
+  .header {
+    padding-top: 0;
+  }
+}

@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import Post from "../../models/Post";
 import User from "../../models/User";
 
+import { EditIcon } from "@chakra-ui/icons";
+
 const handler = async (req, res) => {
   const client = await clientPromise;
 
@@ -15,11 +17,13 @@ const handler = async (req, res) => {
       id: req.body.post.userid,
     });
     const foundpost = founduser.posts.id(req.query.postid);
+
     if (req.body.addOrRemove === "add") {
       foundpost.likes.push(req.body.currentuser);
       founduser.save();
     } else {
-      foundpost.likes.filter((userid) => userid !== req.body.currentuser);
+      const indexToRemove = foundpost.likes.indexOf(req.body.currentuser);
+      foundpost.likes.splice(indexToRemove, 1);
       founduser.save();
     }
 

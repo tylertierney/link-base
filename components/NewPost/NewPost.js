@@ -6,6 +6,13 @@ import {
   FormControl,
   Input,
   Button,
+  Icon,
+  InputLeftAddon,
+  InputGroup,
+  Stack,
+  FormHelperText,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { useUser } from "../../context/authContext";
 
@@ -14,6 +21,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
 import axios from "axios";
+
+import { HiOutlinePhotograph } from "react-icons/hi";
+import { GoLocation } from "react-icons/go";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
@@ -29,7 +39,7 @@ const NewPost = () => {
       userid: user.id,
       author: user.username,
       text: postText,
-      photo_url: "placeholder.com",
+      photo_url: photoURL,
     };
     createNewPost(postObject);
     setPostText("");
@@ -47,6 +57,11 @@ const NewPost = () => {
       });
   };
 
+  const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
+  const [photoURL, setPhotoURL] = useState("");
+
+  console.log(photoURL);
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -59,7 +74,7 @@ const NewPost = () => {
     >
       <form onSubmit={(e) => handleSubmit(e)}>
         <Flex justify="flex-start" align="center" p="inherit">
-          <Link href={`/${user.id}`} passHref>
+          <Link href={`/user/${user.id}`} passHref>
             <Flex align="center" cursor="pointer">
               <Avatar
                 size="sm"
@@ -74,9 +89,10 @@ const NewPost = () => {
           </Link>
         </Flex>
 
-        <Flex m="0.4rem 0">
+        <Stack m="0.4rem 0" direction="column">
           <FormControl id="postText">
             <Input
+              variant="flushed"
               fontSize="inherit"
               size="sm"
               onChange={(e) => setPostText(e.target.value)}
@@ -87,14 +103,64 @@ const NewPost = () => {
               disabled={isLoading}
             />
           </FormControl>
-        </Flex>
-        <Flex justify="flex-end" p="inherit">
+          {showPhotoURLinput && (
+            <FormControl id="photoURL">
+              <Stack>
+                <FormHelperText fontSize="inherit"></FormHelperText>
+                <Alert color="gray.600" status="info">
+                  <AlertIcon />
+                  Currently, linkBase doesn't support local file uploads. To
+                  post a photo, paste the url to the image.
+                </Alert>
+                <InputGroup size="sm">
+                  <InputLeftAddon
+                    fontSize="inherit"
+                    color="gray.400"
+                    children="https://"
+                  />
+                  <Input
+                    fontSize="inherit"
+                    onChange={(e) => setPhotoURL(e.target.value)}
+                    placeholder="www.unsplash.com/1234"
+                    value={photoURL}
+                    type="text"
+                    _focus={{ outline: "red" }}
+                    disabled={isLoading}
+                  />
+                </InputGroup>
+              </Stack>
+            </FormControl>
+          )}
+        </Stack>
+        <Flex justify="space-between" p="inherit">
+          <Flex justify="center" align="center" p="inherit">
+            <Button
+              p="0.1rem"
+              size="sm"
+              opacity={postText ? "1" : "0.5"}
+              _focus={{ outline: "none" }}
+              colorScheme="blue"
+              variant="ghost"
+              onClick={() => setShowPhotoURLinput(!showPhotoURLinput)}
+            >
+              <Icon as={HiOutlinePhotograph} w={8} h={8} />
+            </Button>
+            <Button
+              p="0.1rem"
+              size="sm"
+              opacity={postText ? "1" : "0.5"}
+              _focus={{ outline: "none" }}
+              colorScheme="blue"
+              variant="ghost"
+              onClick={() => setShowPhotoURLinput(!showPhotoURLinput)}
+            >
+              <Icon as={GoLocation} w={6} h={6} />
+            </Button>
+          </Flex>
           <Button
             size="sm"
             type="submit"
             colorScheme="blue"
-            // backgroundColor="brand.1000"
-            // color="brand.900"
             opacity={postText ? "1" : "0.5"}
             _focus={{ outline: "none" }}
             disabled={isLoading}

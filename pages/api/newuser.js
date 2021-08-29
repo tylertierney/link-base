@@ -11,7 +11,7 @@ const handler = async (req, res) => {
 
   if (req.method === "POST") {
     const newuser_obj = new User({
-      username: req.body.username,
+      username: req.body.user_metadata.username,
       friends: [],
       liked_posts: [],
       posts: [],

@@ -1,18 +1,52 @@
-import Layout from "../components/Layout/Layout";
-import { useUser } from "../context/authContext";
-import clientPromise from "../utils/mongodb";
-import { Image, Flex, Heading, Text, VStack, Divider } from "@chakra-ui/react";
-import Feed from "../components/Feed/Feed";
+import Layout from "../../components/Layout/Layout";
+import { useUser } from "../../context/authContext";
+import clientPromise from "../../utils/mongodb";
+import {
+  Image,
+  Flex,
+  Heading,
+  Text,
+  VStack,
+  Divider,
+  Button,
+} from "@chakra-ui/react";
+import Feed from "../../components/Feed/Feed";
+import { useEffect, useState } from "react";
 
-const AccountPage = ({ userdata }) => {
+import { EditIcon } from "@chakra-ui/icons";
+
+import accountPageStyles from "./accountPage.module.css";
+
+const AccountPage = ({ userdata, users }) => {
   const { user, logout } = useUser();
+
+  const [isEditable, setIsEditable] = useState(false);
 
   console.log(userdata);
 
+  useEffect(() => {
+    if (userdata.id === user.id) {
+      setIsEditable(true);
+    }
+  }, []);
+
   return (
     <Layout>
-      <VStack backgroundColor="brand.text_light" minH="100vh" w="100%">
-        <Flex direction="column" position="relative" mb="75px" pt="1.2rem">
+      <VStack
+        backgroundColor="brand.text_light"
+        minH="100vh"
+        w="100%"
+        overflowY="scroll"
+        overflowX="hidden"
+        maxW="100vw"
+        className="hideScrollbar"
+      >
+        <Flex
+          direction="column"
+          position="relative"
+          mb="75px"
+          className={accountPageStyles.header}
+        >
           <Image
             alt="Cover Photo"
             maxH="300px"
@@ -20,6 +54,7 @@ const AccountPage = ({ userdata }) => {
             align="center"
             fallbackSrc="https://via.placeholder.com/600x300"
             src={userdata.cover_pic_url}
+            className={accountPageStyles.coverPhoto}
             borderRadius="lg"
             boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
           ></Image>
@@ -37,8 +72,22 @@ const AccountPage = ({ userdata }) => {
             border="2px solid lightgray"
             boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 0.7)"
           ></Image>
+          <Button
+            color="gray.400"
+            position="absolute"
+            right="10px"
+            bottom="-50px"
+            size="sm"
+            variant="ghost"
+            display={isEditable ? "" : "none"}
+          >
+            <Flex align="center">
+              <Text>Edit&nbsp;</Text>
+              <EditIcon fontSize="xl"></EditIcon>
+            </Flex>
+          </Button>
         </Flex>
-        <Flex direction="column" align="center">
+        <Flex direction="row" justify="center" align="center" w="100%">
           <Text
             as={"h1"}
             bgGradient="linear(to-r, red.400,pink.400)"
@@ -55,11 +104,8 @@ const AccountPage = ({ userdata }) => {
           minH="200vh"
           className="hideScrollbar"
           p="1rem 0.8rem 2rem 0.8rem"
-          // maxW={["xs", "sm", "md"]}
-          // w={["sm", "md", "lg"]}
-          // maxW="40px"
         >
-          <Feed posts={userdata.posts} />
+          <Feed userdata={userdata} isProfilePage={true} users={users} />
         </VStack>
       </VStack>
     </Layout>
@@ -78,9 +124,12 @@ export async function getServerSideProps(context) {
     .find({ id: context.params.userid })
     .toArray();
 
+  const users = await db.collection("users").find({}).toArray();
+
   return {
     props: {
       userdata: JSON.parse(JSON.stringify(userdata[0])),
+      users: JSON.parse(JSON.stringify(users)),
     },
   };
 }

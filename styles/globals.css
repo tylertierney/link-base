@@ -4,6 +4,12 @@ body {
   margin: 0;
   font-size: 18px;
   font-family: "Poppins", sans-serif;
+  position: fixed;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  top: 0;
+  left: 0;
+  width: 100vw;
 }
 
 * {

@@ -1,4 +1,12 @@
-import { Container, Flex, Avatar, Text, Divider, Icon } from "@chakra-ui/react";
+import {
+  Container,
+  Flex,
+  Avatar,
+  Text,
+  Divider,
+  Icon,
+  Image,
+} from "@chakra-ui/react";
 
 import { useState, useEffect } from "react";
 
@@ -7,16 +15,21 @@ import { FaThumbsUp } from "react-icons/fa";
 import axios from "axios";
 
 import Link from "next/link";
+import { useUser } from "../../context/authContext";
+import { convertDate } from "../../helperfunctions";
 
-const Post = ({ user, post }) => {
-  const [isLiked, setIsLiked] = useState();
+const Post = ({ postedBy, post }) => {
+  const { user } = useUser();
 
-  const convertDate = (postedAt) => {
-    const date = new Date(postedAt);
-    const day = date.toDateString();
+  const [isLiked, setIsLiked] = useState(false);
 
-    return day.substr(0, day.length - 5);
-  };
+  useEffect(() => {
+    for (const likedby of post.likes) {
+      if (likedby === user.id) {
+        setIsLiked(true);
+      }
+    }
+  }, []);
 
   const handleLike = () => {
     let addOrRemove = "add";
@@ -33,7 +46,7 @@ const Post = ({ user, post }) => {
     setIsLiked(!isLiked);
   };
 
-  console.log(post);
+  console.log(user);
 
   return (
     <Container
@@ -44,16 +57,16 @@ const Post = ({ user, post }) => {
       borderRadius="md"
       color="brand.text_dark"
       fontSize="0.7rem"
-      p="0.5rem 0.8rem"
+      p="0.5rem 0rem"
     >
-      <Flex justify="flex-start" align="center">
-        <Link href={`/${post.userid}`} passHref>
+      <Flex p="0 0.8rem" justify="flex-start" align="center">
+        <Link href={`/user/${post.userid}`} passHref>
           <Flex align="center" cursor="pointer">
             <Avatar
               size="sm"
               border="solid lightgray 1px"
               name={post.author}
-              src={user.prof_pic_url}
+              src={postedBy.prof_pic_url}
             ></Avatar>
             <Text ml="0.8rem">{post.author}</Text>
           </Flex>
@@ -61,16 +74,18 @@ const Post = ({ user, post }) => {
       </Flex>
       <Divider m="0.3rem 0" />
       <Flex direction="column">
-        <Text p="0.5rem 0 0 0.5rem">
+        <Text p="0.5rem 0.8rem 0.5rem 0.8rem" userSelect="none">
           {post.text}
           <br />
         </Text>
+        {post.photoURL && <Image width="100%" src={post.photoURL} />}
         <Flex
           justify="space-between"
           align="center"
           color="gray.400"
           m="0.6rem 0 0 0"
           userSelect="none"
+          p="0 0.8rem"
         >
           <Flex justify="space-between" align="flex-start">
             <Flex onClick={() => handleLike()}>

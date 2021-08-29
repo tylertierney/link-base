@@ -13,11 +13,29 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-const Feed = ({ users }) => {
+const Feed = ({ users, isProfilePage, userdata }) => {
   const { user, authReady } = useUser();
 
+  let postArray;
+  if (isProfilePage) {
+    postArray = users.map((user) => {
+      if (user.id === userdata.id) {
+        return user.posts.map((post) => {
+          return <Post postedBy={user} key={post._id} post={post} />;
+        });
+      }
+    });
+    console.log("isprofile is true");
+  } else {
+    postArray = users.map((user) => {
+      return user.posts.map((post) => {
+        return <Post postedBy={user} key={post._id} post={post} />;
+      });
+    });
+  }
+
   return (
-    <Box className="hideScrollbar">
+    <Box className="hideScrollbar" p="0 0 10rem 0">
       {!user && (
         <Alert status="warning">
           <AlertIcon />
@@ -26,12 +44,7 @@ const Feed = ({ users }) => {
       )}
       {user && (
         <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
-          {users &&
-            users.map((user) => {
-              return user.posts.map((post) => {
-                return <Post user={user} key={post._id} post={post} />;
-              });
-            })}
+          {postArray}
         </VStack>
       )}
     </Box>
