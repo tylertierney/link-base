@@ -26,7 +26,7 @@ import axios from "axios";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { GoLocation } from "react-icons/go";
 
-import { formatLocationData } from "../../helperfunctions";
+// import { formatLocationData } from "../../helperfunctions";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
