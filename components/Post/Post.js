@@ -76,7 +76,9 @@ const Post = ({ postedBy, post }) => {
           {post.text}
           <br />
         </Text>
-        {post.photoURL && <Image width="100%" src={post.photoURL} />}
+        {post.photoURL && (
+          <Image alt="user uploaded image" width="100%" src={post.photoURL} />
+        )}
         <Flex
           justify="space-between"
           align="center"

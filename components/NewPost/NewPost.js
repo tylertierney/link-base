@@ -65,6 +65,8 @@ const NewPost = () => {
   const [location, setLocation] = useState("");
 
   const getLocation = () => {
+    console.log("hi");
+
     // if (navigator.geolocation) {
     //   navigator.geolocation.getCurrentPosition((position) => {
     //     console.log(position.coords);
@@ -128,15 +130,17 @@ const NewPost = () => {
                 <FormHelperText fontSize="inherit"></FormHelperText>
                 <Alert color="gray.600" status="info">
                   <AlertIcon />
-                  Currently, linkBase doesn't support local file uploads. To
+                  Currently, linkBase doesn not support local file uploads. To
                   post a photo, paste the url to the image.
                 </Alert>
                 <InputGroup size="sm">
                   <InputLeftAddon
                     fontSize="inherit"
                     color="gray.400"
-                    children="https://"
-                  />
+                    // children="https://"
+                  >
+                    https://
+                  </InputLeftAddon>
                   <Input
                     fontSize="inherit"
                     onChange={(e) => setPhotoURL(e.target.value)}
@@ -164,7 +168,7 @@ const NewPost = () => {
             >
               <Icon as={HiOutlinePhotograph} w={8} h={8} />
             </Button>
-            <Button
+            {/* <Button
               p="0.1rem"
               size="sm"
               opacity={postText ? "1" : "0.5"}
@@ -174,7 +178,7 @@ const NewPost = () => {
               onClick={() => getLocation(includeLocation)}
             >
               <Icon as={GoLocation} w={6} h={6} />
-            </Button>
+            </Button> */}
           </Flex>
           <Button
             size="sm"

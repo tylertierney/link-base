@@ -8,5 +8,5 @@ export const convertDate = (postedAt) => {
 };
 
 export const formatLocationData = (location_api_response) => {
-  console.log(location_api_response);
+  return location_api_response;
 };
