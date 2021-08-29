@@ -21,6 +21,9 @@ export const PostSchema = new mongoose.Schema({
   },
   comments: [{ body: String, author: String, date: Date }],
   likes: [String],
+  location: {
+    type: String,
+  },
 });
 
 mongoose.models = { Comment };

@@ -19,6 +19,7 @@ const handler = async (req, res) => {
       posted_at: Date.now(),
       comments: [],
       likes: [],
+      location: req.body.location,
     });
 
     const founduser = await User.findOneAndUpdate(

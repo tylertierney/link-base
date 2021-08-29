@@ -6,5 +6,8 @@ export const convertDate = (postedAt) => {
 };
 
 export const formatLocationData = (location_api_response) => {
-  return location_api_response;
+  const city = location_api_response.city;
+  const state_code = location_api_response.principalSubdivisionCode;
+  const state_abbreviation = state_code.substr(3, state_code.length);
+  return city + ", " + state_abbreviation;
 };

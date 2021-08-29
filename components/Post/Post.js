@@ -18,6 +18,8 @@ import Link from "next/link";
 import { useUser } from "../../context/authContext";
 import { convertDate } from "../../helperfunctions";
 
+import { GoLocation } from "react-icons/go";
+
 const Post = ({ postedBy, post }) => {
   const { user } = useUser();
 
@@ -57,7 +59,7 @@ const Post = ({ postedBy, post }) => {
       fontSize="0.7rem"
       p="0.5rem 0rem"
     >
-      <Flex p="0 0.8rem" justify="flex-start" align="center">
+      <Flex p="0 0.8rem" justify="space-between" align="center">
         <Link href={`/user/${post.userid}`} passHref>
           <Flex align="center" cursor="pointer">
             <Avatar
@@ -69,6 +71,21 @@ const Post = ({ postedBy, post }) => {
             <Text ml="0.8rem">{post.author}</Text>
           </Flex>
         </Link>
+        {post.location ? (
+          <Flex
+            fontSize="0.65rem"
+            justify="center"
+            align="center"
+            color="gray.500"
+          >
+            <Text fontStyle="italic" p="0 0.2rem 0 0">
+              {location}
+            </Text>
+            <Icon as={GoLocation} />
+          </Flex>
+        ) : (
+          <></>
+        )}
       </Flex>
       <Divider m="0.3rem 0" />
       <Flex direction="column">

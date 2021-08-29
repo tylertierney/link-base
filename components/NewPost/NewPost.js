@@ -26,13 +26,17 @@ import axios from "axios";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { GoLocation } from "react-icons/go";
 
-// import { formatLocationData } from "../../helperfunctions";
+import { formatLocationData } from "../../helperfunctions";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
 
   const [postText, setPostText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
+  const [photoURL, setPhotoURL] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleSubmit = (e) => {
     setIsLoading(true);
@@ -43,10 +47,14 @@ const NewPost = () => {
       author: user.username,
       text: postText,
       photo_url: photoURL,
+      location: location,
     };
     createNewPost(postObject);
     setPostText("");
     setIsLoading(false);
+    setLocation("");
+    setPhotoURL("");
+    setShowPhotoURLinput(false);
   };
 
   const createNewPost = (postObject) => {
@@ -60,27 +68,24 @@ const NewPost = () => {
       });
   };
 
-  const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
-  const [photoURL, setPhotoURL] = useState("");
-  const [location, setLocation] = useState("");
-
   const getLocation = () => {
-    console.log("hi");
-
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     console.log(position.coords);
-    //     const latitude = position.coords.latitude;
-    //     const longitude = position.coords.longitude;
-    //     const location_api_url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
-    //     fetch(location_api_url)
-    //       .then((response) => response.json())
-    //       .then((data) => setLocation(formatLocationData(data)));
-    //   });
-    // } else {
-    //   console.log("Geolocation is not supported");
-    //   return;
-    // }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setIsLoading(true);
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        const location_api_url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+        fetch(location_api_url)
+          .then((response) => response.json())
+          .then((data) => {
+            setLocation(formatLocationData(data));
+            setIsLoading(false);
+          });
+      });
+    } else {
+      console.log("Geolocation is not supported");
+      return;
+    }
   };
 
   return (
@@ -94,7 +99,7 @@ const NewPost = () => {
       p="0.8rem 0.8rem 0.4rem 0.8rem"
     >
       <form onSubmit={(e) => handleSubmit(e)}>
-        <Flex justify="flex-start" align="center" p="inherit">
+        <Flex justify="space-between" align="center" p="inherit">
           <Link href={`/user/${user.id}`} passHref>
             <Flex align="center" cursor="pointer">
               <Avatar
@@ -108,6 +113,21 @@ const NewPost = () => {
               </Text>
             </Flex>
           </Link>
+          {location ? (
+            <Flex
+              fontSize="0.65rem"
+              justify="center"
+              align="center"
+              color="gray.500"
+            >
+              <Text fontStyle="italic" p="0 0.2rem 0 0">
+                {location}
+              </Text>
+              <Icon as={GoLocation} />
+            </Flex>
+          ) : (
+            <></>
+          )}
         </Flex>
 
         <Stack m="0.4rem 0" direction="column">
@@ -168,17 +188,17 @@ const NewPost = () => {
             >
               <Icon as={HiOutlinePhotograph} w={8} h={8} />
             </Button>
-            {/* <Button
+            <Button
               p="0.1rem"
               size="sm"
               opacity={postText ? "1" : "0.5"}
               _focus={{ outline: "none" }}
               colorScheme="blue"
               variant="ghost"
-              onClick={() => getLocation(includeLocation)}
+              onClick={getLocation()}
             >
               <Icon as={GoLocation} w={6} h={6} />
-            </Button> */}
+            </Button>
           </Flex>
           <Button
             size="sm"
