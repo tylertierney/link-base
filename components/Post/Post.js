@@ -46,8 +46,6 @@ const Post = ({ postedBy, post }) => {
     setIsLiked(!isLiked);
   };
 
-  console.log(user);
-
   return (
     <Container
       maxW={["xs", "sm", "md"]}

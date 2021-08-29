@@ -18,11 +18,6 @@ const Home = ({ users }) => {
 
       for (const person of users) {
         if (person.id === user.id) {
-          console.log("match found");
-          console.log(person.id);
-          console.log(user.id);
-          console.log(person);
-
           setUser(person);
           break;
         }

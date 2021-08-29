@@ -13,6 +13,7 @@ import {
   FormHelperText,
   Alert,
   AlertIcon,
+  position,
 } from "@chakra-ui/react";
 import { useUser } from "../../context/authContext";
 
@@ -24,6 +25,8 @@ import axios from "axios";
 
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { GoLocation } from "react-icons/go";
+
+import { formatLocationData } from "../../helperfunctions";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
@@ -59,8 +62,24 @@ const NewPost = () => {
 
   const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
   const [photoURL, setPhotoURL] = useState("");
+  const [location, setLocation] = useState("");
 
-  console.log(photoURL);
+  const getLocation = () => {
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     console.log(position.coords);
+    //     const latitude = position.coords.latitude;
+    //     const longitude = position.coords.longitude;
+    //     const location_api_url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
+    //     fetch(location_api_url)
+    //       .then((response) => response.json())
+    //       .then((data) => setLocation(formatLocationData(data)));
+    //   });
+    // } else {
+    //   console.log("Geolocation is not supported");
+    //   return;
+    // }
+  };
 
   return (
     <Container
@@ -152,7 +171,7 @@ const NewPost = () => {
               _focus={{ outline: "none" }}
               colorScheme="blue"
               variant="ghost"
-              onClick={() => setShowPhotoURLinput(!showPhotoURLinput)}
+              onClick={() => getLocation(includeLocation)}
             >
               <Icon as={GoLocation} w={6} h={6} />
             </Button>
