@@ -4,6 +4,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import "@fontsource/fredoka-one";
 import "@fontsource/lato";
 import "@fontsource/poppins";
+import { useState } from "react";
 
 const theme = extendTheme({
   colors: {

@@ -6,6 +6,7 @@ import {
   Divider,
   Icon,
   Image,
+  Button,
 } from "@chakra-ui/react";
 
 import { useState, useEffect } from "react";
@@ -19,6 +20,8 @@ import { useUser } from "../../context/authContext";
 import { convertDate } from "../../helperfunctions";
 
 import { GoLocation } from "react-icons/go";
+
+import { BsThreeDots } from "react-icons/bs";
 
 const Post = ({ postedBy, post }) => {
   const { user } = useUser();
@@ -48,6 +51,18 @@ const Post = ({ postedBy, post }) => {
     setIsLiked(!isLiked);
   };
 
+  let numberOfLikes = post.likes.length;
+
+  if (isLiked) {
+    numberOfLikes = post.likes.length + 1;
+  } else {
+    if (post.likes.length === 0) {
+      numberOfLikes = "";
+    } else {
+      numberOfLikes = post.likes.length;
+    }
+  }
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -59,7 +74,12 @@ const Post = ({ postedBy, post }) => {
       fontSize="0.7rem"
       p="0.5rem 0rem"
     >
-      <Flex p="0 0.8rem" justify="space-between" align="center">
+      <Flex
+        p="0 0.8rem 0rem 0.8"
+        m="0rem 0.3rem 0.3rem 0.3rem"
+        justify="space-between"
+        align="center"
+      >
         <Link href={`/user/${post.userid}`} passHref>
           <Flex align="center" cursor="pointer">
             <Avatar
@@ -71,28 +91,41 @@ const Post = ({ postedBy, post }) => {
             <Text ml="0.8rem">{post.author}</Text>
           </Flex>
         </Link>
-        {post.location ? (
-          <Flex
-            fontSize="0.65rem"
-            justify="center"
-            align="center"
+        <Flex>
+          {post.location ? (
+            <Flex
+              fontSize="0.65rem"
+              justify="center"
+              align="center"
+              color="gray.500"
+            >
+              <Text fontStyle="italic" p="0 0.2rem 0 0">
+                {post.location}
+              </Text>
+              <Icon as={GoLocation} />
+            </Flex>
+          ) : (
+            <></>
+          )}
+          <Button
+            size="sm"
+            variant="ghost"
             color="gray.500"
+            _focus={{ outline: "none" }}
+            p="0 0.2rem"
+            m="0 0 0 0.3rem"
           >
-            <Text fontStyle="italic" p="0 0.2rem 0 0">
-              {location}
-            </Text>
-            <Icon as={GoLocation} />
-          </Flex>
-        ) : (
-          <></>
-        )}
+            <Icon as={BsThreeDots} w={7} h={7} />
+          </Button>
+        </Flex>
       </Flex>
-      <Divider m="0.3rem 0" />
+      {post.text && <Divider m="0.3rem 0" />}
       <Flex direction="column">
-        <Text p="0.5rem 0.8rem 0.5rem 0.8rem" userSelect="none">
-          {post.text}
-          <br />
-        </Text>
+        {post.text && (
+          <Text p="0.5rem 0.8rem 0.5rem 0.8rem" userSelect="none">
+            {post.text}
+          </Text>
+        )}
         {post.photoURL && (
           <Image alt="user uploaded image" width="100%" src={post.photoURL} />
         )}
@@ -118,7 +151,7 @@ const Post = ({ postedBy, post }) => {
               )}
             </Flex>
             <Text p="0 0 0 0.2rem" fontSize="0.8rem">
-              {isLiked ? post.likes.length + 1 : post.likes.length}
+              {numberOfLikes}
             </Text>
           </Flex>
           <Text fontSize="0.6rem" as={"p"} textAlign="right">

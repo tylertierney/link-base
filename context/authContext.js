@@ -86,7 +86,6 @@ const AuthContextProvider = ({ children }) => {
         setIsLoading(false);
         setUser(response);
         addUserToDatabase(response);
-        // router.push(`/${response.id}`);
         router.push("/");
       })
       .catch((error) => {

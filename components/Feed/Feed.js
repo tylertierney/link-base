@@ -13,8 +13,26 @@ import {
   Box,
 } from "@chakra-ui/react";
 
-const Feed = ({ users, isProfilePage, userdata }) => {
+const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   const { user, authReady } = useUser();
+
+  console.log(sortingBy);
+
+  const sortPosts = (postArray) => {
+    if (sortingBy === "popular") {
+      postArray.sort((a, b) => {
+        return b.props.post.likes.length - a.props.post.likes.length;
+      });
+    } else {
+      postArray.sort((a, b) => {
+        console.log(a.props.post.posted_at);
+        return (
+          Date.parse(b.props.post.posted_at) -
+          Date.parse(a.props.post.posted_at)
+        );
+      });
+    }
+  };
 
   let postArray;
   if (isProfilePage) {
@@ -25,13 +43,15 @@ const Feed = ({ users, isProfilePage, userdata }) => {
         });
       }
     });
-    console.log("isprofile is true");
+    console.log(postArray[1]);
+    sortPosts(postArray[1]);
   } else {
     postArray = users.map((user) => {
       return user.posts.map((post) => {
         return <Post postedBy={user} key={post._id} post={post} />;
       });
     });
+    sortPosts(postArray[1]);
   }
 
   return (

@@ -17,12 +17,16 @@ import { EditIcon } from "@chakra-ui/icons";
 
 import accountPageStyles from "./accountPage.module.css";
 
+import SortMenu from "../../components/SortMenu/SortMenu";
+
 const AccountPage = ({ userdata, users }) => {
   const { user, logout } = useUser();
 
   const [isEditable, setIsEditable] = useState(false);
 
-  console.log(userdata);
+  const [sortingBy, setSortingBy] = useState("new");
+
+  console.log(sortingBy);
 
   useEffect(() => {
     if (userdata.id === user.id) {
@@ -99,13 +103,33 @@ const AccountPage = ({ userdata, users }) => {
         </Flex>
 
         <Divider />
+
         <VStack
           overflowY="scroll"
           minH="200vh"
           className="hideScrollbar"
-          p="1rem 0.8rem 2rem 0.8rem"
+          p="0.5rem 0.8rem 2rem 0.8rem"
+          position="relative"
         >
-          <Feed userdata={userdata} isProfilePage={true} users={users} />
+          <Flex
+            position="relative"
+            // border="solid red 1px"
+            pb="0.5rem"
+            m="0 2rem 0 2rem"
+            alignSelf="flex-end"
+          >
+            <SortMenu
+              textcolor="dark"
+              sortingBy={sortingBy}
+              setSortingBy={setSortingBy}
+            />
+          </Flex>
+          <Feed
+            sortingBy={sortingBy}
+            userdata={userdata}
+            isProfilePage={true}
+            users={users}
+          />
         </VStack>
       </VStack>
     </Layout>

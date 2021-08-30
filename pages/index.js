@@ -5,12 +5,16 @@ import Feed from "../components/Feed/Feed";
 import NewPost from "../components/NewPost/NewPost";
 import { useState, useEffect } from "react";
 
-import { Divider, VStack, Button } from "@chakra-ui/react";
+import { Divider, VStack, Flex } from "@chakra-ui/react";
 import { useUser } from "../context/authContext";
 import Link from "next/link";
 
+import SortMenu from "../components/SortMenu/SortMenu";
+
 const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
+
+  const [sortingBy, setSortingBy] = useState("popular");
 
   useEffect(() => {
     if (user) {
@@ -42,10 +46,17 @@ const Home = ({ users }) => {
             {user && (
               <>
                 <NewPost />
-                <Divider padding="0.2rem" w="10rem" />
+                <Flex align="center" position="relative">
+                  <Divider padding="0.2rem" w="10rem">
+                    <SortMenu
+                      sortingBy={sortingBy}
+                      setSortingBy={setSortingBy}
+                    />
+                  </Divider>
+                </Flex>
               </>
             )}
-            <Feed isProfilePage={false} users={users} />
+            <Feed sortingBy={sortingBy} isProfilePage={false} users={users} />
           </VStack>
         </Layout>
       </main>

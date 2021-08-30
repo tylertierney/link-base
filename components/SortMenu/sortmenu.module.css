@@ -1,0 +1,13 @@
+.menubutton {
+  right: -60%;
+}
+
+@media only screen and (max-width: 600px) {
+  .menutext {
+    display: none;
+  }
+
+  .menubutton {
+    right: -40%;
+  }
+}
