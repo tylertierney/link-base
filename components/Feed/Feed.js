@@ -11,12 +11,11 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Heading,
 } from "@chakra-ui/react";
 
 const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   const { user, authReady } = useUser();
-
-  console.log(sortingBy);
 
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
@@ -28,7 +27,6 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
       });
     } else {
       postArray.sort((a, b) => {
-        console.log(a.props.post.posted_at);
         return (
           Date.parse(b.props.post.posted_at) -
           Date.parse(a.props.post.posted_at)
@@ -37,24 +35,26 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
     }
   };
 
-  let postArray;
+  let postArray = [];
   if (isProfilePage) {
-    postArray = users.map((user) => {
-      if (user.id === userdata.id) {
-        return user.posts.map((post) => {
-          return <Post postedBy={user} key={post._id} post={post} />;
-        });
-      }
-    });
-    console.log(postArray[1]);
-    sortPosts(postArray[1]);
-  } else {
-    postArray = users.map((user) => {
-      return user.posts.map((post) => {
+    if (user.id === userdata.id) {
+      postArray = user.posts.map((post) => {
         return <Post postedBy={user} key={post._id} post={post} />;
       });
+      sortPosts(postArray);
+    } else {
+      postArray = userdata.posts.map((post) => {
+        return <Post postedBy={userdata} key={post._id} post={post} />;
+      });
+      sortPosts(postArray);
+    }
+  } else {
+    users.forEach((user) => {
+      user.posts.forEach((post) => {
+        postArray.push(<Post postedBy={user} key={post._id} post={post} />);
+      });
     });
-    sortPosts(postArray[1]);
+    sortPosts(postArray);
   }
 
   return (
@@ -67,7 +67,13 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
       )}
       {user && (
         <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
-          {postArray}
+          {postArray.length === 0 ? (
+            <Heading textAlign="center" fontSize="1.2rem" color="gray.400">
+              This user hasn't posted anything, yet
+            </Heading>
+          ) : (
+            postArray
+          )}
         </VStack>
       )}
     </Box>

@@ -20,6 +20,7 @@ const handler = async (req, res) => {
       cover_pic_url: "",
       id: req.body.id,
       user_obj: req.body,
+      bio: "",
     });
 
     newuser_obj.save((err, result) => {

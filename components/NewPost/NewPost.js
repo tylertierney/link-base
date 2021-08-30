@@ -53,6 +53,12 @@ const NewPost = () => {
       photo_url: photoURL,
       location: location,
     };
+    if (postObject.text === "" && postObject.photo_url === "") {
+      setIsLoading(false);
+      setError("Posts must have either a photo or a description");
+      console.log(error);
+      return;
+    }
     createNewPost(postObject);
     setPostText("");
     setIsLoading(false);
@@ -136,6 +142,7 @@ const NewPost = () => {
                 justify="center"
                 align="center"
                 color="gray.500"
+                userSelect="none"
               >
                 <Text fontStyle="italic" p="0 0.2rem 0 0">
                   {location}
@@ -147,8 +154,8 @@ const NewPost = () => {
             )}
           </Flex>
 
-          <Stack m="0.4rem 0" direction="column">
-            <FormControl id="postText">
+          <Stack m="0rem 0 0.2rem 0" direction="column">
+            <FormControl id="postText" isInvalid={error}>
               <Input
                 variant="flushed"
                 fontSize="inherit"
@@ -160,23 +167,21 @@ const NewPost = () => {
                 _focus={{ outline: "red" }}
                 disabled={isLoading}
               />
+              <FormErrorMessage userSelect="none" fontSize="inherit">
+                {error}
+              </FormErrorMessage>
             </FormControl>
-            <FormErrorMessage>{error}</FormErrorMessage>
             {showPhotoURLinput && (
               <FormControl id="photoURL">
                 <Stack>
                   <FormHelperText fontSize="inherit"></FormHelperText>
-                  <Alert color="gray.600" status="info">
+                  <Alert userSelect="none" color="gray.600" status="info">
                     <AlertIcon />
                     Currently, linkBase does not support local file uploads. To
                     post a photo, paste the url to the image.
                   </Alert>
                   <InputGroup size="sm">
-                    <InputLeftAddon
-                      fontSize="inherit"
-                      color="gray.400"
-                      // children="https://"
-                    >
+                    <InputLeftAddon fontSize="inherit" color="gray.400">
                       https://
                     </InputLeftAddon>
                     <Input
@@ -219,19 +224,23 @@ const NewPost = () => {
               </Button>
             </Flex>
             <Button
-              size="sm"
-              type="submit"
-              colorScheme="blue"
-              opacity={postText ? "1" : "0.5"}
+              fontFamily={"heading"}
+              bgGradient="linear(to-r, red.400,pink.400)"
+              color={"white"}
+              _hover={{
+                bgGradient: "linear(to-r, red.400,pink.400)",
+                boxShadow: "xl",
+              }}
               _focus={{ outline: "none" }}
-              disabled={isLoading || error}
+              type="submit"
+              disabled={isLoading}
+              size="sm"
             >
               {isLoading ? (
                 <SpinnerIcon
                   color="white"
                   className="spinnerIcon"
                   fontSize="1rem"
-                  m="0 0.4rem"
                 ></SpinnerIcon>
               ) : (
                 "Post"

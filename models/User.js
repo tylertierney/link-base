@@ -25,6 +25,9 @@ const UserSchema = new mongoose.Schema({
   id: {
     type: String,
   },
+  bio: {
+    type: String,
+  },
 });
 
 mongoose.models = { Post };

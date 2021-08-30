@@ -11,16 +11,21 @@ import {
   Button,
   Icon,
 } from "@chakra-ui/react";
+
+import { ModalCloseButton } from "@chakra-ui/react";
+
 import Feed from "../../components/Feed/Feed";
 import { useEffect, useState } from "react";
 
-import { EditIcon } from "@chakra-ui/icons";
+// import { EditIcon } from "@chakra-ui/icons";
 
 import accountPageStyles from "./accountPage.module.css";
 
 import SortMenu from "../../components/SortMenu/SortMenu";
 
 import { BsPersonPlus } from "react-icons/bs";
+
+import EditProfile from "../../components/EditProfile/EditProfile";
 
 const AccountPage = ({ userdata, users }) => {
   const { user, logout } = useUser();
@@ -29,13 +34,24 @@ const AccountPage = ({ userdata, users }) => {
 
   const [sortingBy, setSortingBy] = useState("new");
 
-  console.log(sortingBy);
-
   useEffect(() => {
     if (userdata.id === user.id) {
       setIsEditable(true);
     }
   }, []);
+
+  let usernameLength = userdata.username.length;
+  let usernameSize = "2rem";
+
+  if (usernameLength > 14) {
+    usernameSize = "1.8rem";
+  }
+  if (usernameLength > 16) {
+    usernameSize = "1.7rem";
+  }
+  if (usernameLength > 18) {
+    usernameSize = "1.6rem";
+  }
 
   return (
     <Layout>
@@ -58,8 +74,10 @@ const AccountPage = ({ userdata, users }) => {
             alt="Cover Photo"
             maxH="300px"
             minH="300px"
+            minW="600px"
             align="center"
-            fallbackSrc="https://via.placeholder.com/600x300"
+            // fallbackSrc="https://via.placeholder.com/600x300?text=_"
+            fallbackSrc="https://images.unsplash.com/photo-1510472306330-201b18c210fc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
             src={userdata.cover_pic_url}
             className={accountPageStyles.coverPhoto}
             borderRadius="lg"
@@ -68,6 +86,7 @@ const AccountPage = ({ userdata, users }) => {
           <Image
             alt="Profile Picture"
             fallbackSrc="https://via.placeholder.com/300x300"
+            fallbackSrc="https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
             boxSize="150px"
             fit="cover"
             borderRadius="full"
@@ -79,20 +98,7 @@ const AccountPage = ({ userdata, users }) => {
             border="2px solid lightgray"
             boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 0.7)"
           ></Image>
-          <Button
-            color="gray.400"
-            position="absolute"
-            right="10px"
-            bottom="-50px"
-            size="sm"
-            variant="ghost"
-            display={isEditable ? "" : "none"}
-          >
-            <Flex align="center">
-              <Text>Edit&nbsp;</Text>
-              <EditIcon fontSize="xl"></EditIcon>
-            </Flex>
-          </Button>
+          <EditProfile isEditable={isEditable} />
         </Flex>
         <Flex
           position="relative"
@@ -106,16 +112,17 @@ const AccountPage = ({ userdata, users }) => {
             bgGradient="linear(to-r, red.400,pink.400)"
             bgClip="text"
             userSelect="none"
+            textAlign="center"
           >
-            <Heading>{userdata.username}</Heading>
+            <Heading fontSize={usernameSize}>{userdata.username}</Heading>
           </Text>
           {!isEditable && (
             <Button
               position="absolute"
-              right="1rem"
               fontSize="0.8rem"
               size="sm"
               colorScheme="blue"
+              className={accountPageStyles.followButton}
             >
               Follow&nbsp;
               <Icon as={BsPersonPlus} />

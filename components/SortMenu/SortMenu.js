@@ -51,6 +51,7 @@ const SortMenu = ({ textcolor, sortingBy, setSortingBy }) => {
                 <Text>Popular</Text>
               </Flex>
             </MenuItem>
+            <MenuDivider />
             <MenuItem onClick={() => setSortingBy("new")}>
               <Flex align="center" w="100%" justify="flex-start">
                 <Icon as={BiTimeFive} mr="0.3rem" />

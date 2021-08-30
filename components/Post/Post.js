@@ -134,7 +134,8 @@ const Post = ({ postedBy, post }) => {
                   }`}
                   pl="0.8rem"
                   pr="0.6rem"
-                  pb="0.3rem"
+                  pb="0rem"
+                  mb="0.3rem"
                   maxW="100%"
                   userSelect="none"
                 >

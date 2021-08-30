@@ -84,7 +84,8 @@ const SignUp = ({ users }) => {
                       Username
                     </FormLabel>
                     <Text fontSize="0.6rem" color="gray.400">
-                      &nbsp;(Minimum 6 characters, no spaces)
+                      &nbsp;(Minimum 6 characters, maximum 20 characters, no
+                      spaces)
                     </Text>
                   </Flex>
                   <FormControl isRequired id="username" isInvalid={error}>
