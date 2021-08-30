@@ -8,8 +8,11 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please enter a username"],
     maxlength: [40, "Username can be 40 characters at the most."],
   },
-  friends: {
-    type: Array,
+  following: {
+    type: [String],
+  },
+  followers: {
+    type: [String],
   },
   posts: [PostSchema],
   liked_posts: [PostSchema],

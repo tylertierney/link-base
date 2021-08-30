@@ -47,12 +47,8 @@ const Home = ({ users }) => {
               <>
                 <NewPost />
                 <Flex align="center" position="relative">
-                  <Divider padding="0.2rem" w="10rem">
-                    <SortMenu
-                      sortingBy={sortingBy}
-                      setSortingBy={setSortingBy}
-                    />
-                  </Divider>
+                  <Divider padding="0.2rem" w="10rem"></Divider>
+                  <SortMenu sortingBy={sortingBy} setSortingBy={setSortingBy} />
                 </Flex>
               </>
             )}

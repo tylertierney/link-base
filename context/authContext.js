@@ -77,6 +77,22 @@ const AuthContextProvider = ({ children }) => {
 
   const signup = (email, password, username) => {
     setIsLoading(true);
+    if (username.includes(" ")) {
+      setError({ message: "Username must not contain spaces" });
+      setIsLoading(false);
+      return;
+    }
+    if (username.length < 6) {
+      setError({ message: "Username must be 6 characters minimum." });
+      setIsLoading(false);
+      return;
+    }
+    if (username.length > 20) {
+      setError({ message: "That username is too long (max 20 characters)" });
+      setIsLoading(false);
+      return;
+    }
+
     auth
       .signup(email, password, {
         username: username,
@@ -115,6 +131,7 @@ const AuthContextProvider = ({ children }) => {
     authReady,
     error,
     isLoading,
+    setError,
   };
 
   return (

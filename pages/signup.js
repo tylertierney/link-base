@@ -52,8 +52,6 @@ const SignUp = ({ users }) => {
             p={{ base: 4, sm: 6, md: 8 }}
             spacing={{ base: 8 }}
             maxW={{ lg: "lg" }}
-            // maxH="90vh"
-            // overflowY="scroll"
           >
             <Stack spacing={4} m="0">
               <Heading
@@ -81,11 +79,17 @@ const SignUp = ({ users }) => {
             <Box>
               <Stack spacing={3}>
                 <Flex direction="column" fontSize="0.8rem">
-                  <FormLabel fontSize="inherit" m={0}>
-                    Username
-                  </FormLabel>
+                  <Flex align="center">
+                    <FormLabel fontSize="inherit" m={0}>
+                      Username
+                    </FormLabel>
+                    <Text fontSize="0.6rem" color="gray.400">
+                      &nbsp;(Minimum 6 characters, no spaces)
+                    </Text>
+                  </Flex>
                   <FormControl isRequired id="username" isInvalid={error}>
                     <Input
+                      autoComplete="username"
                       placeholder="coolguy96"
                       bg={"gray.100"}
                       border={0}
@@ -105,6 +109,7 @@ const SignUp = ({ users }) => {
                   </FormLabel>
                   <FormControl isRequired id="email" isInvalid={error}>
                     <Input
+                      autoComplete="email"
                       placeholder="coolguy96@email.com"
                       bg={"gray.100"}
                       border={0}
@@ -128,6 +133,7 @@ const SignUp = ({ users }) => {
                   </FormLabel>
                   <FormControl isRequired id="password" isInvalid={error}>
                     <Input
+                      autoComplete="new-password"
                       placeholder="*******"
                       bg={"gray.100"}
                       border={0}

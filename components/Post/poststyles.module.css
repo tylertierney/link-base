@@ -1,0 +1,14 @@
+.postText {
+  display: -webkit-box;
+  /* -webkit-line-clamp: 3; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.clamp {
+  -webkit-line-clamp: 3;
+}
+
+.noclamp {
+  -webkit-line-clamp: 30;
+}

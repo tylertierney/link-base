@@ -168,7 +168,7 @@ const NewPost = () => {
                   <FormHelperText fontSize="inherit"></FormHelperText>
                   <Alert color="gray.600" status="info">
                     <AlertIcon />
-                    Currently, linkBase doesn not support local file uploads. To
+                    Currently, linkBase does not support local file uploads. To
                     post a photo, paste the url to the image.
                   </Alert>
                   <InputGroup size="sm">

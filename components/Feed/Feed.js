@@ -19,6 +19,9 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   console.log(sortingBy);
 
   const sortPosts = (postArray) => {
+    if (postArray === undefined) {
+      return;
+    }
     if (sortingBy === "popular") {
       postArray.sort((a, b) => {
         return b.props.post.likes.length - a.props.post.likes.length;

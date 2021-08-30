@@ -23,16 +23,27 @@ import { GoLocation } from "react-icons/go";
 
 import { BsThreeDots } from "react-icons/bs";
 
+import PostMenu from "./PostMenu/PostMenu";
+
+import poststyles from "./poststyles.module.css";
+
 const Post = ({ postedBy, post }) => {
   const { user } = useUser();
 
   const [isLiked, setIsLiked] = useState(false);
+  const [seeingMore, setSeeingMore] = useState(false);
+  const [needsTruncation, setNeedsTruncation] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     for (const likedby of post.likes) {
       if (likedby === user.id) {
         setIsLiked(true);
       }
+    }
+
+    if (post.text.length > 196) {
+      setNeedsTruncation(true);
     }
   }, []);
 
@@ -107,58 +118,87 @@ const Post = ({ postedBy, post }) => {
           ) : (
             <></>
           )}
-          <Button
-            size="sm"
-            variant="ghost"
-            color="gray.500"
-            _focus={{ outline: "none" }}
-            p="0 0.2rem"
-            m="0 0 0 0.3rem"
-          >
-            <Icon as={BsThreeDots} w={7} h={7} />
-          </Button>
+          <PostMenu isHidden={isHidden} setIsHidden={setIsHidden} />
         </Flex>
       </Flex>
-      {post.text && <Divider m="0.3rem 0" />}
-      <Flex direction="column">
-        {post.text && (
-          <Text p="0.5rem 0.8rem 0.5rem 0.8rem" userSelect="none">
-            {post.text}
-          </Text>
-        )}
-        {post.photoURL && (
-          <Image alt="user uploaded image" width="100%" src={post.photoURL} />
-        )}
-        <Flex
-          justify="space-between"
-          align="center"
-          color="gray.400"
-          m="0.6rem 0 0 0"
-          userSelect="none"
-          p="0 0.8rem"
-        >
-          <Flex justify="space-between" align="flex-start">
-            <Flex onClick={() => handleLike()}>
-              {isLiked ? (
-                <Icon
-                  as={FaThumbsUp}
-                  fontSize="1.1rem"
-                  color="blue.600"
-                  cursor="pointer"
-                />
-              ) : (
-                <Icon as={FiThumbsUp} fontSize="1.1rem" cursor="pointer" />
-              )}
+      {/* {post.text && <Divider m="0.3rem 0" />} */}
+      {!isHidden && (
+        <>
+          {post.text && <Divider m="0.3rem 0" />}
+          <Flex direction="column">
+            {post.text && (
+              <>
+                <Text
+                  className={`${poststyles.postText} ${
+                    seeingMore ? poststyles.noclamp : poststyles.clamp
+                  }`}
+                  pl="0.8rem"
+                  pr="0.6rem"
+                  pb="0.3rem"
+                  maxW="100%"
+                  userSelect="none"
+                >
+                  {post.text}
+                </Text>
+                {needsTruncation && (
+                  <Text
+                    p="0 0.8rem 0 0.8rem"
+                    textAlign="right"
+                    decoration="underline"
+                    color="gray.500"
+                    userSelect="none"
+                  >
+                    <Text
+                      as="span"
+                      cursor="pointer"
+                      onClick={() => setSeeingMore(!seeingMore)}
+                      fontSize="0.6rem"
+                    >
+                      See {seeingMore ? "less" : "more"}
+                    </Text>
+                  </Text>
+                )}
+              </>
+            )}
+            {post.photoURL && (
+              <Image
+                alt="user uploaded image"
+                width="100%"
+                src={post.photoURL}
+              />
+            )}
+            <Flex
+              justify="space-between"
+              align="center"
+              color="gray.400"
+              m="0.6rem 0 0 0"
+              userSelect="none"
+              p="0 0.8rem"
+            >
+              <Flex justify="space-between" align="flex-start">
+                <Flex onClick={() => handleLike()}>
+                  {isLiked ? (
+                    <Icon
+                      as={FaThumbsUp}
+                      fontSize="1.1rem"
+                      color="blue.600"
+                      cursor="pointer"
+                    />
+                  ) : (
+                    <Icon as={FiThumbsUp} fontSize="1.1rem" cursor="pointer" />
+                  )}
+                </Flex>
+                <Text p="0 0 0 0.2rem" fontSize="0.8rem">
+                  {numberOfLikes}
+                </Text>
+              </Flex>
+              <Text fontSize="0.6rem" as={"p"} textAlign="right">
+                {convertDate(post.posted_at)}
+              </Text>
             </Flex>
-            <Text p="0 0 0 0.2rem" fontSize="0.8rem">
-              {numberOfLikes}
-            </Text>
           </Flex>
-          <Text fontSize="0.6rem" as={"p"} textAlign="right">
-            {convertDate(post.posted_at)}
-          </Text>
-        </Flex>
-      </Flex>
+        </>
+      )}
     </Container>
   );
 };

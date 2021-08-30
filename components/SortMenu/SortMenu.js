@@ -24,7 +24,7 @@ import sortstyles from "./sortmenu.module.css";
 
 const SortMenu = ({ textcolor, sortingBy, setSortingBy }) => {
   return (
-    <Menu autoSelect="false">
+    <Menu autoSelect={false}>
       {({ isOpen }) => (
         <>
           <MenuButton

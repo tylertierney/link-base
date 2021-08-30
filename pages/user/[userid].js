@@ -9,6 +9,7 @@ import {
   VStack,
   Divider,
   Button,
+  Icon,
 } from "@chakra-ui/react";
 import Feed from "../../components/Feed/Feed";
 import { useEffect, useState } from "react";
@@ -18,6 +19,8 @@ import { EditIcon } from "@chakra-ui/icons";
 import accountPageStyles from "./accountPage.module.css";
 
 import SortMenu from "../../components/SortMenu/SortMenu";
+
+import { BsPersonPlus } from "react-icons/bs";
 
 const AccountPage = ({ userdata, users }) => {
   const { user, logout } = useUser();
@@ -91,7 +94,13 @@ const AccountPage = ({ userdata, users }) => {
             </Flex>
           </Button>
         </Flex>
-        <Flex direction="row" justify="center" align="center" w="100%">
+        <Flex
+          position="relative"
+          direction="row"
+          justify="center"
+          align="center"
+          w="100%"
+        >
           <Text
             as={"h1"}
             bgGradient="linear(to-r, red.400,pink.400)"
@@ -100,6 +109,18 @@ const AccountPage = ({ userdata, users }) => {
           >
             <Heading>{userdata.username}</Heading>
           </Text>
+          {!isEditable && (
+            <Button
+              position="absolute"
+              right="1rem"
+              fontSize="0.8rem"
+              size="sm"
+              colorScheme="blue"
+            >
+              Follow&nbsp;
+              <Icon as={BsPersonPlus} />
+            </Button>
+          )}
         </Flex>
 
         <Divider />
