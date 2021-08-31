@@ -69,7 +69,7 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
         <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
           {postArray.length === 0 ? (
             <Heading textAlign="center" fontSize="1.2rem" color="gray.400">
-              This user hasn't posted anything, yet
+              This user hasn&apos;t posted anything yet
             </Heading>
           ) : (
             postArray
