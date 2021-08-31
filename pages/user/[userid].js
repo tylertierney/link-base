@@ -27,6 +27,8 @@ import { BsPersonPlus } from "react-icons/bs";
 
 import EditProfile from "../../components/EditProfile/EditProfile";
 
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+
 const AccountPage = ({ userdata, users }) => {
   const { user, logout } = useUser();
 
@@ -98,14 +100,14 @@ const AccountPage = ({ userdata, users }) => {
             border="2px solid lightgray"
             boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 0.7)"
           ></Image>
-          <EditProfile isEditable={isEditable} />
+          {/* <EditProfile isEditable={isEditable} /> */}
         </Flex>
         <Flex
           position="relative"
           direction="row"
           justify="center"
           align="center"
-          w="100%"
+          className={accountPageStyles.headerAndFollowBtn}
         >
           <Text
             as={"h1"}
@@ -116,7 +118,9 @@ const AccountPage = ({ userdata, users }) => {
           >
             <Heading fontSize={usernameSize}>{userdata.username}</Heading>
           </Text>
-          {!isEditable && (
+          {isEditable ? (
+            <EditProfile isEditable={isEditable} />
+          ) : (
             <Button
               position="absolute"
               fontSize="0.8rem"
@@ -129,10 +133,81 @@ const AccountPage = ({ userdata, users }) => {
             </Button>
           )}
         </Flex>
+        <Tabs colorScheme="red" isFitted>
+          <TabList>
+            <Tab
+              color="gray.400"
+              _focus={{ outline: "none", boxShadow: "none" }}
+              _active={{ background: "transparent" }}
+            >
+              Posts
+            </Tab>
+            <Tab
+              color="gray.400"
+              _focus={{ outline: "none", boxShadow: "none" }}
+              _active={{ background: "transparent" }}
+            >
+              About
+            </Tab>
+          </TabList>
 
+          <TabPanels>
+            <TabPanel>
+              <VStack
+                overflowY="scroll"
+                minH="200vh"
+                className="hideScrollbar"
+                p="0.5rem 0.8rem 2rem 0.8rem"
+                position="relative"
+              >
+                <Flex
+                  position="relative"
+                  pb="0.5rem"
+                  m="0 2rem 0 2rem"
+                  alignSelf="flex-end"
+                >
+                  <SortMenu
+                    textcolor="dark"
+                    sortingBy={sortingBy}
+                    setSortingBy={setSortingBy}
+                  />
+                </Flex>
+                <Feed
+                  sortingBy={sortingBy}
+                  userdata={userdata}
+                  isProfilePage={true}
+                  users={users}
+                />
+              </VStack>
+            </TabPanel>
+            <TabPanel>
+              <VStack
+                overflowY="scroll"
+                minH="200vh"
+                // className="hideScrollbar"
+                className={`${accountPageStyles.tabs} hideScrollbar`}
+                p="0.5rem 0.8rem 2rem 0.8rem"
+                position="relative"
+              >
+                <Flex
+                  position="relative"
+                  direction="column"
+                  pb="0.5rem"
+                  m="0 2rem 0 2rem"
+                  w="100%"
+                >
+                  <Heading fontSize="1.2rem" color="gray.600">
+                    Bio
+                  </Heading>
+                  <Text>{userdata.bio}</Text>
+                </Flex>
+              </VStack>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
         <Divider />
 
-        <VStack
+        {/* <VStack
           overflowY="scroll"
           minH="200vh"
           className="hideScrollbar"
@@ -141,7 +216,6 @@ const AccountPage = ({ userdata, users }) => {
         >
           <Flex
             position="relative"
-            // border="solid red 1px"
             pb="0.5rem"
             m="0 2rem 0 2rem"
             alignSelf="flex-end"
@@ -158,7 +232,7 @@ const AccountPage = ({ userdata, users }) => {
             isProfilePage={true}
             users={users}
           />
-        </VStack>
+        </VStack> */}
       </VStack>
     </Layout>
   );

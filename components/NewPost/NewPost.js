@@ -23,12 +23,14 @@ import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
-import { HiOutlinePhotograph } from "react-icons/hi";
+import { HiOutlinePhotograph, HiPhotograph } from "react-icons/hi";
 import { GoLocation } from "react-icons/go";
 
 import { formatLocationData } from "../../helperfunctions";
 
 import { CheckCircleIcon } from "@chakra-ui/icons";
+
+import { TiLocationOutline, TiLocation } from "react-icons/ti";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
@@ -80,6 +82,10 @@ const NewPost = () => {
   };
 
   const getLocation = () => {
+    if (location) {
+      setLocation("");
+      return;
+    }
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         setIsLoading(true);
@@ -167,7 +173,7 @@ const NewPost = () => {
                 _focus={{ outline: "red" }}
                 disabled={isLoading}
               />
-              <FormErrorMessage userSelect="none" fontSize="inherit">
+              <FormErrorMessage userSelect="none" fontSize="0.6rem">
                 {error}
               </FormErrorMessage>
             </FormControl>
@@ -209,7 +215,11 @@ const NewPost = () => {
                 variant="ghost"
                 onClick={() => setShowPhotoURLinput(!showPhotoURLinput)}
               >
-                <Icon as={HiOutlinePhotograph} w={8} h={8} />
+                {photoURL ? (
+                  <Icon as={HiPhotograph} w={8} h={8} />
+                ) : (
+                  <Icon as={HiOutlinePhotograph} w={8} h={8} />
+                )}
               </Button>
               <Button
                 p="0.1rem"
@@ -218,9 +228,13 @@ const NewPost = () => {
                 _focus={{ outline: "none" }}
                 colorScheme="blue"
                 variant="ghost"
-                onClick={getLocation()}
+                onClick={() => getLocation()}
               >
-                <Icon as={GoLocation} w={6} h={6} />
+                {location ? (
+                  <Icon as={TiLocation} w={7} h={7} />
+                ) : (
+                  <Icon as={TiLocationOutline} w={7} h={7} />
+                )}
               </Button>
             </Flex>
             <Button

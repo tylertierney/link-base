@@ -9,26 +9,21 @@ const handler = async (req, res) => {
 
   mongoose.connect(process.env.MONGODB_URI);
 
-  if (req.method === "PUT") {
-    // const newpost_obj = new Post({
-    //   userid: req.body.userid,
-    //   text: req.body.text,
-    //   photoURL: req.body.photo_url,
-    //   author: req.body.author,
-    //   posted_at: Date.now(),
-    //   comments: [],
-    //   likes: [],
-    //   location: req.body.location,
-    // });
+  if (req.method === "POST") {
+    console.log(req.body);
 
-    const founduser = await User.findOneAndUpdate(
-      {
-        id: req.body.userid,
-      },
-      {
-        prof_pic_url: req.body.profURL,
-      }
-    );
+    const updateuser_obj = {};
+
+    // const founduser = await User.findOneAndUpdate(
+    //   {
+    //     id: req.body.userid,
+    //   },
+    //   {
+    //     prof_pic_url: req.body.prof_pic_url,
+    //     cover_pic_url: req.body.cover_photo_url,
+    //     bio: req.body.bio
+    //   }
+    // );
 
     res
       .status(200)

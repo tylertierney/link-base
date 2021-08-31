@@ -36,6 +36,8 @@ import axios from "axios";
 
 import { useUser } from "../../context/authContext";
 
+import accountPageStyles from "../../pages/user/accountPage.module.css";
+
 const EditProfile = ({ isEditable }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -49,7 +51,15 @@ const EditProfile = ({ isEditable }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
+
+    axios.post("/api/updateuser", {
+      userid: user.id,
+      prof_pic_url: profilePicURL,
+      cover_photo_url: coverPhotoURL,
+      bio: aboutBio,
+    });
+
+    return;
 
     onClose();
   };
@@ -59,13 +69,14 @@ const EditProfile = ({ isEditable }) => {
       <Button
         color="gray.400"
         position="absolute"
-        bottom="-3rem"
-        right="6rem"
+        // bottom="-3rem"
+        // right="6rem"
         size="sm"
         variant="ghost"
         display={isEditable ? "" : "none"}
         onClick={onOpen}
         _focus={{ outline: "none" }}
+        className={accountPageStyles.followButton}
       >
         <Flex align="center">
           <Text>Edit&nbsp;</Text>
@@ -76,6 +87,7 @@ const EditProfile = ({ isEditable }) => {
         // maxW={["sm", "md", "lg"]}
         autoFocus={false}
         motionPreset="slideInBottom"
+        allowPinchZoom={true}
         isOpen={isOpen}
         onClose={onClose}
       >
@@ -109,12 +121,12 @@ const EditProfile = ({ isEditable }) => {
                     Profile Picture
                   </FormHelperText>
                   <Stack>
-                    <InputGroup size="sm">
+                    <InputGroup size="sm" fontSize="1rem">
                       <InputLeftAddon fontSize="inherit" color="gray.400">
                         https://
                       </InputLeftAddon>
                       <Input
-                        fontSize="inherit"
+                        // fontSize="1rem"
                         onChange={(e) => setProfilePicURL(e.target.value)}
                         placeholder="www.unsplash.com/1234"
                         value={profilePicURL}
@@ -130,12 +142,11 @@ const EditProfile = ({ isEditable }) => {
                     Cover Photo
                   </FormHelperText>
                   <Stack>
-                    <InputGroup size="sm">
+                    <InputGroup size="sm" fontSize="1rem">
                       <InputLeftAddon fontSize="inherit" color="gray.400">
                         https://
                       </InputLeftAddon>
                       <Input
-                        fontSize="inherit"
                         onChange={(e) => setCoverPhotoURL(e.target.value)}
                         placeholder="www.unsplash.com/5678"
                         value={coverPhotoURL}
@@ -167,7 +178,7 @@ const EditProfile = ({ isEditable }) => {
                   <Stack>
                     <InputGroup size="sm">
                       <Textarea
-                        fontSize="0.8rem"
+                        fontSize="1rem"
                         onChange={(e) => setAboutBio(e.target.value)}
                         value={aboutBio}
                         disabled={isLoading}

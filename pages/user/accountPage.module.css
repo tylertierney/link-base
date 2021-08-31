@@ -3,17 +3,17 @@
 }
 
 .followButton {
-  right: 1rem;
+  right: 0rem;
 }
 
-.smallUsername {
-  font-size: 0.2rem;
+.headerAndFollowBtn {
+  max-width: 600px;
+  width: 100%;
 }
 
-/* .coverPhoto{
-    border-bottom-left-radius: "lg";
-    border-bottom-right-radius: "lg";
-} */
+.tabs {
+  min-width: 600px;
+}
 
 @media only screen and (max-width: 600px) {
   .header {
@@ -21,7 +21,16 @@
   }
 
   .followButton {
+    position: absolute;
     top: -4rem;
     right: 0.6rem;
+  }
+
+  .headerAndFollowBtn {
+    width: 100%;
+  }
+
+  .tabs {
+    min-width: 300px;
   }
 }
