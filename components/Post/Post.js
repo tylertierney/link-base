@@ -27,6 +27,8 @@ import PostMenu from "./PostMenu/PostMenu";
 
 import poststyles from "./poststyles.module.css";
 
+import PostPanel from "../PostPanel/PostPanel";
+
 const Post = ({ postedBy, post }) => {
   const { user } = useUser();
 
@@ -34,6 +36,7 @@ const Post = ({ postedBy, post }) => {
   const [seeingMore, setSeeingMore] = useState(false);
   const [needsTruncation, setNeedsTruncation] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [panelIsShowing, setPanelIsShowing] = useState(false);
 
   useEffect(() => {
     for (const likedby of post.likes) {
@@ -198,6 +201,10 @@ const Post = ({ postedBy, post }) => {
               </Text>
             </Flex>
           </Flex>
+          <PostPanel
+            panelIsShowing={panelIsShowing}
+            setPanelIsShowing={setPanelIsShowing}
+          />
         </>
       )}
     </Container>

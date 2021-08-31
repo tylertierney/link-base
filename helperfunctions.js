@@ -11,3 +11,10 @@ export const formatLocationData = (location_api_response) => {
   const state_abbreviation = state_code.substr(3, state_code.length);
   return city + ", " + state_abbreviation;
 };
+
+export const checkForSmallScreen = () => {
+  if (window.innerWidth < 600) {
+    return true;
+  }
+  return false;
+};
