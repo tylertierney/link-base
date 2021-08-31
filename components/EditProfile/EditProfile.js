@@ -59,8 +59,6 @@ const EditProfile = ({ isEditable }) => {
       bio: aboutBio,
     });
 
-    return;
-
     onClose();
   };
 

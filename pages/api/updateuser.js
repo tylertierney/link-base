@@ -27,16 +27,16 @@ const handler = async (req, res) => {
 
     console.log(updateuser_obj);
 
-    // const founduser = await User.findOneAndUpdate(
-    //   {
-    //     id: req.body.userid,
-    //   },
-    //   {
-    //     prof_pic_url: req.body.prof_pic_url,
-    //     cover_pic_url: req.body.cover_photo_url,
-    //     bio: req.body.bio
-    //   }
-    // );
+    const founduser = await User.findOneAndUpdate(
+      {
+        id: req.body.userid,
+      },
+      {
+        prof_pic_url: req.body.prof_pic_url,
+        cover_pic_url: req.body.cover_photo_url,
+        bio: req.body.bio,
+      }
+    );
 
     res
       .status(200)
