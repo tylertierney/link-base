@@ -18,19 +18,22 @@ const handler = async (req, res) => {
     });
     const foundpost = founduser.posts.id(req.query.postid);
 
-    if (req.body.addOrRemove === "add") {
-      foundpost.likes.push(req.body.currentuser);
-      founduser.save();
-    } else {
-      const indexToRemove = foundpost.likes.indexOf(req.body.currentuser);
-      foundpost.likes.splice(indexToRemove, 1);
-      founduser.save();
+    if (req.body.likeOrComment === "like") {
+      if (req.body.addOrRemove === "add") {
+        foundpost.likes.push(req.body.currentuser);
+      } else {
+        const indexToRemove = foundpost.likes.indexOf(req.body.currentuser);
+        foundpost.likes.splice(indexToRemove, 1);
+      }
+    } else if (req.body.likeOrComment === "comment") {
+      foundpost.comments.push(req.body.commentObject);
     }
+    founduser.save();
 
-    console.log(foundpost.likes);
+    console.log(foundpost.comments);
 
     res.status(200).json({
-      message: "A like has been added to this post",
+      message: "A like or comment on this post has changed",
     });
   }
 };

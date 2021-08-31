@@ -19,7 +19,9 @@ export const PostSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  comments: [{ body: String, author: String, date: Date }],
+  comments: [
+    { text: String, author: String, author_prof_pic: String, date: Date },
+  ],
   likes: [String],
   location: {
     type: String,

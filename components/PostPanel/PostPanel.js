@@ -11,7 +11,7 @@ import postpanelstyles from "./postpanel.module.css";
 const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(checkForSmallScreen());
   const [boxIsMoving, setBoxIsMoving] = useState(false);
-  const [modalYValue, setModalYValue] = useState(0);
+  const [modalYValue, setModalYValue] = useState(90);
   const [slideAnimation, setSlideAnimation] = useState(postpanelstyles.slidein);
 
   const hidePanel = (e) => {
@@ -30,16 +30,16 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
     let box = e.currentTarget;
     let newBoxY;
     if (boxIsMoving) {
-      if (e.clientY) {
-        // MOUSE movement
-        let boxY = parseInt(box.style.top, 10);
-        setModalYValue(boxY);
-        newBoxY = boxY + e.movementY + "px";
-      } else {
-        // TOUCH movement
-        newBoxY =
-          e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
-      }
+      //   if (e.clientY) {
+      //     console.log("mouse movement true");
+      //     // MOUSE movement
+      //     let boxY = parseInt(box.style.top, 10);
+      //     setModalYValue(boxY);
+      //     newBoxY = boxY + e.movementY + "px";
+      //   } else {
+      // TOUCH movement
+      newBoxY = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
+      //   }
       box.style.setProperty("top", newBoxY);
     }
   };
@@ -48,6 +48,8 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
     e.stopPropagation();
     let box = e.currentTarget;
     setBoxIsMoving(false);
+    console.log(modalYValue, parseInt(box.style.top, 10));
+
     if (parseInt(box.style.top, 10) > modalYValue) {
       setSlideAnimation(postpanelstyles.slideout);
       window.setTimeout(() => {
@@ -55,7 +57,7 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
         hidePanel(e);
       }, 300);
     } else {
-      box.style.setProperty("top", "50px");
+      box.style.setProperty("top", modalYValue);
     }
   };
 
@@ -77,11 +79,12 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
           position="fixed"
           top="2rem"
           left="0"
-          minH="900vh"
+          minH="100vh"
           minw="100vw"
-          backgroundColor="blackAlpha.500"
+          backgroundColor="blackAlpha.600"
           zIndex="2"
           onClick={(e) => setPanelIsShowing(false)}
+          className={postpanelstyles.smoothTransition}
         >
           <Flex
             backgroundColor="gray.100"
@@ -142,6 +145,7 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
               onTouchMove={(e) => e.stopPropagation()}
               onTouchEnd={(e) => e.stopPropagation()}
               className="hideScrollbar"
+              overflowX="hidden"
             >
               <Post post={post} postedBy={postedBy} isPanel={true} />
               <p style={{ backgroundColor: "white" }}>

@@ -28,7 +28,7 @@ import {
 
 import { EditIcon } from "@chakra-ui/icons";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { SpinnerIcon } from "@chakra-ui/icons";
 
@@ -68,13 +68,29 @@ const EditProfile = ({ isEditable }) => {
     fieldsAreEmpty = true;
   }
 
+  useEffect(() => {
+    if (user.prof_pic_url === undefined) {
+      setProfilePicURL("");
+    } else {
+      setProfilePicURL(user.prof_pic_url);
+    }
+    if (user.cover_photo_url === undefined) {
+      setCoverPhotoURL("");
+    } else {
+      setCoverPhotoURL(user.cover_photo_url);
+    }
+    if (user.bio === undefined) {
+      setAboutBio("");
+    } else {
+      setAboutBio(user.bio);
+    }
+  }, []);
+
   return (
     <>
       <Button
         color="gray.400"
         position="absolute"
-        // bottom="-3rem"
-        // right="6rem"
         size="sm"
         variant="ghost"
         display={isEditable ? "" : "none"}

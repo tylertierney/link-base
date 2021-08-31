@@ -29,10 +29,15 @@ import poststyles from "./poststyles.module.css";
 
 import PostPanel from "../PostPanel/PostPanel";
 
+import { FaRegComments, FaComments } from "react-icons/fa";
+
+import CommentSection from "../CommentSection/CommentSection";
+
 const Post = ({ postedBy, post, isPanel }) => {
   const { user } = useUser();
 
   const [isLiked, setIsLiked] = useState(false);
+  const [hasCommented, setHasCommented] = useState(false);
   const [seeingMore, setSeeingMore] = useState(false);
   const [needsTruncation, setNeedsTruncation] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -60,6 +65,7 @@ const Post = ({ postedBy, post, isPanel }) => {
       post: post,
       currentuser: user.id,
       addOrRemove: addOrRemove,
+      likeOrComment: "like",
     });
 
     setIsLiked(!isLiked);
@@ -77,13 +83,23 @@ const Post = ({ postedBy, post, isPanel }) => {
     }
   }
 
+  let numberOfComments = post.comments.length;
+  if (hasCommented) {
+    numberOfComments = post.comments.length + 1;
+  } else {
+    if (post.comments.length === 0) {
+      numberOfComments = "";
+    } else {
+      numberOfComments = post.comments.length;
+    }
+  }
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
       key={post._id}
-      // borderRadius="md"
       borderRadius={isPanel ? "none" : "lg"}
       color="brand.text_dark"
       fontSize="0.7rem"
@@ -99,9 +115,11 @@ const Post = ({ postedBy, post, isPanel }) => {
           <Flex align="center" cursor="pointer">
             <Avatar
               size="sm"
-              border="solid lightgray 1px"
+              // border="solid #F0F0F0 1px"
+              outline="none"
               name={post.author}
               src={postedBy.prof_pic_url}
+              boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.1)"
             ></Avatar>
             <Text ml="0.8rem">{post.author}</Text>
           </Flex>
@@ -195,14 +213,42 @@ const Post = ({ postedBy, post, isPanel }) => {
                     <Icon as={FiThumbsUp} fontSize="1.1rem" cursor="pointer" />
                   )}
                 </Flex>
-                <Text p="0 0 0 0.2rem" fontSize="0.8rem">
+
+                <Text p="0 0 0 0.2rem" fontSize="0.8rem" mr="0.5rem">
                   {numberOfLikes}
+                </Text>
+                <Flex onClick={() => setPanelIsShowing(true)}>
+                  {hasCommented ? (
+                    <Icon
+                      color="blue.600"
+                      as={FaComments}
+                      fontSize="1.1rem"
+                      cursor="pointer"
+                    />
+                  ) : (
+                    <Icon
+                      as={FaRegComments}
+                      fontSize="1.1rem"
+                      color="gray.400"
+                      cursor="pointer"
+                    />
+                  )}
+                </Flex>
+                <Text p="0 0 0 0.2rem" fontSize="0.8rem" mr="0.5rem">
+                  {numberOfComments}
                 </Text>
               </Flex>
               <Text fontSize="0.6rem" as={"p"} textAlign="right">
                 {convertDate(post.posted_at)}
               </Text>
             </Flex>
+            <Divider p="0.2rem 0" />
+            <CommentSection
+              hasCommented={hasCommented}
+              setHasCommented={setHasCommented}
+              post={post}
+              isPanel={isPanel}
+            />
             <PostPanel
               panelIsShowing={panelIsShowing}
               setPanelIsShowing={setPanelIsShowing}

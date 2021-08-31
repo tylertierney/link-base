@@ -17,7 +17,7 @@ const Navbar = () => {
           h="2.2rem"
           align="center"
           boxShadow="0px 3px 10px 1px rgb(0, 0, 0, 0.2)"
-          zIndex="1"
+          zIndex="3"
           position="fixed"
           top="0"
           left="0"

@@ -24,17 +24,22 @@ const PostMenu = ({ isHidden, setIsHidden }) => {
         fontSize="0.8rem"
         color="brand.1000"
         _focus={{ outline: "none" }}
+        size="sm"
+        variant="ghost"
+        color="gray.500"
+        p="0 0.2rem"
+        m="0 0 0 0.3rem"
       >
-        <Button
+        {/* <Button
           size="sm"
           variant="ghost"
           color="gray.500"
           _focus={{ outline: "none" }}
           p="0 0.2rem"
           m="0 0 0 0.3rem"
-        >
-          <Icon as={BsThreeDots} w={7} h={7} />
-        </Button>
+        > */}
+        <Icon as={BsThreeDots} w={7} h={7} />
+        {/* </Button> */}
       </MenuButton>
       <MenuList>
         <MenuItem onClick={() => setIsHidden(!isHidden)}>

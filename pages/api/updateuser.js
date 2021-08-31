@@ -25,7 +25,7 @@ const handler = async (req, res) => {
       updateuser_obj["bio"] = req.body.bio;
     }
 
-    console.log(updateuser_obj);
+    console.log(req.body.prof_pic_url);
 
     const founduser = await User.findOneAndUpdate(
       {
