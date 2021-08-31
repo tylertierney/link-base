@@ -29,7 +29,7 @@ import poststyles from "./poststyles.module.css";
 
 import PostPanel from "../PostPanel/PostPanel";
 
-const Post = ({ postedBy, post }) => {
+const Post = ({ postedBy, post, isPanel }) => {
   const { user } = useUser();
 
   const [isLiked, setIsLiked] = useState(false);
@@ -83,7 +83,8 @@ const Post = ({ postedBy, post }) => {
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
       key={post._id}
-      borderRadius="md"
+      // borderRadius="md"
+      borderRadius={isPanel ? "none" : "lg"}
       color="brand.text_dark"
       fontSize="0.7rem"
       p="0.5rem 0rem"
@@ -124,11 +125,11 @@ const Post = ({ postedBy, post }) => {
           <PostMenu isHidden={isHidden} setIsHidden={setIsHidden} />
         </Flex>
       </Flex>
-      {/* {post.text && <Divider m="0.3rem 0" />} */}
+
       {!isHidden && (
         <>
           {post.text && <Divider m="0.3rem 0" />}
-          <Flex direction="column">
+          <Flex direction="column" position="relative">
             {post.text && (
               <>
                 <Text
@@ -141,6 +142,7 @@ const Post = ({ postedBy, post }) => {
                   mb="0.3rem"
                   maxW="100%"
                   userSelect="none"
+                  onClick={() => setPanelIsShowing(true)}
                 >
                   {post.text}
                 </Text>
@@ -169,6 +171,7 @@ const Post = ({ postedBy, post }) => {
                 alt="user uploaded image"
                 width="100%"
                 src={post.photoURL}
+                onClick={() => setPanelIsShowing(true)}
               />
             )}
             <Flex
@@ -200,11 +203,13 @@ const Post = ({ postedBy, post }) => {
                 {convertDate(post.posted_at)}
               </Text>
             </Flex>
+            <PostPanel
+              panelIsShowing={panelIsShowing}
+              setPanelIsShowing={setPanelIsShowing}
+              postedBy={postedBy}
+              post={post}
+            />
           </Flex>
-          <PostPanel
-            panelIsShowing={panelIsShowing}
-            setPanelIsShowing={setPanelIsShowing}
-          />
         </>
       )}
     </Container>

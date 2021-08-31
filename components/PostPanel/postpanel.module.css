@@ -1,0 +1,49 @@
+.handle {
+  /* background-color: rgb(20, 20, 20); */
+  background-color: rgb(210, 210, 210);
+}
+
+.modalContainer {
+  -webkit-overflow-scrolling: touch;
+  animation-name: slidein;
+  animation-duration: 0.27s;
+  animation-timing-function: ease-in-out;
+  color: blue;
+}
+
+.modalSlideOut {
+  animation-name: slideout;
+  animation-duration: 0.27s;
+  animation-timing-function: ease-in-out;
+}
+
+.slidein {
+  animation-name: slidein;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  top: 60px;
+}
+
+.slideout {
+  animation-name: slideout;
+  animation-duration: 0.3s;
+  top: 100vh;
+}
+
+@keyframes slidein {
+  from {
+    top: 100%;
+  }
+  to {
+    top: 50%;
+  }
+}
+
+@keyframes slideout {
+  from {
+    top: 50%;
+  }
+  to {
+    top: 100%;
+  }
+}

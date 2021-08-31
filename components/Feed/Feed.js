@@ -39,19 +39,30 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   if (isProfilePage) {
     if (user.id === userdata.id) {
       postArray = user.posts.map((post) => {
-        return <Post postedBy={user} key={post._id} post={post} />;
+        return (
+          <Post isPanel={false} postedBy={user} key={post._id} post={post} />
+        );
       });
       sortPosts(postArray);
     } else {
       postArray = userdata.posts.map((post) => {
-        return <Post postedBy={userdata} key={post._id} post={post} />;
+        return (
+          <Post
+            isPanel={false}
+            postedBy={userdata}
+            key={post._id}
+            post={post}
+          />
+        );
       });
       sortPosts(postArray);
     }
   } else {
     users.forEach((user) => {
       user.posts.forEach((post) => {
-        postArray.push(<Post postedBy={user} key={post._id} post={post} />);
+        postArray.push(
+          <Post isPanel={false} postedBy={user} key={post._id} post={post} />
+        );
       });
     });
     sortPosts(postArray);
