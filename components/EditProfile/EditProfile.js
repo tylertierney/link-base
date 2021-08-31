@@ -64,6 +64,12 @@ const EditProfile = ({ isEditable }) => {
     onClose();
   };
 
+  let fieldsAreEmpty;
+
+  if (!profilePicURL && !coverPhotoURL && !aboutBio) {
+    fieldsAreEmpty = true;
+  }
+
   return (
     <>
       <Button
@@ -209,7 +215,7 @@ const EditProfile = ({ isEditable }) => {
                 }}
                 _focus={{ outline: "none" }}
                 type="submit"
-                disabled={isLoading}
+                disabled={isLoading || fieldsAreEmpty}
               >
                 {isLoading ? (
                   <SpinnerIcon

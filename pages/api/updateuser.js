@@ -14,6 +14,19 @@ const handler = async (req, res) => {
 
     const updateuser_obj = {};
 
+    if (req.body.prof_pic_url) {
+      updateuser_obj["prof_pic_url"] = req.body.prof_pic_url;
+    }
+    if (req.body.cover_photo_url) {
+      updateuser_obj["cover_pic_url"] = req.body.cover_photo_url;
+    }
+
+    if (req.body.bio) {
+      updateuser_obj["bio"] = req.body.bio;
+    }
+
+    console.log(updateuser_obj);
+
     // const founduser = await User.findOneAndUpdate(
     //   {
     //     id: req.body.userid,
