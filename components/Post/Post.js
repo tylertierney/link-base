@@ -94,6 +94,14 @@ const Post = ({ postedBy, post, isPanel }) => {
     }
   }
 
+  const handleCommentIconClick = () => {
+    if (panelIsShowing) {
+      return;
+    } else {
+      setPanelIsShowing(true);
+    }
+  };
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -217,7 +225,10 @@ const Post = ({ postedBy, post, isPanel }) => {
                 <Text p="0 0 0 0.2rem" fontSize="0.8rem" mr="0.5rem">
                   {numberOfLikes}
                 </Text>
-                <Flex onClick={() => setPanelIsShowing(true)}>
+                <Flex
+                  // onClick={() => setPanelIsShowing(true)}
+                  onClick={handleCommentIconClick()}
+                >
                   {hasCommented ? (
                     <Icon
                       color="blue.600"

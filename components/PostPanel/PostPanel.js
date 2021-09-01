@@ -125,6 +125,9 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
               borderTopRadius="lg"
               backgroundColor="whiteAlpha.700"
               onClick={(e) => e.stopPropagation()}
+              boxShadow="0px 4px 20px 1px rgb(0, 0, 0, 0.2)"
+              // zIndex="4"
+              // border="solid red 2px"
             >
               <Flex
                 justify="center"
@@ -153,32 +156,7 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
               overflowX="hidden"
             >
               <Post post={post} postedBy={postedBy} isPanel={true} />
-              <p style={{ backgroundColor: "white" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla
-              </p>
-              <p style={{ backgroundColor: "white" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                sed do eiusmod tempor incididunt ut labore et dolore magna
-                aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                aute irure dolor in reprehenderit in voluptate velit esse cillum
-                dolore eu fugiat nulla
-              </p>
+              <p style={{ minHeight: "400px" }}></p>
             </Flex>
           </Flex>
         </Container>

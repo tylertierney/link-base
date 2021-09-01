@@ -24,11 +24,18 @@ const handler = async (req, res) => {
         foundpost.likes.splice(indexToRemove, 1);
       }
     } else if (req.body.likeOrComment === "comment") {
-      foundpost.comments.push(req.body.commentObject);
+      const commentObject = {
+        author_id: req.body.userid,
+        text: req.body.text,
+        author_username: req.body.author_username,
+        author_prof_pic: req.body.author_prof_pic,
+        date: Date.now(),
+      };
+      foundpost.comments.push(commentObject);
     }
     founduser.save();
 
-    console.log(foundpost.comments);
+    console.log(foundpost);
 
     res.status(200).json({
       message: "A like or comment on this post has changed",

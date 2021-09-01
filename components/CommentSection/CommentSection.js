@@ -14,8 +14,13 @@ import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
 import CommentPreview from "./CommentPreview";
+import Comment from "./Comment";
+import { useUser } from "../../context/authContext";
+
+import axios from "axios";
 
 const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
+  const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [commentText, setCommentText] = useState("");
 
@@ -24,23 +29,39 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
     axios.post(`/api/${post._id}`, {
       post: post,
       likeOrComment: "comment",
+      author_id: post.userid,
+      author_prof_pic: user.prof_pic_url,
+      author_username: user.username,
+      text: commentText,
     });
 
-    setIsLiked(!isLiked);
+    setHasCommented(true);
+    setCommentText("");
+    setIsLoading(false);
   };
+
+  // console.log(user);
+  // console.log(post);
 
   return (
     <>
       {isPanel ? (
-        <Flex p="0.4rem 0.3rem 0.2rem 0.5rem">
+        <Flex
+          backgroundColor="white"
+          p="0.4rem 0.3rem 0.2rem 0.5rem"
+          direction="column"
+        >
           <form onSubmit={(e) => handleNewComment(e)}>
             <FormControl>
               <Input
                 type="text"
                 backgroundColor="white"
-                variant="filled"
+                variant="outline"
                 placeholder="Say something!"
                 _focus={{ outline: "none" }}
+                border="1px solid lightgray"
+                value={commentText}
+                onChange={(e) => setCommentText(e.target.value)}
               ></Input>
               <InputRightElement h="100%">
                 <Button
@@ -72,6 +93,9 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
               </InputRightElement>
             </FormControl>
           </form>
+          <p style={{ minHeight: "20px" }}></p>
+          <Comment />
+          <Comment />
         </Flex>
       ) : (
         <CommentPreview

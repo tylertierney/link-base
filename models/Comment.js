@@ -8,8 +8,15 @@ const CommentSchema = new mongoose.Schema({
   author_username: {
     type: String,
   },
+  author_id: {
+    type: String,
+  },
   author_prof_pic: {
     type: String,
+  },
+  posted_date: {
+    type: Date,
+    default: Date.now,
   },
 });
 

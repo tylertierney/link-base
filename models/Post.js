@@ -20,7 +20,13 @@ export const PostSchema = new mongoose.Schema({
     default: Date.now,
   },
   comments: [
-    { text: String, author: String, author_prof_pic: String, date: Date },
+    {
+      text: String,
+      author_username: String,
+      author_id: String,
+      author_prof_pic: String,
+      date: Date,
+    },
   ],
   likes: [String],
   location: {
