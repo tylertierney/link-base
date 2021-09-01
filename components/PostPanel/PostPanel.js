@@ -52,10 +52,11 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
 
     if (parseInt(box.style.top, 10) > modalYValue) {
       setSlideAnimation(postpanelstyles.slideout);
-      // window.setTimeout(() => {
-      //   setPanelIsShowing(false);
-      //   hidePanel(e);
-      // }, 300);
+      window.setTimeout(() => {
+        setPanelIsShowing(false);
+        // hidePanel(e);
+        setSlideAnimation(postpanelstyles.slidein);
+      }, 200);
     } else {
       box.style.setProperty("top", modalYValue);
     }
@@ -84,7 +85,11 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
           backgroundColor="blackAlpha.600"
           zIndex="2"
           onClick={(e) => setPanelIsShowing(false)}
-          className={postpanelstyles.smoothTransition}
+          className={
+            panelIsShowing
+              ? postpanelstyles.smoothTransition
+              : postpanelstyles.blackOverlay
+          }
         >
           <Flex
             backgroundColor="gray.100"

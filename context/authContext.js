@@ -31,8 +31,8 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     if (auth.currentUser()) {
       setUser(auth.currentUser());
+      console.log(auth.currentUser().jwt());
     }
-    // console.log(auth.currentUser());
   }, []);
 
   const login = (email, password) => {
@@ -46,6 +46,13 @@ const AuthContextProvider = ({ children }) => {
         router.push("/");
         setIsLoading(false);
         setUser(response);
+        response
+          .jwt()
+          .then((response) => console.log(response))
+          .catch((err) => {
+            console.log(err);
+            throw err;
+          });
       })
       .catch((error) => {
         console.log("login failed");
