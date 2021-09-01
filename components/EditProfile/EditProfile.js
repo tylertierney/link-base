@@ -188,6 +188,7 @@ const EditProfile = ({ isEditable }) => {
                   />
                   <Image
                     src={profilePicURL}
+                    alt="User profile image"
                     boxSize="200px"
                     borderRadius="full"
                     mb="20px"
@@ -222,7 +223,7 @@ const EditProfile = ({ isEditable }) => {
                     src={coverPhotoURL}
                     // boxSize="200px"
                     // htmlHeight="300px"
-
+                    alt="User cover image"
                     fit="cover"
                     maxH="200px"
                     h="200px"

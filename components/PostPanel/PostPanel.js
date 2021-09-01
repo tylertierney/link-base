@@ -106,11 +106,11 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
             onMouseMove={eventHandlers.mousemove}
             onTouchMove={eventHandlers.touchmove}
             onMouseLeave={() => setBoxIsMoving(false)}
-            className={`
-            ${postpanelstyles.slidein} 
-            
-            ${postpanelstyles.modalContainer} 
-            hideScrollbar`}
+            // className={`
+            // ${postpanelstyles.slidein}
+
+            // ${postpanelstyles.modalContainer}
+            // hideScrollbar`}
             className={slideAnimation}
           >
             <Box

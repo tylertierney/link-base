@@ -22,7 +22,6 @@ const PostMenu = ({ isHidden, setIsHidden }) => {
     <Menu>
       <MenuButton
         fontSize="0.8rem"
-        color="brand.1000"
         _focus={{ outline: "none" }}
         size="sm"
         variant="ghost"
