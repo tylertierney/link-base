@@ -52,10 +52,10 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
 
     if (parseInt(box.style.top, 10) > modalYValue) {
       setSlideAnimation(postpanelstyles.slideout);
-      window.setTimeout(() => {
-        setPanelIsShowing(false);
-        hidePanel(e);
-      }, 300);
+      // window.setTimeout(() => {
+      //   setPanelIsShowing(false);
+      //   hidePanel(e);
+      // }, 300);
     } else {
       box.style.setProperty("top", modalYValue);
     }
