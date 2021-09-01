@@ -14,6 +14,7 @@ import {
 
 import {
   FormControl,
+  FormLabel,
   Stack,
   Alert,
   AlertIcon,
@@ -24,6 +25,7 @@ import {
   InputLeftAddon,
   VStack,
   Textarea,
+  Image,
 } from "@chakra-ui/react";
 
 import { EditIcon } from "@chakra-ui/icons";
@@ -46,11 +48,19 @@ const EditProfile = ({ isEditable }) => {
   const [profilePicURL, setProfilePicURL] = useState("");
   const [coverPhotoURL, setCoverPhotoURL] = useState("");
   const [aboutBio, setAboutBio] = useState("");
+  const [profilePic, setProfilePic] = useState(null);
+  const [coverPhoto, setCoverPhoto] = useState(null);
 
   const { user } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // console.log(profilePic, coverPhoto, aboutBio);
+
+    console.log(profilePic);
+
+    return;
 
     axios.post("/api/updateuser", {
       userid: user.id,
@@ -64,7 +74,7 @@ const EditProfile = ({ isEditable }) => {
 
   let fieldsAreEmpty;
 
-  if (!profilePicURL && !coverPhotoURL && !aboutBio) {
+  if (!profilePic && !coverPhoto && !aboutBio) {
     fieldsAreEmpty = true;
   }
 
@@ -86,6 +96,32 @@ const EditProfile = ({ isEditable }) => {
     }
   }, []);
 
+  const handleProfilePicUpload = (e) => {
+    console.log("handle profile photo");
+
+    setProfilePic(e.target.files[0]);
+
+    if (e.target.files[0]) {
+      let profilePicPreview = URL.createObjectURL(e.target.files[0]);
+
+      setProfilePicURL(profilePicPreview);
+    }
+  };
+
+  const handleCoverPhotoUpload = (e) => {
+    console.log("handle cover photo");
+
+    console.log(e.target.files[0]);
+
+    if (e.target.files[0]) {
+      setCoverPhoto(e.target.files[0]);
+
+      let coverPhotoPreview = URL.createObjectURL(e.target.files[0]);
+
+      setCoverPhotoURL(coverPhotoPreview);
+    }
+  };
+
   return (
     <>
       <Button
@@ -104,7 +140,6 @@ const EditProfile = ({ isEditable }) => {
         </Flex>
       </Button>
       <Modal
-        // maxW={["sm", "md", "lg"]}
         autoFocus={false}
         motionPreset="slideInBottom"
         allowPinchZoom={true}
@@ -117,7 +152,6 @@ const EditProfile = ({ isEditable }) => {
             <ModalHeader p="0.6rem 1.4rem">
               <Flex align="center">
                 <Text
-                  as={"span"}
                   bgGradient="linear(to-r, red.400,pink.400)"
                   bgClip="text"
                   fontSize="1.3rem"
@@ -129,54 +163,75 @@ const EditProfile = ({ isEditable }) => {
             </ModalHeader>
             <ModalBody>
               <VStack fontSize="0.8rem">
-                <Alert color="gray.600" status="info" fontSize="sm">
-                  <AlertIcon />
-                  Currently, linkBase does not support local file uploads. To
-                  update your profile picture or cover photo, paste the url to
-                  the image.
-                </Alert>
+                <Flex w="100%" align="flex-start" direction="column">
+                  <FormLabel>Profile Picture</FormLabel>
+                  <label
+                    style={{
+                      border: "1px solid red",
+                      padding: "0.3rem 0.5rem",
+                      cursor: "pointer",
+                    }}
+                    htmlFor="profile_pic"
+                  >
+                    Choose File
+                  </label>
+                  <input
+                    id="profile_pic"
+                    type="file"
+                    accept="image/*"
+                    style={{
+                      border: "solid blue 1px",
+                      opacity: "0",
+                      fontSize: "inherit",
+                    }}
+                    onChange={(e) => handleProfilePicUpload(e)}
+                  />
+                  <Image
+                    src={profilePicURL}
+                    boxSize="200px"
+                    borderRadius="full"
+                    mb="20px"
+                    border="solid lightgray 2px"
+                    boxShadow="0px 0px 20px 1px rgb(0, 0, 0, 0.4)"
+                  />
+                </Flex>
+                <Flex w="100%" align="flex-start" direction="column">
+                  <FormLabel>Cover Photo</FormLabel>
+                  <label
+                    style={{
+                      border: "1px solid red",
+                      padding: "0.3rem 0.5rem",
+                      cursor: "pointer",
+                    }}
+                    htmlFor="cover_photo"
+                  >
+                    Choose File
+                  </label>
+                  <input
+                    id="cover_photo"
+                    type="file"
+                    accept="image/*"
+                    style={{
+                      border: "solid blue 1px",
+                      opacity: "0",
+                      fontSize: "inherit",
+                    }}
+                    onChange={(e) => handleCoverPhotoUpload(e)}
+                  />
+                  <Image
+                    src={coverPhotoURL}
+                    // boxSize="200px"
+                    // htmlHeight="300px"
 
-                <FormControl id="profilePicURL">
-                  <FormHelperText fontSize="inherit" color="gray.600">
-                    Profile Picture
-                  </FormHelperText>
-                  <Stack>
-                    <InputGroup size="sm" fontSize="1rem">
-                      <InputLeftAddon fontSize="inherit" color="gray.400">
-                        https://
-                      </InputLeftAddon>
-                      <Input
-                        // fontSize="1rem"
-                        onChange={(e) => setProfilePicURL(e.target.value)}
-                        placeholder="www.unsplash.com/1234"
-                        value={profilePicURL}
-                        type="text"
-                        disabled={isLoading}
-                        _focus={{ outline: "red" }}
-                      />
-                    </InputGroup>
-                  </Stack>
-                </FormControl>
-                <FormControl id="coverPhotoURL">
-                  <FormHelperText fontSize="inherit" color="gray.600">
-                    Cover Photo
-                  </FormHelperText>
-                  <Stack>
-                    <InputGroup size="sm" fontSize="1rem">
-                      <InputLeftAddon fontSize="inherit" color="gray.400">
-                        https://
-                      </InputLeftAddon>
-                      <Input
-                        onChange={(e) => setCoverPhotoURL(e.target.value)}
-                        placeholder="www.unsplash.com/5678"
-                        value={coverPhotoURL}
-                        type="text"
-                        disabled={isLoading}
-                        _focus={{ outline: "red" }}
-                      />
-                    </InputGroup>
-                  </Stack>
-                </FormControl>
+                    fit="cover"
+                    maxH="200px"
+                    h="200px"
+                    w="300px"
+                    maxW="100%"
+                    border="solid lightgray 2px"
+                    boxShadow="0px 0px 20px 1px rgb(0, 0, 0, 0.4)"
+                  />
+                </Flex>
                 <FormControl id="aboutBio">
                   <FormHelperText fontSize="inherit" color="gray.600">
                     <Flex
@@ -220,7 +275,6 @@ const EditProfile = ({ isEditable }) => {
               </Button>
 
               <Button
-                fontFamily={"heading"}
                 bgGradient="linear(to-r, red.400,pink.400)"
                 color={"white"}
                 _hover={{
