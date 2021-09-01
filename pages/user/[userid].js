@@ -27,42 +27,21 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import axios from "axios";
 
 const AccountPage = ({ userdata, users }) => {
-  // const [userfromstorage, setUserfromstorage] = useState(
-  //   localStorage.getItem("user")
-  // );
-
-  // const [user, setUser] = useState({ id:  });
-
-  // console.log(JSON.parse(localStorage.getItem("user")));
-
   const [isEditable, setIsEditable] = useState(false);
 
   const [sortingBy, setSortingBy] = useState("new");
 
   useEffect(() => {
-    // console.log(JSON.parse(localStorage.getItem("user")));
     setUser(() => JSON.parse(localStorage.getItem("user")));
 
     let founduser = JSON.parse(localStorage.getItem("user"));
-
-    console.log(founduser);
-
     axios
       .get(`/api/singleuser/${founduser.id}`)
       .then((response) => {
         console.log(response);
         setUser(response.data.body);
       })
-
       .catch((err) => console.log(err));
-
-    // if (localStorage.getItem("user")) {
-    //   setUserfromstorage(JSON.parse(localStorage.getItem("user")));
-    //   if (JSON.parse(localStorage.getItem("user")).id === userdata.id) {
-    //     setIsEditable(() => true);
-    //   }
-    // }
-
     return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
 
