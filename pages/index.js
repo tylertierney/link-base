@@ -10,6 +10,7 @@ import { useUser } from "../context/authContext";
 import Link from "next/link";
 
 import SortMenu from "../components/SortMenu/SortMenu";
+import router from "next/router";
 
 const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
@@ -17,17 +18,56 @@ const Home = ({ users }) => {
   const [sortingBy, setSortingBy] = useState("popular");
 
   useEffect(() => {
-    if (user) {
-      console.log(user);
+    const getUserFromLocalStorage = async () => {
+      if (localStorage.getItem("user")) {
+        console.log("local storage grabbed something");
 
-      for (const person of users) {
-        if (person.id === user.id) {
-          setUser(person);
-          break;
+        let founduser = localStorage.getItem("user");
+        let convertedfounduser = JSON.parse(founduser);
+        await setUser(() => convertedfounduser);
+
+        console.log(convertedfounduser);
+        return;
+      }
+
+      if (user) {
+        for (const person of users) {
+          if (person.id === user.id) {
+            console.log("searching database for person");
+            setUser(person);
+            localStorage.setItem("user", JSON.stringify(person));
+          }
         }
       }
-    }
-  }, []);
+    };
+    getUserFromLocalStorage();
+
+    // if (user) {
+    //   for (const person of users) {
+    //     if (person.id === user.id) {
+    //       console.log("searching database for person");
+    //       setUser(person);
+    //       localStorage.setItem("user", JSON.stringify(person));
+    //     }
+    //   }
+    // }
+  }, [user?.confirmed_at]);
+
+  // const getUserFromLocalStorage = async () => {
+  //   if (localStorage.getItem("user")) {
+  //     console.log("local storage grabbed something");
+
+  //     let founduser = localStorage.getItem("user");
+  //     let convertedfounduser = JSON.parse(founduser);
+  //     await setUser((oldstate) => convertedfounduser);
+
+  //     console.log(convertedfounduser);
+
+  //     // setUser(JSON.parse(localStorage.getItem("user")));
+  //     return;
+  //   }
+  // };
+  console.log(user);
 
   return (
     <>

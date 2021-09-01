@@ -31,9 +31,11 @@ const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     if (auth.currentUser()) {
       setUser(auth.currentUser());
-      console.log(auth.currentUser().jwt());
     }
+    console.log(auth.currentUser());
   }, []);
+
+  // auth.currentUser();
 
   const login = (email, password) => {
     setIsLoading(true);
@@ -42,17 +44,11 @@ const AuthContextProvider = ({ children }) => {
       .login(email, password, true)
       .then((response) => {
         console.log("login event detected");
-        console.log(response);
-        router.push("/");
+
         setIsLoading(false);
         setUser(response);
-        response
-          .jwt()
-          .then((response) => console.log(response))
-          .catch((err) => {
-            console.log(err);
-            throw err;
-          });
+
+        router.push("/");
       })
       .catch((error) => {
         console.log("login failed");
@@ -72,6 +68,8 @@ const AuthContextProvider = ({ children }) => {
         console.log("User logged out");
         setIsLoading(false);
         setUser(null);
+        window.localStorage.clear();
+        Storage.clear();
         window.location.href = "/";
       })
       .catch((error) => {
@@ -107,8 +105,10 @@ const AuthContextProvider = ({ children }) => {
       .then((response) => {
         console.log("Confirmation email sent", response);
         setIsLoading(false);
-        setUser(response);
         addUserToDatabase(response);
+        console.log(email, password);
+        login(email, password);
+        setUser(response);
         router.push("/");
       })
       .catch((error) => {
