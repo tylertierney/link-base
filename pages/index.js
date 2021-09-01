@@ -33,7 +33,8 @@ const Home = ({ users }) => {
     <>
       <Head>
         <title>Linkbase</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/linkbase_logo_ico.ico" />
+
         <meta
           name="viewport"
           content="initial-scale=1.0, width=device-width, maximum-scale=1, user-scalable=0"
