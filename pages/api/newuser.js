@@ -10,6 +10,7 @@ const handler = async (req, res) => {
   mongoose.connect(process.env.MONGODB_URI);
 
   if (req.method === "POST") {
+    console.log(req.body);
     const newuser_obj = new User({
       username: req.body.user_metadata.username,
       following: [],
@@ -21,6 +22,7 @@ const handler = async (req, res) => {
       id: req.body.id,
       user_obj: req.body,
       bio: "",
+      email: req.body.email,
     });
 
     newuser_obj.save((err, result) => {

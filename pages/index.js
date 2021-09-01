@@ -20,54 +20,25 @@ const Home = ({ users }) => {
   useEffect(() => {
     const getUserFromLocalStorage = async () => {
       if (localStorage.getItem("user")) {
-        console.log("local storage grabbed something");
-
         let founduser = localStorage.getItem("user");
         let convertedfounduser = JSON.parse(founduser);
-        await setUser(() => convertedfounduser);
+        // await setUser(() => convertedfounduser);
 
-        console.log(convertedfounduser);
-        return;
-      }
-
-      if (user) {
-        for (const person of users) {
-          if (person.id === user.id) {
-            console.log("searching database for person");
-            setUser(person);
-            localStorage.setItem("user", JSON.stringify(person));
-          }
-        }
+        return convertedfounduser;
+        // return;
       }
     };
-    getUserFromLocalStorage();
+    setUser(() => getUserFromLocalStorage());
 
-    // if (user) {
-    //   for (const person of users) {
-    //     if (person.id === user.id) {
-    //       console.log("searching database for person");
-    //       setUser(person);
-    //       localStorage.setItem("user", JSON.stringify(person));
-    //     }
-    //   }
-    // }
-  }, [user?.confirmed_at]);
-
-  // const getUserFromLocalStorage = async () => {
-  //   if (localStorage.getItem("user")) {
-  //     console.log("local storage grabbed something");
-
-  //     let founduser = localStorage.getItem("user");
-  //     let convertedfounduser = JSON.parse(founduser);
-  //     await setUser((oldstate) => convertedfounduser);
-
-  //     console.log(convertedfounduser);
-
-  //     // setUser(JSON.parse(localStorage.getItem("user")));
-  //     return;
-  //   }
-  // };
-  console.log(user);
+    if (user) {
+      for (const person of users) {
+        if (person.id === user.id) {
+          setUser(person);
+          localStorage.setItem("user", JSON.stringify(person));
+        }
+      }
+    }
+  }, [user]);
 
   return (
     <>

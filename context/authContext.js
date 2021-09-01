@@ -32,10 +32,8 @@ const AuthContextProvider = ({ children }) => {
     if (auth.currentUser()) {
       setUser(auth.currentUser());
     }
-    console.log(auth.currentUser());
+    // console.log(auth.currentUser());
   }, []);
-
-  // auth.currentUser();
 
   const login = (email, password) => {
     setIsLoading(true);
@@ -69,8 +67,8 @@ const AuthContextProvider = ({ children }) => {
         setIsLoading(false);
         setUser(null);
         window.localStorage.clear();
-        Storage.clear();
-        window.location.href = "/";
+        // Storage.clear();
+        window.location.href = "/login";
       })
       .catch((error) => {
         console.log("Failed to logout user: ", error);
@@ -109,7 +107,7 @@ const AuthContextProvider = ({ children }) => {
         console.log(email, password);
         login(email, password);
         setUser(response);
-        router.push("/");
+        router.push(`/user/${response.id}`);
       })
       .catch((error) => {
         console.log(error);

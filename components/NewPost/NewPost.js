@@ -31,6 +31,7 @@ import { formatLocationData } from "../../helperfunctions";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 
 import { TiLocationOutline, TiLocation } from "react-icons/ti";
+import router from "next/router";
 
 const NewPost = () => {
   const { user, authReady } = useUser();
@@ -116,14 +117,27 @@ const NewPost = () => {
       p="0.8rem 0.8rem 0.4rem 0.8rem"
     >
       {showConfirmation ? (
-        <Flex p="inherit" align="center" w="100%" justify="center">
-          <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
-          <Text fontSize="0.8rem" color="brand.text_dark">
-            Your&nbsp;
-            <Link href={`/user/${user.id}`} passHref>
-              <a style={{ textDecoration: "underline", color: "blue" }}>post</a>
-            </Link>
-            &nbsp;is live!
+        <Flex
+          p="inherit"
+          align="center"
+          w="100%"
+          justify="center"
+          direction="column"
+        >
+          <Flex align="center">
+            <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
+            <Text fontSize="0.7rem" color="gray.600">
+              Your&nbsp;
+              <Link href={`/user/${user.id}`} passHref>
+                <a style={{ textDecoration: "underline", color: "blue" }}>
+                  post
+                </a>
+              </Link>
+              &nbsp;is live!
+            </Text>
+          </Flex>
+          <Text fontSize="0.7rem" color="gray.600">
+            You may need to refresh your profile in order to view changes.
           </Text>
         </Flex>
       ) : (

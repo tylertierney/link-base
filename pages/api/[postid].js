@@ -3,8 +3,6 @@ import mongoose from "mongoose";
 import Post from "../../models/Post";
 import User from "../../models/User";
 
-import { EditIcon } from "@chakra-ui/icons";
-
 const handler = async (req, res) => {
   const client = await clientPromise;
 

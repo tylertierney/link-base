@@ -12,12 +12,8 @@ import {
   Icon,
 } from "@chakra-ui/react";
 
-import { ModalCloseButton } from "@chakra-ui/react";
-
 import Feed from "../../components/Feed/Feed";
 import { useEffect, useState } from "react";
-
-// import { EditIcon } from "@chakra-ui/icons";
 
 import accountPageStyles from "./accountPage.module.css";
 
@@ -28,19 +24,49 @@ import { BsPersonPlus } from "react-icons/bs";
 import EditProfile from "../../components/EditProfile/EditProfile";
 
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
+import axios from "axios";
 
 const AccountPage = ({ userdata, users }) => {
-  const { user, logout } = useUser();
+  // const [userfromstorage, setUserfromstorage] = useState(
+  //   localStorage.getItem("user")
+  // );
+
+  // const [user, setUser] = useState({ id:  });
+
+  // console.log(JSON.parse(localStorage.getItem("user")));
 
   const [isEditable, setIsEditable] = useState(false);
 
   const [sortingBy, setSortingBy] = useState("new");
 
   useEffect(() => {
-    if (userdata.id === user.id) {
-      setIsEditable(true);
-    }
+    // console.log(JSON.parse(localStorage.getItem("user")));
+    setUser(() => JSON.parse(localStorage.getItem("user")));
+
+    let founduser = JSON.parse(localStorage.getItem("user"));
+
+    console.log(founduser);
+
+    axios
+      .get(`/api/singleuser/${founduser.id}`)
+      .then((response) => {
+        console.log(response);
+        setUser(response.data.body);
+      })
+
+      .catch((err) => console.log(err));
+
+    // if (localStorage.getItem("user")) {
+    //   setUserfromstorage(JSON.parse(localStorage.getItem("user")));
+    //   if (JSON.parse(localStorage.getItem("user")).id === userdata.id) {
+    //     setIsEditable(() => true);
+    //   }
+    // }
+
+    return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
+
+  const { user, setUser, logout } = useUser();
 
   let usernameLength = userdata.username.length;
   let usernameSize = "2rem";
@@ -54,6 +80,8 @@ const AccountPage = ({ userdata, users }) => {
   if (usernameLength > 18) {
     usernameSize = "1.6rem";
   }
+
+  console.log(user);
 
   return (
     <Layout>
@@ -110,13 +138,13 @@ const AccountPage = ({ userdata, users }) => {
           className={accountPageStyles.headerAndFollowBtn}
         >
           <Text
-            as={"h1"}
             bgGradient="linear(to-r, red.400,pink.400)"
             bgClip="text"
             userSelect="none"
             textAlign="center"
+            fontSize={usernameSize}
           >
-            <Heading fontSize={usernameSize}>{userdata.username}</Heading>
+            {userdata.username}
           </Text>
           {isEditable ? (
             <EditProfile isEditable={isEditable} />
@@ -172,12 +200,12 @@ const AccountPage = ({ userdata, users }) => {
                     setSortingBy={setSortingBy}
                   />
                 </Flex>
-                <Feed
+                {/* <Feed
                   sortingBy={sortingBy}
                   userdata={userdata}
                   isProfilePage={true}
                   users={users}
-                />
+                /> */}
               </VStack>
             </TabPanel>
             <TabPanel>

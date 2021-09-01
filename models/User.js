@@ -28,6 +28,9 @@ const UserSchema = new mongoose.Schema({
   bio: {
     type: String,
   },
+  email: {
+    type: String,
+  },
 });
 
 mongoose.models = { Post };
