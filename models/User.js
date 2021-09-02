@@ -16,12 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   posts: [PostSchema],
   liked_posts: [PostSchema],
-  prof_pic_url: {
-    type: String,
-  },
-  cover_pic_url: {
-    type: String,
-  },
+
   id: {
     type: String,
   },
@@ -30,6 +25,12 @@ const UserSchema = new mongoose.Schema({
   },
   email: {
     type: String,
+  },
+  prof_pic_file: {
+    type: Buffer,
+  },
+  cover_photo_file: {
+    type: Buffer,
   },
 });
 

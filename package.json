@@ -16,6 +16,7 @@
     "@fontsource/fredoka-one": "^4.5.0",
     "@fontsource/lato": "^4.5.0",
     "@fontsource/poppins": "^4.5.0",
+    "aws-sdk": "^2.982.0",
     "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "framer-motion": "^4.1.17",

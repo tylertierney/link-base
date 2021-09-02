@@ -19,7 +19,13 @@ import { useUser } from "../../context/authContext";
 
 import axios from "axios";
 
-const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
+const CommentSection = ({
+  isSponsored,
+  hasCommented,
+  setHasCommented,
+  post,
+  isPanel,
+}) => {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
   const [commentText, setCommentText] = useState("");
@@ -39,6 +45,8 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
     setCommentText("");
     setIsLoading(false);
   };
+
+  console.log(isSponsored);
 
   const commentArray = post.comments.map((comment, index) => {
     return (
@@ -73,47 +81,49 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
           p="0.4rem 0.3rem 0.2rem 0.5rem"
           direction="column"
         >
-          <form onSubmit={(e) => handleNewComment(e)}>
-            <FormControl>
-              <Input
-                type="text"
-                backgroundColor="white"
-                variant="outline"
-                placeholder="Say something!"
-                _focus={{ outline: "none" }}
-                border="1px solid lightgray"
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-              ></Input>
-              <InputRightElement h="100%">
-                <Button
-                  borderRadius="none"
-                  borderRightRadius="md"
-                  bgGradient="linear(to-r, red.400,pink.400)"
-                  color={"white"}
-                  _hover={{
-                    bgGradient: "linear(to-r, red.400,pink.400)",
-                    boxShadow: "xl",
-                  }}
+          {isSponsored === false && (
+            <form onSubmit={(e) => handleNewComment(e)}>
+              <FormControl>
+                <Input
+                  type="text"
+                  backgroundColor="white"
+                  variant="outline"
+                  placeholder="Say something!"
                   _focus={{ outline: "none" }}
-                  type="submit"
-                  disabled={isLoading}
-                  size="sm"
-                  h="100%"
-                >
-                  {isLoading ? (
-                    <SpinnerIcon
-                      color="white"
-                      className="spinnerIcon"
-                      fontSize="1rem"
-                    ></SpinnerIcon>
-                  ) : (
-                    "Post"
-                  )}
-                </Button>
-              </InputRightElement>
-            </FormControl>
-          </form>
+                  border="1px solid lightgray"
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                ></Input>
+                <InputRightElement h="100%">
+                  <Button
+                    borderRadius="none"
+                    borderRightRadius="md"
+                    bgGradient="linear(to-r, red.400,pink.400)"
+                    color={"white"}
+                    _hover={{
+                      bgGradient: "linear(to-r, red.400,pink.400)",
+                      boxShadow: "xl",
+                    }}
+                    _focus={{ outline: "none" }}
+                    type="submit"
+                    disabled={isLoading}
+                    size="sm"
+                    h="100%"
+                  >
+                    {isLoading ? (
+                      <SpinnerIcon
+                        color="white"
+                        className="spinnerIcon"
+                        fontSize="1rem"
+                      ></SpinnerIcon>
+                    ) : (
+                      "Post"
+                    )}
+                  </Button>
+                </InputRightElement>
+              </FormControl>
+            </form>
+          )}
           <p style={{ minHeight: "20px" }}></p>
           {commentArray}
         </Flex>

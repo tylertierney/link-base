@@ -17,6 +17,8 @@ import {
 
 import SponsoredPost from "../SponsoredPost/SponsoredPost";
 
+import { ads } from "../SponsoredPost/SponsoredPost";
+
 const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   const { user, authReady } = useUser();
 
@@ -43,7 +45,13 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
     if (user.id === userdata.id) {
       postArray = user.posts.map((post) => {
         return (
-          <Post isPanel={false} postedBy={user} key={post._id} post={post} />
+          <Post
+            isSponsored={false}
+            isPanel={false}
+            postedBy={user}
+            key={post._id}
+            post={post}
+          />
         );
       });
       sortPosts(postArray);
@@ -51,6 +59,7 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
       postArray = userdata.posts.map((post) => {
         return (
           <Post
+            isSponsored={false}
             isPanel={false}
             postedBy={userdata}
             key={post._id}
@@ -64,14 +73,28 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
     users.forEach((user) => {
       user.posts.forEach((post) => {
         postArray.push(
-          <Post isPanel={false} postedBy={user} key={post._id} post={post} />
+          <Post
+            isSponsored={false}
+            isPanel={false}
+            postedBy={user}
+            key={post._id}
+            post={post}
+          />
         );
-        // if (postArray.length % 6 === 0) {
-        //   postArray.push(<SponsoredPost />);
-        // }
       });
     });
     sortPosts(postArray);
+  }
+
+  for (let i = 5, j = 0; i < postArray.length; i++) {
+    if (i % 6 === 0) {
+      postArray.splice(
+        i,
+        0,
+        <SponsoredPost postedBy={ads[j][0]} post={ads[j][1]} />
+      );
+      j += 1;
+    }
   }
 
   return (

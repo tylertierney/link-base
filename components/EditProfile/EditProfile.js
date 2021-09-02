@@ -45,82 +45,74 @@ const EditProfile = ({ isEditable }) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [profilePicURL, setProfilePicURL] = useState("");
-  const [coverPhotoURL, setCoverPhotoURL] = useState("");
   const [aboutBio, setAboutBio] = useState("");
-  const [profilePic, setProfilePic] = useState(null);
-  const [coverPhoto, setCoverPhoto] = useState(null);
+  const [profilePicFile, setProfilePicFile] = useState(null);
+  const [coverPhotoFile, setCoverPhotoFile] = useState(null);
+  const [profilePicPreviewURL, setProfilePicPreviewURL] = useState(null);
+  const [coverPhotoPreviewURL, setCoverPhotoPreviewURL] = useState(null);
+  const [profilePicNewURL, setProfilePicNewURL] = useState("");
+  const [s3URL, setS3URL] = useState("");
 
   const { user } = useUser();
 
-  const handleSubmit = (e) => {
+  const getS3URL = async () => {
+    try {
+      const response = await axios.get("/api/s3");
+      console.log(response);
+      setS3URL(response.data.url);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const sendFileToS3 = async () => {
+    let config = { headers: { "Content-Type": "multipart/form-data" } };
+    console.log(s3URL);
+    try {
+      const response = await axios.put(s3URL, profilePicFile, config);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleProfilePicUpload = (e) => {
+    let imagefile = e.target.files[0];
+    setProfilePicFile(imagefile);
+    if (imagefile) {
+      let url = URL.createObjectURL(imagefile);
+      setProfilePicPreviewURL(url);
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log(profilePic, coverPhoto, aboutBio);
+    await getS3URL();
+    await sendFileToS3();
 
-    console.log(profilePic);
+    const image_url = s3URL.split("?")[0];
+    console.log(image_url);
 
-    return;
+    setProfilePicNewURL(image_url);
 
-    axios.post("/api/updateuser", {
-      userid: user.id,
-      prof_pic_url: profilePicURL,
-      cover_photo_url: coverPhotoURL,
-      bio: aboutBio,
-    });
+    // axios.post("/api/updateuser", {
+    //   userid: user.id,
+    //   bio: aboutBio,
+    //   prof_pic_file: profilePicBuffer,
+    //   cover_photo_file: coverPhotoBuffer,
+    // });
 
     onClose();
   };
 
-  let fieldsAreEmpty;
-
-  if (!profilePic && !coverPhoto && !aboutBio) {
-    fieldsAreEmpty = true;
-  }
-
   useEffect(() => {
-    if (user.prof_pic_url === undefined) {
-      setProfilePicURL("");
-    } else {
-      setProfilePicURL(user.prof_pic_url);
-    }
-    if (user.cover_photo_url === undefined) {
-      setCoverPhotoURL("");
-    } else {
-      setCoverPhotoURL(user.cover_photo_url);
-    }
     if (user.bio === undefined) {
       setAboutBio("");
     } else {
       setAboutBio(user.bio);
     }
   }, []);
-
-  const handleProfilePicUpload = (e) => {
-    console.log("handle profile photo");
-
-    setProfilePic(e.target.files[0]);
-
-    if (e.target.files[0]) {
-      let profilePicPreview = URL.createObjectURL(e.target.files[0]);
-
-      setProfilePicURL(profilePicPreview);
-    }
-  };
-
-  const handleCoverPhotoUpload = (e) => {
-    console.log("handle cover photo");
-
-    console.log(e.target.files[0]);
-
-    if (e.target.files[0]) {
-      setCoverPhoto(e.target.files[0]);
-
-      let coverPhotoPreview = URL.createObjectURL(e.target.files[0]);
-
-      setCoverPhotoURL(coverPhotoPreview);
-    }
-  };
 
   return (
     <>
@@ -187,7 +179,7 @@ const EditProfile = ({ isEditable }) => {
                     onChange={(e) => handleProfilePicUpload(e)}
                   />
                   <Image
-                    src={profilePicURL}
+                    src={profilePicPreviewURL}
                     alt="User profile image"
                     boxSize="200px"
                     borderRadius="full"
@@ -197,7 +189,7 @@ const EditProfile = ({ isEditable }) => {
                   />
                 </Flex>
                 <Flex w="100%" align="flex-start" direction="column">
-                  <FormLabel>Cover Photo</FormLabel>
+                  {/* <FormLabel>Cover Photo</FormLabel>
                   <label
                     style={{
                       border: "1px solid red",
@@ -220,7 +212,7 @@ const EditProfile = ({ isEditable }) => {
                     onChange={(e) => handleCoverPhotoUpload(e)}
                   />
                   <Image
-                    src={coverPhotoURL}
+                    src={coverPhotoPreviewURL}
                     // boxSize="200px"
                     // htmlHeight="300px"
                     alt="User cover image"
@@ -231,19 +223,14 @@ const EditProfile = ({ isEditable }) => {
                     maxW="100%"
                     border="solid lightgray 2px"
                     boxShadow="0px 0px 20px 1px rgb(0, 0, 0, 0.4)"
-                  />
+                  /> */}
                 </Flex>
                 <FormControl id="aboutBio">
                   <FormHelperText fontSize="inherit" color="gray.600">
-                    <Flex
-                      alignItems="center"
-                      justify="space-between"
-                      //   border="red 1px solid"
-                    >
+                    <Flex alignItems="center" justify="space-between">
                       <Text>Bio&nbsp;</Text>
                       <Text
                         alignSelf="flex-end"
-                        //   border="solid green 1px"
                         color="gray.400"
                         fontSize="0.6rem"
                       >
@@ -258,7 +245,7 @@ const EditProfile = ({ isEditable }) => {
                         onChange={(e) => setAboutBio(e.target.value)}
                         value={aboutBio}
                         disabled={isLoading}
-                        _focus={{ outline: "red" }}
+                        _focus={{ outline: "none" }}
                       />
                     </InputGroup>
                   </Stack>
@@ -284,7 +271,7 @@ const EditProfile = ({ isEditable }) => {
                 }}
                 _focus={{ outline: "none" }}
                 type="submit"
-                disabled={isLoading || fieldsAreEmpty}
+                // disabled={isLoading || fieldsAreEmpty}
               >
                 {isLoading ? (
                   <SpinnerIcon

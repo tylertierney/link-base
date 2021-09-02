@@ -32,9 +32,9 @@ const handler = async (req, res) => {
         id: req.body.userid,
       },
       {
-        prof_pic_url: req.body.prof_pic_url,
-        cover_pic_url: req.body.cover_photo_url,
         bio: req.body.bio,
+        prof_pic_file: Buffer.from(req.body.prof_pic_file),
+        cover_photo_file: Buffer.from(req.body.cover_photo_file),
       }
     );
 

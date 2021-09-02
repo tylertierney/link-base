@@ -33,7 +33,7 @@ import { FaRegComments, FaComments } from "react-icons/fa";
 
 import CommentSection from "../CommentSection/CommentSection";
 
-const Post = ({ postedBy, post, isPanel }) => {
+const Post = ({ isSponsored, postedBy, post, isPanel }) => {
   const { user } = useUser();
 
   const [isLiked, setIsLiked] = useState(false);
@@ -104,6 +104,8 @@ const Post = ({ postedBy, post, isPanel }) => {
   //   }
   // };
 
+  console.log(isSponsored);
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -129,11 +131,24 @@ const Post = ({ postedBy, post, isPanel }) => {
               name={post.author}
               src={postedBy.prof_pic_url}
               boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.1)"
+              backgroundColor="white"
             ></Avatar>
             <Text ml="0.8rem">{post.author}</Text>
           </Flex>
         </Link>
         <Flex>
+          {isSponsored && (
+            <Flex
+              fontSize="0.65rem"
+              justify="center"
+              align="center"
+              color="gray.500"
+            >
+              <Text fontStyle="italic" p="0 0.2rem 0 0">
+                sponsored
+              </Text>
+            </Flex>
+          )}
           {post.location ? (
             <Flex
               fontSize="0.65rem"
@@ -194,12 +209,34 @@ const Post = ({ postedBy, post, isPanel }) => {
               </>
             )}
             {post.photoURL && (
-              <Image
-                alt="user uploaded image"
-                width="100%"
-                src={post.photoURL}
-                onClick={() => setPanelIsShowing(true)}
-              />
+              <>
+                <Image
+                  alt="user uploaded image"
+                  width="100%"
+                  src={post.photoURL}
+                  onClick={() => setPanelIsShowing(true)}
+                />
+                {isSponsored && (
+                  // <Flex justify="flex-end" p="0.1rem 0.4rem">
+                  <Button
+                    position="absolute"
+                    bottom={isPanel ? "90px" : "50px"}
+                    right="10px"
+                    p="0 0.6rem"
+                    backgroundColor="blackAlpha.500"
+                    color="white"
+                    _focus={{ backgroundColor: "transparent" }}
+                    _active={{ backgroundColor: "transparent" }}
+                    _hover={{ backgroundColor: "inherit" }}
+                    fontSize="0.7rem"
+                    size="sm"
+                    variant="outline"
+                  >
+                    Buy Now
+                  </Button>
+                  // </Flex>
+                )}
+              </>
             )}
             <Flex
               justify="space-between"
@@ -224,12 +261,9 @@ const Post = ({ postedBy, post, isPanel }) => {
                 </Flex>
 
                 <Text p="0 0 0 0.2rem" fontSize="0.8rem" mr="0.5rem">
-                  {numberOfLikes}
+                  {numberOfLikes.toLocaleString("en-us")}
                 </Text>
-                <Flex
-                // onClick={() => setPanelIsShowing(true)}
-                // onClick={(e) => handleCommentIconClick(e)}
-                >
+                <Flex>
                   {hasCommented ? (
                     <Icon
                       color="blue.600"
@@ -256,6 +290,7 @@ const Post = ({ postedBy, post, isPanel }) => {
             </Flex>
             <Divider p="0.2rem 0" />
             <CommentSection
+              isSponsored={isSponsored}
               hasCommented={hasCommented}
               setHasCommented={setHasCommented}
               post={post}
@@ -266,6 +301,7 @@ const Post = ({ postedBy, post, isPanel }) => {
               setPanelIsShowing={setPanelIsShowing}
               postedBy={postedBy}
               post={post}
+              isSponsored={isSponsored}
             />
           </Flex>
         </>

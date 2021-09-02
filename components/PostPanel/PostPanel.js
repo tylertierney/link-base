@@ -8,7 +8,13 @@ import Post from "../Post/Post";
 
 import postpanelstyles from "./postpanel.module.css";
 
-const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
+const PostPanel = ({
+  isSponsored,
+  panelIsShowing,
+  setPanelIsShowing,
+  post,
+  postedBy,
+}) => {
   const [isSmallScreen, setIsSmallScreen] = useState(checkForSmallScreen());
   const [boxIsMoving, setBoxIsMoving] = useState(false);
   const [modalYValue, setModalYValue] = useState(90);
@@ -148,7 +154,12 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
               className="hideScrollbar"
               overflowX="hidden"
             >
-              <Post post={post} postedBy={postedBy} isPanel={true} />
+              <Post
+                isSponsored={isSponsored}
+                post={post}
+                postedBy={postedBy}
+                isPanel={true}
+              />
               <p style={{ minHeight: "400px" }}></p>
             </Flex>
           </Flex>
