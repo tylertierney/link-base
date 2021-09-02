@@ -21,8 +21,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link rel="manifest" href="/manifest.json" />
-          <link rel="apple-touch-icon" href="/linkbase_logo_svg.svg" />
-          <meta name="theme-color" contents="#ED4551" />
+          <link rel="apple-touch-icon" href="/linkbase_logo_png.png" />
         </Head>
         <body>
           <Main />

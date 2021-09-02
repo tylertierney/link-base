@@ -403,9 +403,9 @@
       "sizes": "16x16"
     }
   ],
-  "theme_color": "#FFFFFF",
+  "theme_color": "#ED4551",
   "background_color": "#FFFFFF",
   "start_url": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "any"
 }
