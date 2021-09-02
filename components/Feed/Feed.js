@@ -1,6 +1,7 @@
 import Layout from "../Layout/Layout";
 import { useUser } from "../../context/authContext";
 import Post from "../Post/Post";
+import { useState } from "react";
 
 import {
   VStack,
@@ -13,6 +14,8 @@ import {
   Box,
   Heading,
 } from "@chakra-ui/react";
+
+import SponsoredPost from "../SponsoredPost/SponsoredPost";
 
 const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   const { user, authReady } = useUser();
@@ -63,6 +66,9 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
         postArray.push(
           <Post isPanel={false} postedBy={user} key={post._id} post={post} />
         );
+        // if (postArray.length % 6 === 0) {
+        //   postArray.push(<SponsoredPost />);
+        // }
       });
     });
     sortPosts(postArray);

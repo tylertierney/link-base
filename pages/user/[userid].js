@@ -19,7 +19,11 @@ import accountPageStyles from "./accountPage.module.css";
 
 import SortMenu from "../../components/SortMenu/SortMenu";
 
-import { BsPersonPlus, BsFillPersonCheckFill } from "react-icons/bs";
+import {
+  BsPersonPlus,
+  BsFillPersonCheckFill,
+  BsPersonCheckFill,
+} from "react-icons/bs";
 
 import EditProfile from "../../components/EditProfile/EditProfile";
 
@@ -31,7 +35,7 @@ const AccountPage = ({ userdata, users }) => {
 
   const [sortingBy, setSortingBy] = useState("new");
 
-  const [isFollowing, setIsFollowing] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(true);
 
   useEffect(() => {
     setUser(() => JSON.parse(localStorage.getItem("user")));
@@ -47,6 +51,7 @@ const AccountPage = ({ userdata, users }) => {
 
     if (userdata.id === user.id) {
       setIsEditable(true);
+      setIsFollowing(false);
     }
     return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
@@ -65,6 +70,13 @@ const AccountPage = ({ userdata, users }) => {
   if (usernameLength > 18) {
     usernameSize = "1.6rem";
   }
+
+  const handleFollowUser = () => {
+    setIsFollowing(true);
+  };
+  const handleUnfollowUser = () => {
+    setIsFollowing(false);
+  };
 
   return (
     <Layout>
@@ -131,6 +143,20 @@ const AccountPage = ({ userdata, users }) => {
           </Text>
           {isEditable ? (
             <EditProfile isEditable={isEditable} />
+          ) : isFollowing ? (
+            <Button
+              position="absolute"
+              fontSize="0.8rem"
+              size="sm"
+              colorScheme="blue"
+              variant="outline"
+              className={accountPageStyles.followButton}
+              onClick={(e) => handleUnfollowUser(e)}
+              _focus={{ outline: "none" }}
+            >
+              Following&nbsp;
+              <Icon as={BsPersonCheckFill} />
+            </Button>
           ) : (
             <Button
               position="absolute"
@@ -138,6 +164,8 @@ const AccountPage = ({ userdata, users }) => {
               size="sm"
               colorScheme="blue"
               className={accountPageStyles.followButton}
+              onClick={(e) => handleFollowUser(e)}
+              _focus={{ outline: "none" }}
             >
               Follow&nbsp;
               <Icon as={BsPersonPlus} />

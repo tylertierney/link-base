@@ -10,9 +10,9 @@ const handler = async (req, res) => {
 
   mongoose.connect(process.env.MONGODB_URI);
 
-  if (req.method === "GET") {
+  if (req.method === "POST") {
     const founduser = await User.findOne({
-      id: req.query.userid,
+      id: req.body.following_id,
     });
     //   const foundpost = founduser.posts.id(req.query.postid);
 
