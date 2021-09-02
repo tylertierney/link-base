@@ -111,11 +111,6 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
             onMouseMove={eventHandlers.mousemove}
             onTouchMove={eventHandlers.touchmove}
             onMouseLeave={() => setBoxIsMoving(false)}
-            // className={`
-            // ${postpanelstyles.slidein}
-
-            // ${postpanelstyles.modalContainer}
-            // hideScrollbar`}
             className={slideAnimation}
           >
             <Box
@@ -126,8 +121,6 @@ const PostPanel = ({ panelIsShowing, setPanelIsShowing, post, postedBy }) => {
               backgroundColor="whiteAlpha.700"
               onClick={(e) => e.stopPropagation()}
               boxShadow="0px 4px 20px 1px rgb(0, 0, 0, 0.2)"
-              // zIndex="4"
-              // border="solid red 2px"
             >
               <Flex
                 justify="center"

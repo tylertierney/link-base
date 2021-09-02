@@ -40,8 +40,30 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
     setIsLoading(false);
   };
 
-  // console.log(user);
-  // console.log(post);
+  const commentArray = post.comments.map((comment, index) => {
+    return (
+      <Comment
+        key={index}
+        author_username={comment.author_username}
+        author_prof_pic={comment.author_prof_pic}
+        date={comment.date}
+        text={comment.text}
+      />
+    );
+  });
+
+  const showFirstComment = () => {
+    if (post.comments.length > 0) {
+      return (
+        <Comment
+          author_username={post.comments[0].author_username}
+          author_prof_pic={post.comments[0].author_prof_pic}
+          date={post.comments[0].date}
+          text={post.comments[0].text}
+        />
+      );
+    }
+  };
 
   return (
     <>
@@ -67,7 +89,6 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
                 <Button
                   borderRadius="none"
                   borderRightRadius="md"
-                  fontFamily={"heading"}
                   bgGradient="linear(to-r, red.400,pink.400)"
                   color={"white"}
                   _hover={{
@@ -94,15 +115,15 @@ const CommentSection = ({ hasCommented, setHasCommented, post, isPanel }) => {
             </FormControl>
           </form>
           <p style={{ minHeight: "20px" }}></p>
-          <Comment />
-          <Comment />
+          {commentArray}
         </Flex>
       ) : (
-        <CommentPreview
-          post={post}
-          hasCommented={hasCommented}
-          setHasCommented={setHasCommented}
-        />
+        // <CommentPreview
+        //   post={post}
+        //   hasCommented={hasCommented}
+        //   setHasCommented={setHasCommented}
+        // />
+        showFirstComment()
       )}
     </>
   );

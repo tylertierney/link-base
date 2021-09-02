@@ -87,9 +87,9 @@ const NewPost = () => {
       setLocation("");
       return;
     }
+    setIsLoading(true);
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setIsLoading(true);
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
         const location_api_url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`;
@@ -263,6 +263,7 @@ const NewPost = () => {
               type="submit"
               disabled={isLoading}
               size="sm"
+              p="0 1.2rem"
             >
               {isLoading ? (
                 <SpinnerIcon

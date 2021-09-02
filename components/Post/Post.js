@@ -94,13 +94,15 @@ const Post = ({ postedBy, post, isPanel }) => {
     }
   }
 
-  const handleCommentIconClick = () => {
-    if (panelIsShowing) {
-      return;
-    } else {
-      setPanelIsShowing(true);
-    }
-  };
+  // const handleCommentIconClick = (e) => {
+  //   console.log("clicked");
+  //   console.log(panelIsShowing);
+  //   if (panelIsShowing===true) {
+  //     return;
+  //   } else {
+  //     setPanelIsShowing(true);
+  //   }
+  // };
 
   return (
     <Container
@@ -123,7 +125,6 @@ const Post = ({ postedBy, post, isPanel }) => {
           <Flex align="center" cursor="pointer">
             <Avatar
               size="sm"
-              // border="solid #F0F0F0 1px"
               outline="none"
               name={post.author}
               src={postedBy.prof_pic_url}
@@ -226,8 +227,8 @@ const Post = ({ postedBy, post, isPanel }) => {
                   {numberOfLikes}
                 </Text>
                 <Flex
-                  // onClick={() => setPanelIsShowing(true)}
-                  onClick={handleCommentIconClick()}
+                // onClick={() => setPanelIsShowing(true)}
+                // onClick={(e) => handleCommentIconClick(e)}
                 >
                   {hasCommented ? (
                     <Icon

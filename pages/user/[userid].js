@@ -19,7 +19,7 @@ import accountPageStyles from "./accountPage.module.css";
 
 import SortMenu from "../../components/SortMenu/SortMenu";
 
-import { BsPersonPlus } from "react-icons/bs";
+import { BsPersonPlus, BsFillPersonCheckFill } from "react-icons/bs";
 
 import EditProfile from "../../components/EditProfile/EditProfile";
 
@@ -30,6 +30,8 @@ const AccountPage = ({ userdata, users }) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const [sortingBy, setSortingBy] = useState("new");
+
+  const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
     setUser(() => JSON.parse(localStorage.getItem("user")));
@@ -42,6 +44,10 @@ const AccountPage = ({ userdata, users }) => {
         setUser(response.data.body);
       })
       .catch((err) => console.log(err));
+
+    if (userdata.id === user.id) {
+      setIsEditable(true);
+    }
     return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
 
@@ -59,8 +65,6 @@ const AccountPage = ({ userdata, users }) => {
   if (usernameLength > 18) {
     usernameSize = "1.6rem";
   }
-
-  console.log(user);
 
   return (
     <Layout>
@@ -179,19 +183,18 @@ const AccountPage = ({ userdata, users }) => {
                     setSortingBy={setSortingBy}
                   />
                 </Flex>
-                {/* <Feed
+                <Feed
                   sortingBy={sortingBy}
                   userdata={userdata}
                   isProfilePage={true}
                   users={users}
-                /> */}
+                />
               </VStack>
             </TabPanel>
             <TabPanel>
               <VStack
                 overflowY="scroll"
                 minH="200vh"
-                // className="hideScrollbar"
                 className={`${accountPageStyles.tabs} hideScrollbar`}
                 p="0.5rem 0.8rem 2rem 0.8rem"
                 position="relative"
@@ -203,10 +206,12 @@ const AccountPage = ({ userdata, users }) => {
                   m="0 2rem 0 2rem"
                   w="100%"
                 >
-                  <Heading fontSize="1.2rem" color="gray.600">
+                  <Heading fontSize="1.2rem" color="gray.600" mb="10px">
                     Bio
                   </Heading>
-                  <Text>{userdata.bio}</Text>
+                  <Text fontSize="0.9rem" color="gray.600">
+                    {userdata.bio}
+                  </Text>
                 </Flex>
               </VStack>
             </TabPanel>
