@@ -22,31 +22,7 @@ class MyDocument extends Document {
           />
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" href="/linkbase_logo_svg.svg" />
-          <meta name="theme-color" contents="#fff" />
-          <link
-            rel="icon"
-            type="image/png"
-            href="/favicon-16x16.png"
-            sizes="16x16"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href="/favicon-32x32.png"
-            sizes="32x32"
-          />
-          <link
-            rel="icon"
-            type="image/png"
-            href="/android-192x192.png"
-            sizes="192x192"
-          />
-          <link
-            rel="apple-touch-icon"
-            href="/apple-touch-icon-180x180.png"
-            sizes="180x180"
-          />
-          <meta name="msapplication-config" content="/browserconfig.xml"></meta>
+          <meta name="theme-color" contents="#ED4551" />
         </Head>
         <body>
           <Main />
