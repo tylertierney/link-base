@@ -91,7 +91,11 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
       postArray.splice(
         i,
         0,
-        <SponsoredPost postedBy={ads[j][0]} post={ads[j][1]} />
+        <SponsoredPost
+          key={Math.floor(Math.random() * 1000000)}
+          postedBy={ads[j][0]}
+          post={ads[j][1]}
+        />
       );
       j += 1;
     }

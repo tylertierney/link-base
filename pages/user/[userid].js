@@ -42,10 +42,10 @@ const AccountPage = ({ userdata, users }) => {
 
     let founduser = JSON.parse(localStorage.getItem("user"));
     axios
-      .get(`/api/singleuser/${founduser.id}`)
+      .get(`/api/${founduser.id}`)
       .then((response) => {
         console.log(response);
-        setUser(response.data.body);
+        setUser(JSON.parse(response.data.body));
       })
       .catch((err) => console.log(err));
 

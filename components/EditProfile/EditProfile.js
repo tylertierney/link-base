@@ -64,28 +64,35 @@ const EditProfile = ({ isEditable }) => {
   const getS3URL = async (photo) => {
     if (photo === "profile") {
       try {
-        const response = await axios.get("/api/s3");
-        console.log(response);
-        setS3URL_prof(response.data.url);
+        const res = await axios.get("/api/s3");
+        // const res = JSON.parse(response);
+        setS3URL_prof(res.data.url);
+        console.log(res.data.url);
+        return res.data.url;
+        // return JSON.parse(response.data.url);
       } catch (err) {
         console.log(err);
       }
     } else {
       try {
-        const response = await axios.get("/api/s3");
-        console.log(response);
-        setS3URL_cover(response.data.url);
+        const res = await axios.get("/api/s3");
+        // const res = JSON.parse(response);
+        console.log(res);
+        setS3URL_cover(res.data.url);
+        console.log(res.data.url);
+        return res.data.url;
       } catch (err) {
         console.log(err);
       }
     }
   };
 
-  const sendFileToS3 = async (file) => {
+  const sendFileToS3 = async (file, s3url) => {
     let config = { headers: { "Content-Type": "multipart/form-data" } };
-    console.log(s3URL);
+    console.log(s3url);
     try {
-      const response = await axios.put(s3URL, file, config);
+      const response = await axios.put(s3url, file);
+      // .then((data) => console.log(data));
       console.log(response);
     } catch (err) {
       console.log(err);
@@ -115,23 +122,25 @@ const EditProfile = ({ isEditable }) => {
     setIsLoading(true);
     let newProf_url, newCover_url;
     if (profilePicPreviewURL !== user.prof_pic_url) {
-      await getS3URL("profile");
-      await sendFileToS3(profilePicFile);
+      let url = getS3URL("profile");
+      sendFileToS3(profilePicFile, url);
 
-      newProf_url = s3URL.split("?")[0];
+      newProf_url = s3URL_prof.split("?")[0];
       console.log(newProf_url);
 
       setProfilePicNewURL(newProf_url);
     }
     if (coverPhotoPreviewURL !== user.cover_pic_url) {
-      await getS3URL("cover");
-      await sendFileToS3(coverPhotoFile);
+      // await getS3URL("cover");
+      let url = getS3URL("cover");
+      sendFileToS3(coverPhotoFile, url);
 
-      newCover_url = s3URL.split("?")[0];
+      newCover_url = s3URL_cover.split("?")[0];
       console.log(newCover_url);
 
       setCoverPhotoNewURL(newCover_url);
     }
+    console.log("new urls:", newProf_url, newCover_url);
 
     axios.post("/api/updateuser", {
       userid: user.id,
