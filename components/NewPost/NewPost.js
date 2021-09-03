@@ -149,7 +149,8 @@ const NewPost = () => {
                   size="sm"
                   name={user.username}
                   src={user.prof_pic_url}
-                  border="solid lightgray 1px"
+                  boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.07)"
+                  backgroundColor="white"
                 ></Avatar>
                 <Text color="brand.text_dark" ml="0.6rem">
                   {user.username}

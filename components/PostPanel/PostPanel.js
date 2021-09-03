@@ -54,7 +54,7 @@ const PostPanel = ({
     e.stopPropagation();
     let box = e.currentTarget;
     setBoxIsMoving(false);
-    console.log(modalYValue, parseInt(box.style.top, 10));
+    // console.log(modalYValue, parseInt(box.style.top, 10));
 
     if (parseInt(box.style.top, 10) > modalYValue) {
       setSlideAnimation(postpanelstyles.slideout);

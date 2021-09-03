@@ -16,7 +16,7 @@ const s3 = new aws.S3({
   secretAccessKey,
 });
 
-export const generateUploadURL = async () => {
+const generateUploadURL = async () => {
   const randomNumber = Math.floor(Math.random() * 10000);
 
   const imageName = randomNumber.toString();
@@ -41,6 +41,7 @@ const handler = async (req, res) => {
 
   if (req.method === "GET") {
     const url = await generateUploadURL();
+    console.log(url);
     res.send({ url });
   }
 };

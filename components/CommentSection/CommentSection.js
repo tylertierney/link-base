@@ -46,8 +46,6 @@ const CommentSection = ({
     setIsLoading(false);
   };
 
-  console.log(isSponsored);
-
   const commentArray = post.comments.map((comment, index) => {
     return (
       <Comment

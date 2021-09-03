@@ -12,18 +12,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
     console.log(req.body);
 
-    const updateuser_obj = {};
-
-    if (req.body.prof_pic_url) {
-      updateuser_obj["prof_pic_url"] = req.body.prof_pic_url;
-    }
-    if (req.body.cover_photo_url) {
-      updateuser_obj["cover_pic_url"] = req.body.cover_photo_url;
-    }
-
-    if (req.body.bio) {
-      updateuser_obj["bio"] = req.body.bio;
-    }
+    // const updateuser_obj = {};
 
     console.log(req.body.prof_pic_url);
 
@@ -33,8 +22,9 @@ const handler = async (req, res) => {
       },
       {
         bio: req.body.bio,
-        prof_pic_file: Buffer.from(req.body.prof_pic_file),
-        cover_photo_file: Buffer.from(req.body.cover_photo_file),
+        prof_pic_url: req.body.prof_pic_url,
+        cover_pic_url: req.body.cover_photo_url,
+        username: req.body.username,
       }
     );
 

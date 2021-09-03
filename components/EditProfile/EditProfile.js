@@ -42,34 +42,50 @@ import accountPageStyles from "../../pages/user/accountPage.module.css";
 
 const EditProfile = ({ isEditable }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { user } = useUser();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [aboutBio, setAboutBio] = useState("");
+  const [aboutBio, setAboutBio] = useState(user.bio);
   const [profilePicFile, setProfilePicFile] = useState(null);
   const [coverPhotoFile, setCoverPhotoFile] = useState(null);
-  const [profilePicPreviewURL, setProfilePicPreviewURL] = useState(null);
-  const [coverPhotoPreviewURL, setCoverPhotoPreviewURL] = useState(null);
+  const [profilePicPreviewURL, setProfilePicPreviewURL] = useState(
+    user.prof_pic_url
+  );
+  const [coverPhotoPreviewURL, setCoverPhotoPreviewURL] = useState(
+    user.cover_pic_url
+  );
   const [profilePicNewURL, setProfilePicNewURL] = useState("");
-  const [s3URL, setS3URL] = useState("");
+  const [coverPhotoNewURL, setCoverPhotoNewURL] = useState("");
+  const [s3URL_prof, setS3URL_prof] = useState("");
+  const [s3URL_cover, setS3URL_cover] = useState("");
+  const [newUsername, setNewUsername] = useState(user.username);
 
-  const { user } = useUser();
-
-  const getS3URL = async () => {
-    try {
-      const response = await axios.get("/api/s3");
-      console.log(response);
-      setS3URL(response.data.url);
-    } catch (err) {
-      console.log(err);
+  const getS3URL = async (photo) => {
+    if (photo === "profile") {
+      try {
+        const response = await axios.get("/api/s3");
+        console.log(response);
+        setS3URL_prof(response.data.url);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        const response = await axios.get("/api/s3");
+        console.log(response);
+        setS3URL_cover(response.data.url);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
-  const sendFileToS3 = async () => {
+  const sendFileToS3 = async (file) => {
     let config = { headers: { "Content-Type": "multipart/form-data" } };
     console.log(s3URL);
     try {
-      const response = await axios.put(s3URL, profilePicFile, config);
+      const response = await axios.put(s3URL, file, config);
       console.log(response);
     } catch (err) {
       console.log(err);
@@ -78,41 +94,55 @@ const EditProfile = ({ isEditable }) => {
 
   const handleProfilePicUpload = (e) => {
     let imagefile = e.target.files[0];
-    setProfilePicFile(imagefile);
     if (imagefile) {
+      setProfilePicFile(imagefile);
       let url = URL.createObjectURL(imagefile);
       setProfilePicPreviewURL(url);
+    }
+  };
+  const handleCoverPhotoUpload = (e) => {
+    let imagefile = e.target.files[0];
+    console.log(e.target.files[0]);
+    if (imagefile) {
+      setCoverPhotoFile(imagefile);
+      let url = URL.createObjectURL(imagefile);
+      setCoverPhotoPreviewURL(url);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    let newProf_url, newCover_url;
+    if (profilePicPreviewURL !== user.prof_pic_url) {
+      await getS3URL("profile");
+      await sendFileToS3(profilePicFile);
 
-    await getS3URL();
-    await sendFileToS3();
+      newProf_url = s3URL.split("?")[0];
+      console.log(newProf_url);
 
-    const image_url = s3URL.split("?")[0];
-    console.log(image_url);
+      setProfilePicNewURL(newProf_url);
+    }
+    if (coverPhotoPreviewURL !== user.cover_pic_url) {
+      await getS3URL("cover");
+      await sendFileToS3(coverPhotoFile);
 
-    setProfilePicNewURL(image_url);
+      newCover_url = s3URL.split("?")[0];
+      console.log(newCover_url);
 
-    // axios.post("/api/updateuser", {
-    //   userid: user.id,
-    //   bio: aboutBio,
-    //   prof_pic_file: profilePicBuffer,
-    //   cover_photo_file: coverPhotoBuffer,
-    // });
+      setCoverPhotoNewURL(newCover_url);
+    }
 
+    axios.post("/api/updateuser", {
+      userid: user.id,
+      bio: aboutBio,
+      prof_pic_url: newProf_url,
+      cover_photo_url: newCover_url,
+      username: newUsername,
+    });
+    setIsLoading(false);
     onClose();
   };
-
-  useEffect(() => {
-    if (user.bio === undefined) {
-      setAboutBio("");
-    } else {
-      setAboutBio(user.bio);
-    }
-  }, []);
 
   return (
     <>
@@ -162,6 +192,7 @@ const EditProfile = ({ isEditable }) => {
                       border: "1px solid red",
                       padding: "0.3rem 0.5rem",
                       cursor: "pointer",
+                      borderRadius: "6px",
                     }}
                     htmlFor="profile_pic"
                   >
@@ -189,12 +220,13 @@ const EditProfile = ({ isEditable }) => {
                   />
                 </Flex>
                 <Flex w="100%" align="flex-start" direction="column">
-                  {/* <FormLabel>Cover Photo</FormLabel>
+                  <FormLabel>Cover Photo</FormLabel>
                   <label
                     style={{
                       border: "1px solid red",
                       padding: "0.3rem 0.5rem",
                       cursor: "pointer",
+                      borderRadius: "6px",
                     }}
                     htmlFor="cover_photo"
                   >
@@ -213,8 +245,6 @@ const EditProfile = ({ isEditable }) => {
                   />
                   <Image
                     src={coverPhotoPreviewURL}
-                    // boxSize="200px"
-                    // htmlHeight="300px"
                     alt="User cover image"
                     fit="cover"
                     maxH="200px"
@@ -223,12 +253,37 @@ const EditProfile = ({ isEditable }) => {
                     maxW="100%"
                     border="solid lightgray 2px"
                     boxShadow="0px 0px 20px 1px rgb(0, 0, 0, 0.4)"
-                  /> */}
+                  />
                 </Flex>
+                <FormControl id="username">
+                  <FormHelperText fontSize="inherit" color="gray.600">
+                    <Flex alignItems="center" justify="space-between">
+                      <FormLabel>Username</FormLabel>
+                      <Text
+                        alignSelf="flex-end"
+                        color="gray.400"
+                        fontSize="0.6rem"
+                      >
+                        Maximum 20 characters
+                      </Text>
+                    </Flex>
+                  </FormHelperText>
+                  <Stack>
+                    <InputGroup size="sm">
+                      <Input
+                        fontSize="1rem"
+                        onChange={(e) => setNewUsername(e.target.value)}
+                        value={newUsername}
+                        disabled={isLoading}
+                        _focus={{ outline: "none" }}
+                      />
+                    </InputGroup>
+                  </Stack>
+                </FormControl>
                 <FormControl id="aboutBio">
                   <FormHelperText fontSize="inherit" color="gray.600">
                     <Flex alignItems="center" justify="space-between">
-                      <Text>Bio&nbsp;</Text>
+                      <FormLabel>Bio</FormLabel>
                       <Text
                         alignSelf="flex-end"
                         color="gray.400"
@@ -271,7 +326,7 @@ const EditProfile = ({ isEditable }) => {
                 }}
                 _focus={{ outline: "none" }}
                 type="submit"
-                // disabled={isLoading || fieldsAreEmpty}
+                disabled={isLoading}
               >
                 {isLoading ? (
                   <SpinnerIcon
@@ -280,7 +335,7 @@ const EditProfile = ({ isEditable }) => {
                     fontSize="1.3rem"
                   ></SpinnerIcon>
                 ) : (
-                  "Confirm"
+                  "Confirm Changes"
                 )}
               </Button>
             </ModalFooter>

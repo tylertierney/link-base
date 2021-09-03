@@ -26,11 +26,11 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  prof_pic_file: {
-    type: Buffer,
+  prof_pic_url: {
+    type: String,
   },
-  cover_photo_file: {
-    type: Buffer,
+  cover_pic_url: {
+    type: String,
   },
 });
 
