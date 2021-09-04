@@ -35,6 +35,21 @@ const SignUp = ({ users }) => {
     console.log(email, password, username);
 
     signup(email, password, username);
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        username: username,
+        email: email,
+        prof_pic_url: "",
+        cover_pic_url: "",
+        followers: [],
+        following: [],
+        posts: [],
+        liked_posts: [],
+        id: "",
+        bio: "",
+      })
+    );
   };
 
   return (

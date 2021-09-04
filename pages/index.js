@@ -18,9 +18,10 @@ const Home = ({ users }) => {
   const [sortingBy, setSortingBy] = useState("popular");
 
   useEffect(() => {
-    const getUserFromLocalStorage = async () => {
+    const getUserFromLocalStorage = () => {
       if (localStorage.getItem("user")) {
         let founduser = localStorage.getItem("user");
+        console.log(founduser);
         let convertedfounduser;
         if (founduser) {
           convertedfounduser = JSON.parse(founduser);
@@ -34,7 +35,7 @@ const Home = ({ users }) => {
         return convertedfounduser;
       }
     };
-    setUser(() => getUserFromLocalStorage());
+    // setUser(() => getUserFromLocalStorage());
 
     if (user) {
       for (const person of users) {
@@ -46,7 +47,7 @@ const Home = ({ users }) => {
     }
   }, [user?.id]);
 
-  console.log(user);
+  console.log("hi");
 
   return (
     <>

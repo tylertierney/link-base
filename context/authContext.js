@@ -32,8 +32,11 @@ const AuthContextProvider = ({ children }) => {
     if (auth.currentUser()) {
       setUser(auth.currentUser());
     }
-    // console.log(auth.currentUser());
+
+    // setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
+
+  console.log("AUTH current user is: ", auth.currentUser());
 
   const login = (email, password) => {
     setIsLoading(true);

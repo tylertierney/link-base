@@ -22,6 +22,7 @@ import { ads } from "../SponsoredPost/SponsoredPost";
 const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   const { user, authReady } = useUser();
 
+  console.log(user);
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
       return;
