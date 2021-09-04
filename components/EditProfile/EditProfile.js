@@ -40,7 +40,7 @@ import { useUser } from "../../context/authContext";
 
 import accountPageStyles from "../../pages/user/accountPage.module.css";
 
-const EditProfile = ({ isEditable }) => {
+const EditProfile = ({ isEditable, showConfirmation, setShowConfirmation }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useUser();
 
@@ -55,54 +55,22 @@ const EditProfile = ({ isEditable }) => {
   const [coverPhotoPreviewURL, setCoverPhotoPreviewURL] = useState(
     user.cover_pic_url
   );
-  const [profilePicNewURL, setProfilePicNewURL] = useState("");
-  const [coverPhotoNewURL, setCoverPhotoNewURL] = useState("");
-  const [s3URL_prof, setS3URL_prof] = useState("");
-  const [s3URL_cover, setS3URL_cover] = useState("");
+
   const [newUsername, setNewUsername] = useState(user.username);
 
-  const getS3URL = async (photo) => {
-    if (photo === "profile") {
-      try {
-        const res = await axios.get("/api/s3");
-        // const res = JSON.parse(response);
-        setS3URL_prof(res.data.url);
-        console.log(res.data.url);
-        return res.data.url;
-        // return JSON.parse(response.data.url);
-      } catch (err) {
-        console.log(err);
-      }
-    } else {
-      try {
-        const res = await axios.get("/api/s3");
-        // const res = JSON.parse(response);
-        console.log(res);
-        setS3URL_cover(res.data.url);
-        console.log(res.data.url);
-        return res.data.url;
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
-
-  const sendFileToS3 = async (file, s3url) => {
+  const sendFileToS3 = (file, s3url) => {
     let config = { headers: { "Content-Type": "multipart/form-data" } };
-    console.log(s3url);
-    try {
-      const response = await axios.put(s3url, file);
-      // .then((data) => console.log(data));
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
+
+    axios
+      .put(s3url, file, config)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   const handleProfilePicUpload = (e) => {
     let imagefile = e.target.files[0];
     if (imagefile) {
-      setProfilePicFile(imagefile);
+      setProfilePicFile(() => imagefile);
       let url = URL.createObjectURL(imagefile);
       setProfilePicPreviewURL(url);
     }
@@ -111,7 +79,7 @@ const EditProfile = ({ isEditable }) => {
     let imagefile = e.target.files[0];
     console.log(e.target.files[0]);
     if (imagefile) {
-      setCoverPhotoFile(imagefile);
+      setCoverPhotoFile(() => imagefile);
       let url = URL.createObjectURL(imagefile);
       setCoverPhotoPreviewURL(url);
     }
@@ -120,35 +88,46 @@ const EditProfile = ({ isEditable }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    let newProf_url, newCover_url;
-    if (profilePicPreviewURL !== user.prof_pic_url) {
-      let url = getS3URL("profile");
-      sendFileToS3(profilePicFile, url);
 
-      newProf_url = s3URL_prof.split("?")[0];
-      console.log(newProf_url);
-
-      setProfilePicNewURL(newProf_url);
+    if (profilePicFile) {
+      axios
+        .get("/api/s3")
+        .then((response) => {
+          console.log(response.data.url);
+          sendFileToS3(profilePicFile, response.data.url);
+          let new_url = response.data.url.split("?")[0];
+          axios.post("/api/updateuser", {
+            userid: user.id,
+            bio: aboutBio,
+            prof_pic_url: new_url,
+            username: newUsername,
+          });
+          setShowConfirmation(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    if (coverPhotoPreviewURL !== user.cover_pic_url) {
-      // await getS3URL("cover");
-      let url = getS3URL("cover");
-      sendFileToS3(coverPhotoFile, url);
 
-      newCover_url = s3URL_cover.split("?")[0];
-      console.log(newCover_url);
-
-      setCoverPhotoNewURL(newCover_url);
+    if (coverPhotoFile) {
+      axios
+        .get("/api/s3")
+        .then((response) => {
+          sendFileToS3(coverPhotoFile, response.data.url);
+          let new_url = response.data.url.split("?")[0];
+          axios.post("/api/updateuser", {
+            userid: user.id,
+            bio: aboutBio,
+            cover_pic_url: new_url,
+            username: newUsername,
+          });
+          setShowConfirmation(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-    console.log("new urls:", newProf_url, newCover_url);
 
-    axios.post("/api/updateuser", {
-      userid: user.id,
-      bio: aboutBio,
-      prof_pic_url: newProf_url,
-      cover_photo_url: newCover_url,
-      username: newUsername,
-    });
     setIsLoading(false);
     onClose();
   };
@@ -226,6 +205,7 @@ const EditProfile = ({ isEditable }) => {
                     mb="20px"
                     border="solid lightgray 2px"
                     boxShadow="0px 0px 20px 1px rgb(0, 0, 0, 0.4)"
+                    fallbackSrc="https://www.macmillandictionary.com/external/slideshow/full/White_full.png"
                   />
                 </Flex>
                 <Flex w="100%" align="flex-start" direction="column">
@@ -262,6 +242,7 @@ const EditProfile = ({ isEditable }) => {
                     maxW="100%"
                     border="solid lightgray 2px"
                     boxShadow="0px 0px 20px 1px rgb(0, 0, 0, 0.4)"
+                    fallbackSrc="https://www.macmillandictionary.com/external/slideshow/full/White_full.png"
                   />
                 </Flex>
                 <FormControl id="username">

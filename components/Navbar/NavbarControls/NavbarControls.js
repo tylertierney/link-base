@@ -20,10 +20,11 @@ const NavbarControls = () => {
         size="xs"
         fontSize="0.7rem"
         _focus={{ outline: "none" }}
+        mr="10px"
       >
         <Link href="/signup">Sign Up</Link>
       </Button>
-      <Button
+      {/* <Button
         _focus={{ outline: "none" }}
         variant="solid"
         p="0 0.8rem"
@@ -31,6 +32,19 @@ const NavbarControls = () => {
         backgroundColor="blue.400"
         _hover={{ opacity: "0.8" }}
         size="xs"
+      >
+        <Link href="/login">Log In</Link>
+      </Button> */}
+      <Button
+        size="xs"
+        bgGradient="linear(to-r, red.400,pink.400)"
+        color={"white"}
+        _hover={{
+          bgGradient: "linear(to-r, red.400,pink.400)",
+          boxShadow: "xl",
+        }}
+        _focus={{ outline: "none" }}
+        p="0.1rem 0.8rem"
       >
         <Link href="/login">Log In</Link>
       </Button>

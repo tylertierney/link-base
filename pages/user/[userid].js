@@ -10,6 +10,7 @@ import {
   Divider,
   Button,
   Icon,
+  Box,
 } from "@chakra-ui/react";
 
 import Feed from "../../components/Feed/Feed";
@@ -30,24 +31,27 @@ import EditProfile from "../../components/EditProfile/EditProfile";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import axios from "axios";
 
+import { CheckCircleIcon } from "@chakra-ui/icons";
+
 const AccountPage = ({ userdata, users }) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const [sortingBy, setSortingBy] = useState("new");
 
   const [isFollowing, setIsFollowing] = useState(true);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   useEffect(() => {
     setUser(() => JSON.parse(localStorage.getItem("user")));
 
     let founduser = JSON.parse(localStorage.getItem("user"));
-    axios
-      .get(`/api/${founduser.id}`)
-      .then((response) => {
-        console.log(response);
-        setUser(JSON.parse(response.data.body));
-      })
-      .catch((err) => console.log(err));
+    // axios
+    //   .get(`/api/${founduser.id}`)
+    //   .then((response) => {
+    //     console.log(response);
+    //     setUser(JSON.parse(response.data.body));
+    //   })
+    //   .catch((err) => console.log(err));
 
     if (userdata.id === user.id) {
       setIsEditable(true);
@@ -95,6 +99,22 @@ const AccountPage = ({ userdata, users }) => {
           mb="75px"
           className={accountPageStyles.header}
         >
+          {showConfirmation && (
+            <Flex
+              p="inherit"
+              align="center"
+              w="100%"
+              justify="center"
+              direction="column"
+            >
+              <Flex align="center">
+                <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
+                <Text fontSize="0.7rem" color="gray.600">
+                  It may take a few minutes to view your changes.
+                </Text>
+              </Flex>
+            </Flex>
+          )}
           <Image
             alt="Cover Photo"
             maxH="300px"
@@ -142,7 +162,11 @@ const AccountPage = ({ userdata, users }) => {
             {userdata.username}
           </Text>
           {isEditable ? (
-            <EditProfile isEditable={isEditable} />
+            <EditProfile
+              isEditable={isEditable}
+              showConfirmation={showConfirmation}
+              setShowConfirmation={setShowConfirmation}
+            />
           ) : isFollowing ? (
             <Button
               position="absolute"
@@ -154,7 +178,7 @@ const AccountPage = ({ userdata, users }) => {
               onClick={(e) => handleUnfollowUser(e)}
               _focus={{ outline: "none" }}
             >
-              Following&nbsp;
+              {/* Following&nbsp; */}
               <Icon as={BsPersonCheckFill} />
             </Button>
           ) : (
@@ -219,7 +243,7 @@ const AccountPage = ({ userdata, users }) => {
                 />
               </VStack>
             </TabPanel>
-            <TabPanel>
+            <TabPanel maxW="100vw">
               <VStack
                 overflowY="scroll"
                 minH="200vh"

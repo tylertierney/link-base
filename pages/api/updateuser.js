@@ -23,7 +23,7 @@ const handler = async (req, res) => {
       {
         bio: req.body.bio,
         prof_pic_url: req.body.prof_pic_url,
-        cover_pic_url: req.body.cover_photo_url,
+        cover_pic_url: req.body.cover_pic_url,
         username: req.body.username,
       }
     );
