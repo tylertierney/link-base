@@ -6,7 +6,7 @@
 }
 
 .clamp {
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 6;
 }
 
 .noclamp {

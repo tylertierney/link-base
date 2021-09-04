@@ -71,9 +71,9 @@ const SignUp = ({ users }) => {
               <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
                 Create an account to interact with friends, create posts, and
                 more. <br />
-                <br />
+                {/* <br />
                 Or sign-in using a guest account to test out linkBase features
-                anonymously.
+                anonymously. */}
               </Text>
             </Stack>
             <Box>

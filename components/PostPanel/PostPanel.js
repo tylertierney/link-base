@@ -71,11 +71,11 @@ const PostPanel = ({
   let eventHandlers;
 
   eventHandlers = {
-    mousedown: (e) => startMoving(e),
+    // mousedown: (e) => startMoving(e),
     touchstart: (e) => startMoving(e),
-    mouseup: (e) => stopMoving(e),
+    // mouseup: (e) => stopMoving(e),
     touchend: (e) => stopMoving(e),
-    mousemove: (e) => handleMouseMove(e),
+    // mousemove: (e) => handleMouseMove(e),
     touchmove: (e) => handleMouseMove(e),
   };
 
@@ -116,7 +116,7 @@ const PostPanel = ({
             onTouchEnd={eventHandlers.touchend}
             onMouseMove={eventHandlers.mousemove}
             onTouchMove={eventHandlers.touchmove}
-            onMouseLeave={() => setBoxIsMoving(false)}
+            // onMouseLeave={() => setBoxIsMoving(false)}
             className={slideAnimation}
           >
             <Box

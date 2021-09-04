@@ -33,6 +33,8 @@ import { FaRegComments, FaComments } from "react-icons/fa";
 
 import CommentSection from "../CommentSection/CommentSection";
 
+import { AiOutlineUser } from "react-icons/ai";
+
 const Post = ({ isSponsored, postedBy, post, isPanel }) => {
   const { user } = useUser();
 
@@ -104,8 +106,6 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
   //   }
   // };
 
-  console.log(isSponsored);
-
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -128,10 +128,10 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
             <Avatar
               size="sm"
               outline="none"
-              name={post.author}
+              icon={<AiOutlineUser />}
               src={postedBy.prof_pic_url}
               boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.1)"
-              backgroundColor="white"
+              fontSize="1.3rem"
             ></Avatar>
             <Text ml="0.8rem">{post.author}</Text>
           </Flex>

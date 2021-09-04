@@ -11,7 +11,10 @@ import {
   Button,
   Icon,
   Box,
+  Avatar,
 } from "@chakra-ui/react";
+
+import { AiOutlineUser } from "react-icons/ai";
 
 import Feed from "../../components/Feed/Feed";
 import { useEffect, useState } from "react";
@@ -32,6 +35,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import axios from "axios";
 
 import { CheckCircleIcon } from "@chakra-ui/icons";
+import router from "next/router";
 
 const AccountPage = ({ userdata, users }) => {
   const [isEditable, setIsEditable] = useState(false);
@@ -41,17 +45,9 @@ const AccountPage = ({ userdata, users }) => {
   const [isFollowing, setIsFollowing] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
+  const { user, setUser, logout } = useUser();
   useEffect(() => {
     setUser(() => JSON.parse(localStorage.getItem("user")));
-
-    let founduser = JSON.parse(localStorage.getItem("user"));
-    // axios
-    //   .get(`/api/${founduser.id}`)
-    //   .then((response) => {
-    //     console.log(response);
-    //     setUser(JSON.parse(response.data.body));
-    //   })
-    //   .catch((err) => console.log(err));
 
     if (userdata.id === user.id) {
       setIsEditable(true);
@@ -60,9 +56,8 @@ const AccountPage = ({ userdata, users }) => {
     return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
 
-  const { user, setUser, logout } = useUser();
-
   let usernameLength = userdata.username.length;
+
   let usernameSize = "2rem";
 
   if (usernameLength > 14) {
@@ -99,38 +94,20 @@ const AccountPage = ({ userdata, users }) => {
           mb="75px"
           className={accountPageStyles.header}
         >
-          {showConfirmation && (
-            <Flex
-              p="inherit"
-              align="center"
-              w="100%"
-              justify="center"
-              direction="column"
-            >
-              <Flex align="center">
-                <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
-                <Text fontSize="0.7rem" color="gray.600">
-                  It may take a few minutes to view your changes.
-                </Text>
-              </Flex>
-            </Flex>
-          )}
           <Image
             alt="Cover Photo"
             maxH="300px"
             minH="300px"
             minW="600px"
             align="center"
-            // fallbackSrc="https://via.placeholder.com/600x300?text=_"
             fallbackSrc="https://images.unsplash.com/photo-1510472306330-201b18c210fc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
             src={userdata.cover_pic_url}
             className={accountPageStyles.coverPhoto}
             borderRadius="lg"
             boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
           ></Image>
-          <Image
+          {/* <Image
             alt="Profile Picture"
-            // fallbackSrc="https://via.placeholder.com/300x300"
             fallbackSrc="https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80"
             boxSize="150px"
             fit="cover"
@@ -142,8 +119,21 @@ const AccountPage = ({ userdata, users }) => {
             transform="translate(-50%, 50%)"
             border="2px solid lightgray"
             boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 0.7)"
-          ></Image>
-          {/* <EditProfile isEditable={isEditable} /> */}
+          ></Image> */}
+          <Avatar
+            size="full"
+            boxSize="150px"
+            src={userdata.prof_pic_url}
+            position="absolute"
+            bottom="0"
+            left="50%"
+            transform="translate(-50%, 50%)"
+            border="2px solid lightgray"
+            // name={userdata.username}
+            boxShadow="0px 0px 10px 2px rgb(0, 0, 0, 0.7)"
+            fontSize="4rem"
+            icon={<AiOutlineUser />}
+          ></Avatar>
         </Flex>
         <Flex
           position="relative"
@@ -161,6 +151,7 @@ const AccountPage = ({ userdata, users }) => {
           >
             {userdata.username}
           </Text>
+
           {isEditable ? (
             <EditProfile
               isEditable={isEditable}
@@ -178,7 +169,6 @@ const AccountPage = ({ userdata, users }) => {
               onClick={(e) => handleUnfollowUser(e)}
               _focus={{ outline: "none" }}
             >
-              {/* Following&nbsp; */}
               <Icon as={BsPersonCheckFill} />
             </Button>
           ) : (
@@ -196,6 +186,22 @@ const AccountPage = ({ userdata, users }) => {
             </Button>
           )}
         </Flex>
+        {showConfirmation && (
+          <Flex
+            p="inherit"
+            align="center"
+            w="100%"
+            justify="center"
+            direction="column"
+          >
+            <Flex align="center">
+              <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
+              <Text fontSize="0.7rem" color="gray.600">
+                It may take a few minutes to view your changes.
+              </Text>
+            </Flex>
+          </Flex>
+        )}
         <Tabs colorScheme="red" isFitted>
           <TabList>
             <Tab
@@ -270,33 +276,6 @@ const AccountPage = ({ userdata, users }) => {
           </TabPanels>
         </Tabs>
         <Divider />
-
-        {/* <VStack
-          overflowY="scroll"
-          minH="200vh"
-          className="hideScrollbar"
-          p="0.5rem 0.8rem 2rem 0.8rem"
-          position="relative"
-        >
-          <Flex
-            position="relative"
-            pb="0.5rem"
-            m="0 2rem 0 2rem"
-            alignSelf="flex-end"
-          >
-            <SortMenu
-              textcolor="dark"
-              sortingBy={sortingBy}
-              setSortingBy={setSortingBy}
-            />
-          </Flex>
-          <Feed
-            sortingBy={sortingBy}
-            userdata={userdata}
-            isProfilePage={true}
-            users={users}
-          />
-        </VStack> */}
       </VStack>
     </Layout>
   );
@@ -309,7 +288,7 @@ export async function getServerSideProps(context) {
 
   const db = await client.db();
 
-  const userdata = await db
+  let userdata_from_db = await db
     .collection("users")
     .find({ id: context.params.userid })
     .toArray();
@@ -318,7 +297,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      userdata: JSON.parse(JSON.stringify(userdata[0])),
+      userdata: JSON.parse(JSON.stringify(userdata_from_db))[0],
       users: JSON.parse(JSON.stringify(users)),
     },
   };

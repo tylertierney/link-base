@@ -43,18 +43,20 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
   let postArray = [];
   if (isProfilePage) {
     if (user.id === userdata.id) {
-      postArray = user.posts.map((post) => {
-        return (
-          <Post
-            isSponsored={false}
-            isPanel={false}
-            postedBy={user}
-            key={post._id}
-            post={post}
-          />
-        );
-      });
-      sortPosts(postArray);
+      if (user.posts) {
+        postArray = user.posts.map((post) => {
+          return (
+            <Post
+              isSponsored={false}
+              isPanel={false}
+              postedBy={user}
+              key={post._id}
+              post={post}
+            />
+          );
+        });
+        sortPosts(postArray);
+      }
     } else {
       postArray = userdata.posts.map((post) => {
         return (

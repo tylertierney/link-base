@@ -33,6 +33,8 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 import { TiLocationOutline, TiLocation } from "react-icons/ti";
 import router from "next/router";
 
+import { AiOutlineUser } from "react-icons/ai";
+
 const NewPost = () => {
   const { user, authReady } = useUser();
 
@@ -128,16 +130,16 @@ const NewPost = () => {
             <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
             <Text fontSize="0.7rem" color="gray.600">
               Your&nbsp;
-              <Link href={`/user/${user.id}`} passHref>
-                <a style={{ textDecoration: "underline", color: "blue" }}>
-                  post
-                </a>
-              </Link>
+              {/* <Link href={`/user/${user.id}`} passHref>
+                <a style={{ textDecoration: "underline", color: "blue" }}> */}
+              post
+              {/* </a>
+              </Link> */}
               &nbsp;is live!
             </Text>
           </Flex>
-          <Text fontSize="0.7rem" color="gray.600">
-            You may need to refresh your profile in order to view changes.
+          <Text align="center" fontSize="0.7rem" color="gray.600">
+            You may need to refresh this page in order to view changes.
           </Text>
         </Flex>
       ) : (
@@ -147,10 +149,11 @@ const NewPost = () => {
               <Flex align="center" cursor="pointer">
                 <Avatar
                   size="sm"
-                  name={user.username}
+                  // name={user.username}
                   src={user.prof_pic_url}
                   boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.07)"
-                  backgroundColor="white"
+                  fontSize="1.3rem"
+                  icon={<AiOutlineUser />}
                 ></Avatar>
                 <Text color="brand.text_dark" ml="0.6rem">
                   {user.username}

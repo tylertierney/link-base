@@ -21,11 +21,17 @@ const Home = ({ users }) => {
     const getUserFromLocalStorage = async () => {
       if (localStorage.getItem("user")) {
         let founduser = localStorage.getItem("user");
-        let convertedfounduser = JSON.parse(founduser);
-        // await setUser(() => convertedfounduser);
+        let convertedfounduser;
+        if (founduser) {
+          convertedfounduser = JSON.parse(founduser);
+          console.log(convertedfounduser);
+          setUser(() => convertedfounduser);
+        } else {
+          router.push("/login");
+        }
 
+        console.log(convertedfounduser);
         return convertedfounduser;
-        // return;
       }
     };
     setUser(() => getUserFromLocalStorage());
@@ -38,7 +44,9 @@ const Home = ({ users }) => {
         }
       }
     }
-  }, [user]);
+  }, [user?.id]);
+
+  console.log(user);
 
   return (
     <>
