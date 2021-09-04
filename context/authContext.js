@@ -107,8 +107,8 @@ const AuthContextProvider = ({ children }) => {
         console.log(email, password);
         login(email, password);
         setUser(response);
-        // router.push(`/user/${response.id}`);
-        router.push("/");
+        router.push(`/user/${response.id}`);
+        // router.push("/");
       })
       .catch((error) => {
         console.log(error);
