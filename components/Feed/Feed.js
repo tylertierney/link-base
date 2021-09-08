@@ -13,16 +13,18 @@ import {
   AlertIcon,
   Box,
   Heading,
+  Icon,
 } from "@chakra-ui/react";
 
 import SponsoredPost from "../SponsoredPost/SponsoredPost";
+import { IoMdGlobe } from "react-icons/io";
 
 import { ads } from "../SponsoredPost/SponsoredPost";
 
-const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
+const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
+  // const [feedMessage, setFeedMessage] = useState(null);
   const { user, authReady } = useUser();
 
-  console.log(user);
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
       return;
@@ -73,21 +75,42 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
       sortPosts(postArray);
     }
   } else {
-    users.forEach((user) => {
-      user.posts.forEach((post) => {
-        postArray.push(
-          <Post
-            isSponsored={false}
-            isPanel={false}
-            postedBy={user}
-            key={post._id}
-            post={post}
-          />
-        );
+    if (isDiscover === true) {
+      users.forEach((person) => {
+        person.posts.forEach((post) => {
+          postArray.push(
+            <Post
+              isSponsored={false}
+              isPanel={false}
+              postedBy={person}
+              key={post._id}
+              post={post}
+            />
+          );
+        });
       });
+    }
+    users.forEach((person) => {
+      if (user.following.includes(person.id)) {
+        person.posts.forEach((post) => {
+          postArray.push(
+            <Post
+              isSponsored={false}
+              isPanel={false}
+              postedBy={person}
+              key={post._id}
+              post={post}
+            />
+          );
+        });
+      }
     });
     sortPosts(postArray);
   }
+
+  // This performs ad insertion at a 1/6 rate within the feed;
+  // This function runs AFTER all other sorting and data-fetching
+  // functions have been completed
 
   for (let i = 5, j = 0; i < postArray.length; i++) {
     if (i % 6 === 0) {
@@ -104,6 +127,49 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
     }
   }
 
+  console.log(user.following);
+  console.log(user.following.includes("65a61db3-b7b1-48c0-b7b5-5f8dd0b4d0b8"));
+
+  // This determines whether to display the feed or to display the relevant message if the feed empty
+  const determineFeedOrMessage = () => {
+    if (postArray.length === 0) {
+      return (
+        <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
+          {isProfilePage ? (
+            <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
+              This user hasn't posted anything yet
+            </Heading>
+          ) : (
+            <>
+              {" "}
+              <br />
+              <Heading
+                maxW="90vw"
+                textAlign="center"
+                fontSize="1.2rem"
+                color="gray.700"
+              >
+                Follow some users to populate your feed.
+              </Heading>
+              <br />
+              <Heading
+                maxW="90vw"
+                textAlign="center"
+                fontSize="1.2rem"
+                color="gray.700"
+              >
+                View the Discover <Icon as={IoMdGlobe} /> tab to find users and
+                popular content!
+              </Heading>
+            </>
+          )}
+        </Heading>
+      );
+    } else {
+      return postArray;
+    }
+  };
+
   return (
     <Box className="hideScrollbar" p="0 0 10rem 0">
       {!user && (
@@ -112,15 +178,20 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy }) => {
           Please log in or sign up in order to view your feed.
         </Alert>
       )}
-      {user && (
+      {/* {user && (
         <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
-          {postArray.length === 0 ? (
+          {postArray.length === 0 && isProfilePage ? (
             <Heading textAlign="center" fontSize="1.2rem" color="gray.400">
               This user hasn&apos;t posted anything yet
             </Heading>
           ) : (
             postArray
           )}
+        </VStack>
+      )} */}
+      {user && (
+        <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
+          {determineFeedOrMessage()}
         </VStack>
       )}
     </Box>

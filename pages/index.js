@@ -10,12 +10,14 @@ import { useUser } from "../context/authContext";
 import Link from "next/link";
 
 import SortMenu from "../components/SortMenu/SortMenu";
+import TabMenu from "../components/TabMenu/TabMenu";
 import router from "next/router";
 
 const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
 
   const [sortingBy, setSortingBy] = useState("popular");
+  const [tabSelection, setTabSelection] = useState("Your Feed");
 
   useEffect(() => {
     const getUserFromLocalStorage = () => {
@@ -47,7 +49,7 @@ const Home = ({ users }) => {
     }
   }, [user?.id]);
 
-  console.log("hi");
+  console.log(tabSelection);
 
   return (
     <>
@@ -71,10 +73,28 @@ const Home = ({ users }) => {
                 <Flex align="center" position="relative">
                   <Divider padding="0.2rem" w="10rem"></Divider>
                   <SortMenu sortingBy={sortingBy} setSortingBy={setSortingBy} />
+                  <TabMenu
+                    tabSelection={tabSelection}
+                    setTabSelection={setTabSelection}
+                  />
                 </Flex>
               </>
             )}
-            <Feed sortingBy={sortingBy} isProfilePage={false} users={users} />
+            {tabSelection === "Your Feed" ? (
+              <Feed
+                sortingBy={sortingBy}
+                isProfilePage={false}
+                users={users}
+                isDiscover={false}
+              />
+            ) : (
+              <Feed
+                sortingBy={sortingBy}
+                isProfilePage={false}
+                users={users}
+                isDiscover={true}
+              />
+            )}
           </VStack>
         </Layout>
       </main>

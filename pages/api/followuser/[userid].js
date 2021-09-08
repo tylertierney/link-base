@@ -11,17 +11,42 @@ const handler = async (req, res) => {
   mongoose.connect(process.env.MONGODB_URI);
 
   if (req.method === "POST") {
-    const founduser = await User.findOne({
-      id: req.body.following_id,
+    const foundcurrentuser = await User.findOne({
+      id: req.body.currentuser_id,
     });
-    //   const foundpost = founduser.posts.id(req.query.postid);
 
-    console.log(founduser);
-
-    res.status(200).json({
-      message: "You just got a user from the database",
-      body: founduser,
+    const foundtargetuser = await User.findOne({
+      id: req.query.userid,
     });
+
+    if (req.body.action === "add") {
+      foundcurrentuser.following.push(req.query.userid);
+      foundtargetuser.followers.push(req.body.currentuser_id);
+      foundcurrentuser.save();
+      foundtargetuser.save();
+      res.status(200).json({
+        message: "A follower was added",
+        body: foundcurrentuser,
+      });
+    } else {
+      const index_of_current = foundcurrentuser.following.indexOf(
+        req.query.userid
+      );
+      const index_of_target = foundtargetuser.followers.indexOf(
+        req.body.currentuser_id
+      );
+
+      foundcurrentuser.following.splice(index_of_target, 1);
+      foundtargetuser.followers.splice(index_of_current, 1);
+
+      foundcurrentuser.save();
+      foundtargetuser.save();
+
+      res.status(200).json({
+        message: "A follower was removed",
+        body: foundcurrentuser,
+      });
+    }
   }
 };
 

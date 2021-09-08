@@ -1,5 +1,5 @@
 .menubutton {
-  right: -60%;
+  left: -60%;
 }
 
 @media only screen and (max-width: 600px) {
@@ -8,6 +8,6 @@
   }
 
   .menubutton {
-    right: -34%;
+    left: -44%;
   }
 }

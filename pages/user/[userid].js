@@ -53,6 +53,13 @@ const AccountPage = ({ userdata, users }) => {
       setIsEditable(true);
       setIsFollowing(false);
     }
+
+    if (user.following.includes(userdata.id)) {
+      setIsFollowing(true);
+    } else {
+      setIsFollowing(false);
+    }
+
     return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
 
@@ -72,9 +79,18 @@ const AccountPage = ({ userdata, users }) => {
 
   const handleFollowUser = () => {
     setIsFollowing(true);
+
+    axios.post(`/api/followuser/${userdata.id}`, {
+      currentuser_id: user.id,
+      action: "add",
+    });
   };
   const handleUnfollowUser = () => {
     setIsFollowing(false);
+    axios.post(`/api/followuser/${userdata.id}`, {
+      currentuser_id: user.id,
+      action: "remove",
+    });
   };
 
   return (

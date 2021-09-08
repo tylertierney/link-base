@@ -29,11 +29,11 @@ const AuthContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (auth.currentUser()) {
-      setUser(auth.currentUser());
-    }
+    // if (auth.currentUser()) {
+    //   setUser(auth.currentUser());
+    // }
 
-    // setUser(JSON.parse(localStorage.getItem("user")));
+    setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
 
   console.log("AUTH current user is: ", auth.currentUser());
@@ -105,6 +105,7 @@ const AuthContextProvider = ({ children }) => {
         username: username,
       })
       .then((response) => {
+        console.log("please god tell me this appears, line 108");
         console.log("Confirmation email sent", response);
         setIsLoading(false);
         addUserToDatabase(response);
@@ -118,6 +119,7 @@ const AuthContextProvider = ({ children }) => {
         console.log(error);
         setIsLoading(false);
         setError(error);
+        return;
       });
   };
 

@@ -14,6 +14,8 @@ import {
 } from "@chakra-ui/react";
 import { BiLogOut } from "react-icons/bi";
 import { VscAccount } from "react-icons/vsc";
+import { FaUserFriends } from "react-icons/fa";
+import { HiOutlineUsers } from "react-icons/hi";
 
 import { useUser } from "../../../context/authContext";
 
@@ -26,6 +28,8 @@ const UserMenu = () => {
 
   const accountIcon = <Icon as={VscAccount} fontSize="0.8rem" />;
   const signoutIcon = <Icon as={BiLogOut} fontSize="0.8rem" />;
+  const followingIcon = <Icon as={FaUserFriends} fontSize="0.8rem" />;
+  const followersIcon = <Icon as={HiOutlineUsers} fontSize="0.8rem" />;
 
   return (
     <>
@@ -60,6 +64,22 @@ const UserMenu = () => {
                   <Flex align="center">
                     {accountIcon}
                     &nbsp;&nbsp;Account
+                  </Flex>
+                </MenuItem>
+              </Link>
+              <MenuDivider />
+              <Link passHref href="/following">
+                <MenuItem fontSize="0.8rem">
+                  <Flex align="center">
+                    {followingIcon}&nbsp;&nbsp;Following
+                  </Flex>
+                </MenuItem>
+              </Link>
+              <MenuDivider />
+              <Link passHref href="/">
+                <MenuItem fontSize="0.8rem">
+                  <Flex align="center">
+                    {followersIcon}&nbsp;&nbsp;Followers
                   </Flex>
                 </MenuItem>
               </Link>
