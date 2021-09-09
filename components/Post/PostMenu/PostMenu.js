@@ -25,6 +25,9 @@ const PostMenu = ({ isHidden, setIsHidden, postedBy, user }) => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
+    if (user.following === undefined || user.following === null) {
+      return;
+    }
     if (user.following.includes(postedBy.id)) {
       setIsFollowing(true);
     }

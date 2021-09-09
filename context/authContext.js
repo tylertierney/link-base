@@ -38,7 +38,7 @@ const AuthContextProvider = ({ children }) => {
 
   console.log("AUTH current user is: ", auth.currentUser());
 
-  const login = (email, password) => {
+  const login = (email, password, isGuest) => {
     setIsLoading(true);
     console.log("login event");
     auth
@@ -47,10 +47,12 @@ const AuthContextProvider = ({ children }) => {
         console.log("login event detected");
 
         setIsLoading(false);
+        if (isGuest) {
+          return;
+        }
         setUser(response);
 
-        // router.push(`/user/${response.id}`);
-        router.push("/");
+        // router.push("/");
       })
       .catch((error) => {
         console.log("login failed");
@@ -134,18 +136,18 @@ const AuthContextProvider = ({ children }) => {
       });
   };
 
-  const signInAsGuest = () => {
-    const guestuser_obj = {
-      id: 123456,
-      posts: [],
-      liked_posts: [],
-      prof_pic_url: "",
-      cover_pic_url: "",
-      followers: [],
-      following: [],
-    };
-    setUser(guestuser_obj);
-  };
+  // const signInAsGuest = () => {
+  //   const guestuser_obj = {
+  //     id: 123456,
+  //     posts: [],
+  //     liked_posts: [],
+  //     prof_pic_url: "",
+  //     cover_pic_url: "",
+  //     followers: [],
+  //     following: [],
+  //   };
+  //   setUser(guestuser_obj);
+  // };
 
   const context = {
     user,
@@ -157,7 +159,6 @@ const AuthContextProvider = ({ children }) => {
     error,
     isLoading,
     setError,
-    signInAsGuest,
   };
 
   return (

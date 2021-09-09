@@ -21,6 +21,8 @@ import {
   Icon,
 } from "@chakra-ui/react";
 
+import router from "next/router";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +34,8 @@ const Login = () => {
     e.preventDefault();
     console.log(email, password);
 
-    login(email, password);
+    login(email, password, false);
+    router.push("/");
   };
 
   const errorType = {

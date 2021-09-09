@@ -11,14 +11,13 @@ import { useUser } from "../context/authContext";
 import { useState, useEffect } from "react";
 
 import clientPromise from "../utils/mongodb";
+import { EmailIcon } from "@chakra-ui/icons";
 
-const Welcome = ({ users }) => {
+const Welcome = ({ users, guest_pw }) => {
   const [sortingBy, setSortingBy] = useState("popular");
   const [tabSelection, setTabSelection] = useState("Discover");
 
-  const { signInAsGuest, user, setUser } = useUser();
-
-  console.log(signInAsGuest);
+  const { user, setUser, login } = useUser();
 
   const guestuser_obj = {
     id: 123456,
@@ -32,10 +31,21 @@ const Welcome = ({ users }) => {
     bio: "Excited to try out some of these cool features and connect with my friends!",
   };
 
-  useEffect(() => {
-    // signInAsGuest();
-    setUser(guestuser_obj);
-  }, []);
+  useEffect(async () => {
+    // login("Guest@email.com", guest_pw);
+    login("Guest@email.com", guest_pw, true);
+
+    if (user) {
+      for (const person of users) {
+        if (person.id === user.id) {
+          await setUser(() => person);
+          //   localStorage.setItem("user", JSON.stringify(person));
+        }
+      }
+    }
+
+    // return () => login("Guest@email.com", guest_pw, true);
+  }, [user?.id]);
 
   console.log(user);
 
@@ -112,9 +122,12 @@ export async function getServerSideProps(context) {
 
   const users = await db.collection("users").find({}).toArray();
 
+  const guest_pw = process.env.GUEST_PW;
+
   return {
     props: {
       users: JSON.parse(JSON.stringify(users)),
+      guest_pw: guest_pw,
     },
   };
 }

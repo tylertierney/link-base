@@ -58,13 +58,6 @@ const WelcomeMessage = () => {
         </Link>{" "}
         on Github.
       </Text>
-      <br />
-      <Heading fontFamily="Poppins" fontSize="0.9rem">
-        09/09/2021
-      </Heading>
-      <Text fontSize="0.9rem">
-        Currently, guest users cannot view any profiles, including their own.
-      </Text>
     </Flex>
   );
 };

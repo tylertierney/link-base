@@ -166,7 +166,7 @@ const NewPost_GuestUser = () => {
               <Flex
                 align="center"
                 cursor="pointer"
-                // onClick={() => setProfileLinkIsLoading(true)}
+                onClick={() => setProfileLinkIsLoading(true)}
               >
                 <Avatar
                   size="sm"
@@ -176,7 +176,7 @@ const NewPost_GuestUser = () => {
                   icon={<AiOutlineUser />}
                 ></Avatar>
                 <Text color="brand.text_dark" ml="0.6rem" mr="0.6rem">
-                  Guest
+                  Guest123
                 </Text>
                 {profileLinkIsLoading ? (
                   <SpinnerIcon
