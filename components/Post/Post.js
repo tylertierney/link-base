@@ -34,8 +34,8 @@ import CommentSection from "../CommentSection/CommentSection";
 import { AiOutlineUser } from "react-icons/ai";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
-const Post = ({ isSponsored, postedBy, post, isPanel }) => {
-  const { user } = useUser();
+const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
+  // const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
 
   const [isLiked, setIsLiked] = useState(false);
@@ -205,6 +205,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
                   maxW="100%"
                   userSelect="none"
                   onClick={() => setPanelIsShowing(true)}
+                  textAlign="left"
                 >
                   {post.text}
                 </Text>
@@ -322,6 +323,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
               postedBy={postedBy}
               post={post}
               isSponsored={isSponsored}
+              user={user}
             />
           </Flex>
         </>

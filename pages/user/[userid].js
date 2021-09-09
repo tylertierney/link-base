@@ -220,10 +220,7 @@ const AccountPage = ({ userdata, users }) => {
           align="center"
           minW="100%"
         >
-          <TabList
-          // maxW="70%"
-          // minW="70%"
-          >
+          <TabList>
             <Tab
               color="gray.400"
               _focus={{ outline: "none", boxShadow: "none" }}

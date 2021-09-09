@@ -13,7 +13,7 @@ import clientPromise from "../utils/mongodb";
 
 const Welcome = ({ users }) => {
   const [sortingBy, setSortingBy] = useState("popular");
-  const [tabSelection, setTabSelection] = useState("Your Feed");
+  const [tabSelection, setTabSelection] = useState("Discover");
 
   const guestuser_obj = {
     id: 123456,

@@ -26,7 +26,7 @@ const Comment = ({ author_username, author_prof_pic, date, text }) => {
               </Flex>
               <Text color="gray.400">{converted_date}</Text>
             </Flex>
-            <Text color="gray.600" pl="10px">
+            <Text textAlign="left" color="gray.600" pl="10px">
               {text}
             </Text>
           </Flex>

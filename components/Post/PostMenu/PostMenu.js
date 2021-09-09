@@ -20,7 +20,6 @@ import { ViewIcon } from "@chakra-ui/icons";
 import { useState, useEffect } from "react";
 
 import axios from "axios";
-// import User from "../../../models/User";
 
 const PostMenu = ({ isHidden, setIsHidden, postedBy, user }) => {
   const [isFollowing, setIsFollowing] = useState(false);

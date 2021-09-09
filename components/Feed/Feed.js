@@ -56,6 +56,7 @@ const Feed = ({
         postArray = user.posts.map((post) => {
           return (
             <Post
+              user={user}
               isSponsored={false}
               isPanel={false}
               postedBy={user}
@@ -70,6 +71,7 @@ const Feed = ({
       postArray = userdata.posts.map((post) => {
         return (
           <Post
+            user={user}
             isSponsored={false}
             isPanel={false}
             postedBy={userdata}
@@ -86,6 +88,7 @@ const Feed = ({
         person.posts.forEach((post) => {
           postArray.push(
             <Post
+              user={user}
               isSponsored={false}
               isPanel={false}
               postedBy={person}
@@ -104,6 +107,7 @@ const Feed = ({
           person.posts.forEach((post) => {
             postArray.push(
               <Post
+                user={user}
                 isSponsored={false}
                 isPanel={false}
                 postedBy={person}
@@ -168,6 +172,7 @@ const Feed = ({
         i,
         0,
         <SponsoredPost
+          user={user}
           key={Math.floor(Math.random() * 1000000)}
           postedBy={ads[j][0]}
           post={ads[j][1]}

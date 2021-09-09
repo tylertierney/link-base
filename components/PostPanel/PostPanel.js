@@ -14,6 +14,7 @@ const PostPanel = ({
   setPanelIsShowing,
   post,
   postedBy,
+  user,
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(checkForSmallScreen());
   const [boxIsMoving, setBoxIsMoving] = useState(false);
@@ -156,6 +157,7 @@ const PostPanel = ({
               overflowX="hidden"
             >
               <Post
+                user={user}
                 isSponsored={isSponsored}
                 post={post}
                 postedBy={postedBy}
