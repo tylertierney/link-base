@@ -45,7 +45,7 @@ const NewPost = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
-  const [photoURL, setPhotoURL] = useState("");
+  // const [photoURL, setPhotoURL] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
