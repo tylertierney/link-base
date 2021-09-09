@@ -181,17 +181,6 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
           Please log in or sign up in order to view your feed.
         </Alert>
       )}
-      {/* {user && (
-        <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
-          {postArray.length === 0 && isProfilePage ? (
-            <Heading textAlign="center" fontSize="1.2rem" color="gray.400">
-              This user hasn&apos;t posted anything yet
-            </Heading>
-          ) : (
-            postArray
-          )}
-        </VStack>
-      )} */}
       {user && (
         <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
           {determineFeedOrMessage()}

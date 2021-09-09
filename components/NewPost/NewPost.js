@@ -190,6 +190,10 @@ const NewPost = () => {
                 type="textarea"
                 _focus={{ outline: "red" }}
                 disabled={isLoading}
+                autoComplete="off"
+                rows={2}
+                cols="33"
+                wrap="hard"
               />
               <FormErrorMessage userSelect="none" fontSize="0.6rem">
                 {error}

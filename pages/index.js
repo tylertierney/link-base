@@ -49,8 +49,6 @@ const Home = ({ users }) => {
     }
   }, [user?.id]);
 
-  console.log(tabSelection);
-
   return (
     <>
       <Head>
@@ -66,6 +64,7 @@ const Home = ({ users }) => {
             overflow="scroll"
             className="hideScrollbar"
             p="1rem 0.8rem 2rem 0.8rem"
+            minW="360px"
           >
             {user && (
               <>
@@ -78,9 +77,24 @@ const Home = ({ users }) => {
                     setTabSelection={setTabSelection}
                   />
                 </Flex>
+                {tabSelection === "Your Feed" ? (
+                  <Feed
+                    sortingBy={sortingBy}
+                    isProfilePage={false}
+                    users={users}
+                    isDiscover={false}
+                  />
+                ) : (
+                  <Feed
+                    sortingBy={sortingBy}
+                    isProfilePage={false}
+                    users={users}
+                    isDiscover={true}
+                  />
+                )}
               </>
             )}
-            {tabSelection === "Your Feed" ? (
+            {/* {tabSelection === "Your Feed" ? (
               <Feed
                 sortingBy={sortingBy}
                 isProfilePage={false}
@@ -94,7 +108,7 @@ const Home = ({ users }) => {
                 users={users}
                 isDiscover={true}
               />
-            )}
+            )} */}
           </VStack>
         </Layout>
       </main>
