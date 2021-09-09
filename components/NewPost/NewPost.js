@@ -4,6 +4,7 @@ import {
   Avatar,
   Text,
   FormControl,
+  Image,
   Input,
   Button,
   Icon,
@@ -33,6 +34,8 @@ import { CheckCircleIcon } from "@chakra-ui/icons";
 import { TiLocationOutline, TiLocation } from "react-icons/ti";
 import router from "next/router";
 
+import { BsImage } from "react-icons/bs";
+
 import { AiOutlineUser } from "react-icons/ai";
 
 const NewPost = () => {
@@ -41,35 +44,51 @@ const NewPost = () => {
   const [postText, setPostText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
+  // const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
   const [photoURL, setPhotoURL] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [postPhotoPreviewURL, setPostPhotoPreviewURL] = useState("");
+  const [postPhotoFile, setPostPhotoFile] = useState(null);
+
+  const sendFileToS3 = (file, s3url) => {
+    let config = { headers: { "Content-Type": "multipart/form-data" } };
+
+    axios
+      .put(s3url, file, config)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const postObject = {
-      userid: user.id,
-      author: user.username,
-      text: postText,
-      photo_url: photoURL,
-      location: location,
-    };
-    if (postObject.text === "" && postObject.photo_url === "") {
+    axios.get("/api/s3").then((response) => {
+      sendFileToS3(postPhotoFile, response.data.url);
+      let new_url = response.data.url.split("?")[0];
+      const postObject = {
+        userid: user.id,
+        author: user.username,
+        text: postText,
+        photo_url: new_url,
+        location: location,
+      };
+      if (postObject.text === "" && postObject.photo_url === "") {
+        setIsLoading(false);
+        setError("Posts must have either a photo or a description");
+        console.log(error);
+        return;
+      }
+      createNewPost(postObject);
+      setPostText("");
       setIsLoading(false);
-      setError("Posts must have either a photo or a description");
-      console.log(error);
-      return;
-    }
-    createNewPost(postObject);
-    setPostText("");
-    setIsLoading(false);
-    setLocation("");
-    setPhotoURL("");
-    setShowPhotoURLinput(false);
+      setLocation("");
+      // setPhotoURL("");
+      setPostPhotoPreviewURL("");
+      // setShowPhotoURLinput(false);
+    });
   };
 
   const createNewPost = (postObject) => {
@@ -108,6 +127,17 @@ const NewPost = () => {
     }
   };
 
+  const handlePostPhotoUpload = (e) => {
+    let imagefile = e.target.files[0];
+    if (imagefile) {
+      setPostPhotoFile(() => imagefile);
+      let url = URL.createObjectURL(imagefile);
+      setPostPhotoPreviewURL(url);
+    }
+  };
+
+  console.log(postPhotoPreviewURL);
+
   return (
     <Container
       maxW={["xs", "sm", "md"]}
@@ -130,11 +160,11 @@ const NewPost = () => {
             <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
             <Text fontSize="0.7rem" color="gray.600">
               Your&nbsp;
-              {/* <Link href={`/user/${user.id}`} passHref>
-                <a style={{ textDecoration: "underline", color: "blue" }}> */}
-              post
-              {/* </a>
-              </Link> */}
+              <Link href={`/user/${user.id}`} passHref>
+                <a style={{ textDecoration: "underline", color: "blue" }}>
+                  post
+                </a>
+              </Link>
               &nbsp;is live!
             </Text>
           </Flex>
@@ -199,31 +229,32 @@ const NewPost = () => {
                 {error}
               </FormErrorMessage>
             </FormControl>
-            {showPhotoURLinput && (
-              <FormControl id="photoURL">
-                <Stack>
-                  <FormHelperText fontSize="inherit"></FormHelperText>
-                  <Alert userSelect="none" color="gray.600" status="info">
-                    <AlertIcon />
-                    Currently, linkBase does not support local file uploads. To
-                    post a photo, paste the url to the image.
-                  </Alert>
-                  <InputGroup size="sm">
-                    <InputLeftAddon fontSize="inherit" color="gray.400">
-                      https://
-                    </InputLeftAddon>
-                    <Input
-                      fontSize="inherit"
-                      onChange={(e) => setPhotoURL(e.target.value)}
-                      placeholder="www.unsplash.com/1234"
-                      value={photoURL}
-                      type="text"
-                      _focus={{ outline: "red" }}
-                      disabled={isLoading}
-                    />
-                  </InputGroup>
-                </Stack>
-              </FormControl>
+            {postPhotoPreviewURL ? (
+              <div style={{ position: "relative" }}>
+                <Image
+                  src={postPhotoPreviewURL}
+                  alt="User uploaded image"
+                  htmlWidth="100%"
+                ></Image>
+                <Button
+                  position="absolute"
+                  right="0"
+                  top="0"
+                  variant="unstyled"
+                  backgroundColor="blackAlpha.400"
+                  color="white"
+                  p="0"
+                  borderRadius="none"
+                  onClick={() => {
+                    setPostPhotoFile(null);
+                    setPostPhotoPreviewURL("");
+                  }}
+                >
+                  x
+                </Button>
+              </div>
+            ) : (
+              <></>
             )}
           </Stack>
           <Flex justify="space-between" p="inherit">
@@ -235,14 +266,33 @@ const NewPost = () => {
                 _focus={{ outline: "none" }}
                 colorScheme="blue"
                 variant="ghost"
-                onClick={() => setShowPhotoURLinput(!showPhotoURLinput)}
+                // onClick={() => setShowPhotoURLinput(!showPhotoURLinput)}
               >
-                {photoURL ? (
-                  <Icon as={HiPhotograph} w={8} h={8} />
+                {postPhotoPreviewURL ? (
+                  <label htmlFor="post_photo" style={{ cursor: "pointer" }}>
+                    <Icon as={HiPhotograph} w={8} h={8} />
+                  </label>
                 ) : (
-                  <Icon as={HiOutlinePhotograph} w={8} h={8} />
+                  <label htmlFor="post_photo" style={{ cursor: "pointer" }}>
+                    <Icon as={HiOutlinePhotograph} w={8} h={8} />
+                  </label>
                 )}
               </Button>
+
+              <input
+                id="post_photo"
+                // name="post_photo"
+                type="file"
+                accept="image/*"
+                style={{
+                  border: "solid blue 1px",
+                  opacity: "0",
+                  fontSize: "inherit",
+                  width: "0",
+                  height: "0",
+                }}
+                onChange={(e) => handlePostPhotoUpload(e)}
+              />
               <Button
                 p="0.1rem"
                 size="sm"

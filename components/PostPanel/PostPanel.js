@@ -81,13 +81,14 @@ const PostPanel = ({
 
   return (
     <>
-      {panelIsShowing && isSmallScreen && (
+      {panelIsShowing && (
+        // && isSmallScreen
         <Container
           position="fixed"
           top="2rem"
           left="0"
           minH="100vh"
-          minw="100vw"
+          minW="100vw"
           backgroundColor="blackAlpha.600"
           zIndex="2"
           onClick={(e) => setPanelIsShowing(false)}

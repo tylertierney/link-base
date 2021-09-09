@@ -258,6 +258,7 @@ const AccountPage = ({ userdata, users }) => {
                   />
                 </Flex>
                 <Feed
+                  user={user}
                   sortingBy={sortingBy}
                   userdata={userdata}
                   isProfilePage={true}
