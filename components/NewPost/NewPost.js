@@ -290,6 +290,7 @@ const NewPost = () => {
                   fontSize: "inherit",
                   width: "0",
                   height: "0",
+                  display: "none",
                 }}
                 onChange={(e) => handlePostPhotoUpload(e)}
               />
