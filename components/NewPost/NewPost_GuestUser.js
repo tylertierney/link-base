@@ -162,33 +162,33 @@ const NewPost_GuestUser = () => {
       ) : (
         <form onSubmit={(e) => handleSubmit(e)}>
           <Flex justify="space-between" align="center" p="inherit">
-            {/* <Link href={`/user/${user.id}`} passHref> */}
-            <Flex
-              align="center"
-              cursor="pointer"
-              onClick={() => setProfileLinkIsLoading(true)}
-            >
-              <Avatar
-                size="sm"
-                src=""
-                boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.07)"
-                fontSize="1.3rem"
-                icon={<AiOutlineUser />}
-              ></Avatar>
-              <Text color="brand.text_dark" ml="0.6rem" mr="0.6rem">
-                Guest
-              </Text>
-              {profileLinkIsLoading ? (
-                <SpinnerIcon
-                  color="gray.400"
-                  className="spinnerIcon"
-                  fontSize="1rem"
-                ></SpinnerIcon>
-              ) : (
-                <></>
-              )}
-            </Flex>
-            {/* </Link> */}
+            <Link href={`/user/guest`} passHref>
+              <Flex
+                align="center"
+                cursor="pointer"
+                // onClick={() => setProfileLinkIsLoading(true)}
+              >
+                <Avatar
+                  size="sm"
+                  src=""
+                  boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.07)"
+                  fontSize="1.3rem"
+                  icon={<AiOutlineUser />}
+                ></Avatar>
+                <Text color="brand.text_dark" ml="0.6rem" mr="0.6rem">
+                  Guest
+                </Text>
+                {profileLinkIsLoading ? (
+                  <SpinnerIcon
+                    color="gray.400"
+                    className="spinnerIcon"
+                    fontSize="1rem"
+                  ></SpinnerIcon>
+                ) : (
+                  <></>
+                )}
+              </Flex>
+            </Link>
             {location ? (
               <Flex
                 fontSize="0.65rem"

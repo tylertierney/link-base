@@ -28,8 +28,11 @@ const Feed = ({
   sortingBy,
   isDiscover,
   user,
+  isGuest,
 }) => {
   // const { user } = useUser();
+
+  console.log(isGuest);
 
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
@@ -56,6 +59,7 @@ const Feed = ({
         postArray = user.posts.map((post) => {
           return (
             <Post
+              isGuest={isGuest}
               user={user}
               isSponsored={false}
               isPanel={false}
@@ -71,6 +75,7 @@ const Feed = ({
       postArray = userdata.posts.map((post) => {
         return (
           <Post
+            isGuest={isGuest}
             user={user}
             isSponsored={false}
             isPanel={false}
@@ -88,6 +93,7 @@ const Feed = ({
         person.posts.forEach((post) => {
           postArray.push(
             <Post
+              isGuest={isGuest}
               user={user}
               isSponsored={false}
               isPanel={false}
@@ -107,6 +113,7 @@ const Feed = ({
           person.posts.forEach((post) => {
             postArray.push(
               <Post
+                isGuest={isGuest}
                 user={user}
                 isSponsored={false}
                 isPanel={false}
@@ -172,6 +179,7 @@ const Feed = ({
         i,
         0,
         <SponsoredPost
+          isGuest={isGuest}
           user={user}
           key={Math.floor(Math.random() * 1000000)}
           postedBy={ads[j][0]}

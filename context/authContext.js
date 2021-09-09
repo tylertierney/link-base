@@ -134,6 +134,19 @@ const AuthContextProvider = ({ children }) => {
       });
   };
 
+  const signInAsGuest = () => {
+    const guestuser_obj = {
+      id: 123456,
+      posts: [],
+      liked_posts: [],
+      prof_pic_url: "",
+      cover_pic_url: "",
+      followers: [],
+      following: [],
+    };
+    setUser(guestuser_obj);
+  };
+
   const context = {
     user,
     setUser,
@@ -144,6 +157,7 @@ const AuthContextProvider = ({ children }) => {
     error,
     isLoading,
     setError,
+    signInAsGuest,
   };
 
   return (

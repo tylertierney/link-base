@@ -1,6 +1,6 @@
-import { checkForSmallScreen } from "../../helperfunctions";
+// import { checkForSmallScreen } from "../../helperfunctions";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Flex, Container, Box } from "@chakra-ui/react";
 
@@ -9,6 +9,7 @@ import Post from "../Post/Post";
 import postpanelstyles from "./postpanel.module.css";
 
 const PostPanel = ({
+  isGuest,
   isSponsored,
   panelIsShowing,
   setPanelIsShowing,
@@ -16,7 +17,13 @@ const PostPanel = ({
   postedBy,
   user,
 }) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(checkForSmallScreen());
+  useEffect(() => {
+    if (window.innerWidth < 600) {
+      setIsSmallScreen(true);
+    }
+  }, []);
+
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [boxIsMoving, setBoxIsMoving] = useState(false);
   const [modalYValue, setModalYValue] = useState(90);
   const [slideAnimation, setSlideAnimation] = useState(postpanelstyles.slidein);
@@ -157,6 +164,7 @@ const PostPanel = ({
               overflowX="hidden"
             >
               <Post
+                isGuest={isGuest}
                 user={user}
                 isSponsored={isSponsored}
                 post={post}

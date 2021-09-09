@@ -12,6 +12,7 @@ import Link from "next/link";
 import SortMenu from "../components/SortMenu/SortMenu";
 import TabMenu from "../components/TabMenu/TabMenu";
 import router from "next/router";
+import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage";
 
 const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
@@ -66,7 +67,7 @@ const Home = ({ users }) => {
             p="1rem 0.8rem 2rem 0.8rem"
             minW="360px"
           >
-            {user && (
+            {user ? (
               <>
                 <NewPost />
                 <Flex align="center" w="85%" justify="space-between">
@@ -93,6 +94,7 @@ const Home = ({ users }) => {
                 </Flex>
                 {tabSelection === "Your Feed" ? (
                   <Feed
+                    isGuest={false}
                     user={user}
                     sortingBy={sortingBy}
                     isProfilePage={false}
@@ -109,22 +111,9 @@ const Home = ({ users }) => {
                   />
                 )}
               </>
-            )}
-            {/* {tabSelection === "Your Feed" ? (
-              <Feed
-                sortingBy={sortingBy}
-                isProfilePage={false}
-                users={users}
-                isDiscover={false}
-              />
             ) : (
-              <Feed
-                sortingBy={sortingBy}
-                isProfilePage={false}
-                users={users}
-                isDiscover={true}
-              />
-            )} */}
+              <WelcomeMessage />
+            )}
           </VStack>
         </Layout>
       </main>

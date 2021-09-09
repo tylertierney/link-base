@@ -25,6 +25,7 @@ const CommentSection = ({
   setHasCommented,
   post,
   isPanel,
+  isGuest,
 }) => {
   const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
@@ -104,7 +105,7 @@ const CommentSection = ({
                     }}
                     _focus={{ outline: "none" }}
                     type="submit"
-                    disabled={isLoading}
+                    disabled={isLoading || isGuest}
                     size="sm"
                     h="100%"
                   >

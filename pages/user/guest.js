@@ -33,7 +33,9 @@ import axios from "axios";
 import { CheckCircleIcon } from "@chakra-ui/icons";
 import router from "next/router";
 
-const AccountPage = ({ userdata, users }) => {
+import EditProfile_Guest from "../../components/EditProfile/EditProfile_Guest";
+
+const GuestAccount = ({ users }) => {
   const [isEditable, setIsEditable] = useState(false);
 
   const [sortingBy, setSortingBy] = useState("new");
@@ -42,19 +44,14 @@ const AccountPage = ({ userdata, users }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const { user, setUser, logout } = useUser();
+
+  const userdata = user;
+
   useEffect(() => {
-    setUser(() => JSON.parse(localStorage.getItem("user")));
+    // setUser(() => JSON.parse(localStorage.getItem("user")));
 
-    if (userdata.id === user.id) {
-      setIsEditable(true);
-      setIsFollowing(false);
-    }
-
-    if (user.following.includes(userdata.id)) {
-      setIsFollowing(true);
-    } else {
-      setIsFollowing(false);
-    }
+    setIsEditable(true);
+    setIsFollowing(false);
 
     return () => localStorage.setItem("user", JSON.stringify(user));
   }, []);
@@ -73,21 +70,21 @@ const AccountPage = ({ userdata, users }) => {
     usernameSize = "1.6rem";
   }
 
-  const handleFollowUser = () => {
-    setIsFollowing(true);
+  //   const handleFollowUser = () => {
+  //     setIsFollowing(true);
 
-    axios.post(`/api/followuser/${userdata.id}`, {
-      currentuser_id: user.id,
-      action: "add",
-    });
-  };
-  const handleUnfollowUser = () => {
-    setIsFollowing(false);
-    axios.post(`/api/followuser/${userdata.id}`, {
-      currentuser_id: user.id,
-      action: "remove",
-    });
-  };
+  //     axios.post(`/api/followuser/${userdata.id}`, {
+  //       currentuser_id: user.id,
+  //       action: "add",
+  //     });
+  //   };
+  //   const handleUnfollowUser = () => {
+  //     setIsFollowing(false);
+  //     axios.post(`/api/followuser/${userdata.id}`, {
+  //       currentuser_id: user.id,
+  //       action: "remove",
+  //     });
+  //   };
 
   return (
     <Layout>
@@ -151,7 +148,8 @@ const AccountPage = ({ userdata, users }) => {
           </Text>
 
           {isEditable ? (
-            <EditProfile
+            <EditProfile_Guest
+              user={user}
               isEditable={isEditable}
               showConfirmation={showConfirmation}
               setShowConfirmation={setShowConfirmation}
@@ -286,23 +284,17 @@ const AccountPage = ({ userdata, users }) => {
   );
 };
 
-export default AccountPage;
+export default GuestAccount;
 
 export async function getServerSideProps(context) {
   const client = await clientPromise;
 
   const db = await client.db();
 
-  let userdata_from_db = await db
-    .collection("users")
-    .find({ id: context.params.userid })
-    .toArray();
-
   const users = await db.collection("users").find({}).toArray();
 
   return {
     props: {
-      userdata: JSON.parse(JSON.stringify(userdata_from_db))[0],
       users: JSON.parse(JSON.stringify(users)),
     },
   };

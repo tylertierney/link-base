@@ -6,14 +6,19 @@ import NewPost_GuestUser from "../components/NewPost/NewPost_GuestUser";
 import TabMenu from "../components/TabMenu/TabMenu";
 import SortMenu from "../components/SortMenu/SortMenu";
 import Feed from "../components/Feed/Feed";
+import { useUser } from "../context/authContext";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import clientPromise from "../utils/mongodb";
 
 const Welcome = ({ users }) => {
   const [sortingBy, setSortingBy] = useState("popular");
   const [tabSelection, setTabSelection] = useState("Discover");
+
+  const { signInAsGuest, user, setUser } = useUser();
+
+  console.log(signInAsGuest);
 
   const guestuser_obj = {
     id: 123456,
@@ -23,7 +28,16 @@ const Welcome = ({ users }) => {
     cover_pic_url: "",
     followers: [],
     following: [],
+    username: "Guest",
+    bio: "Excited to try out some of these cool features and connect with my friends!",
   };
+
+  useEffect(() => {
+    // signInAsGuest();
+    setUser(guestuser_obj);
+  }, []);
+
+  console.log(user);
 
   return (
     <Layout>
@@ -34,9 +48,10 @@ const Welcome = ({ users }) => {
         minW="360px"
       >
         <Alert
+          borderRadius="lg"
           variant="subtle"
           status="info"
-          maxW={["80", "76%"]}
+          maxW={["xs", "sm", "md"]}
           fontSize="0.7rem"
           p="2rem 0.8rem"
         >
@@ -66,7 +81,8 @@ const Welcome = ({ users }) => {
         </Flex>
         {tabSelection === "Your Feed" ? (
           <Feed
-            user={guestuser_obj}
+            isGuest={true}
+            user={user}
             sortingBy={sortingBy}
             isProfilePage={false}
             users={users}
@@ -74,7 +90,8 @@ const Welcome = ({ users }) => {
           />
         ) : (
           <Feed
-            user={guestuser_obj}
+            isGuest={true}
+            user={user}
             sortingBy={sortingBy}
             isProfilePage={false}
             users={users}

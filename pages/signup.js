@@ -57,7 +57,7 @@ const SignUp = ({ users }) => {
       <Container
         p="1rem 0 2rem 0"
         overflowY="scroll"
-        maxW={["sm", "md", "lg"]}
+        maxW={["xs", "md", "lg"]}
         className={`${signupstyles.container} hideScrollbar`}
       >
         <form onSubmit={(e) => handleSubmit(e)}>

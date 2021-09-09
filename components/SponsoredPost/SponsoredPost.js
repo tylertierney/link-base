@@ -46,9 +46,10 @@ export const ads = [
   ],
 ];
 
-const SponsoredPost = ({ post, postedBy, user }) => {
+const SponsoredPost = ({ post, postedBy, user, isGuest }) => {
   return (
     <Post
+      isGuest={isGuest}
       user={user}
       isSponsored={true}
       post={post}

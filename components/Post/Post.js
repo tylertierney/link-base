@@ -34,7 +34,7 @@ import CommentSection from "../CommentSection/CommentSection";
 import { AiOutlineUser } from "react-icons/ai";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
-const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
+const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
   // const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -58,6 +58,12 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
   }, []);
 
   const handleLike = () => {
+    // If a user is a guest, do not execute the post request
+    if (isGuest) {
+      setIsLiked(!isLiked);
+      return;
+    }
+
     let addOrRemove = "add";
     if (isLiked === true) {
       addOrRemove = "remove";
@@ -123,7 +129,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
         justify="space-between"
         align="center"
       >
-        <Link href={`/user/${post.userid}`}>
+        <Link href={`/user/${post.userid}`} passHref>
           <Flex
             align="center"
             cursor="pointer"
@@ -180,6 +186,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
             <></>
           )}
           <PostMenu
+            isGuest={isGuest}
             user={user}
             postedBy={postedBy}
             isHidden={isHidden}
@@ -311,6 +318,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
             </Flex>
             <Divider p="0.2rem 0" />
             <CommentSection
+              isGuest={isGuest}
               isSponsored={isSponsored}
               hasCommented={hasCommented}
               setHasCommented={setHasCommented}
@@ -318,6 +326,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user }) => {
               isPanel={isPanel}
             />
             <PostPanel
+              isGuest={isGuest}
               panelIsShowing={panelIsShowing}
               setPanelIsShowing={setPanelIsShowing}
               postedBy={postedBy}
