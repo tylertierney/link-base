@@ -21,8 +21,6 @@ import { convertDate } from "../../helperfunctions";
 
 import { GoLocation } from "react-icons/go";
 
-import { BsThreeDots } from "react-icons/bs";
-
 import PostMenu from "./PostMenu/PostMenu";
 
 import poststyles from "./poststyles.module.css";
@@ -37,6 +35,7 @@ import { AiOutlineUser } from "react-icons/ai";
 
 const Post = ({ isSponsored, postedBy, post, isPanel }) => {
   const { user } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isLiked, setIsLiked] = useState(false);
   const [hasCommented, setHasCommented] = useState(false);
@@ -123,7 +122,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
         justify="space-between"
         align="center"
       >
-        <Link href={`/user/${post.userid}`} passHref>
+        <Link href={`/user/${post.userid}`}>
           <Flex
             align="center"
             cursor="pointer"
