@@ -23,11 +23,7 @@ import accountPageStyles from "./accountPage.module.css";
 
 import SortMenu from "../../components/SortMenu/SortMenu";
 
-import {
-  BsPersonPlus,
-  BsFillPersonCheckFill,
-  BsPersonCheckFill,
-} from "react-icons/bs";
+import { BsPersonPlus, BsPersonCheckFill } from "react-icons/bs";
 
 import EditProfile from "../../components/EditProfile/EditProfile";
 
@@ -218,8 +214,16 @@ const AccountPage = ({ userdata, users }) => {
             </Flex>
           </Flex>
         )}
-        <Tabs colorScheme="red" isFitted>
-          <TabList>
+        <Tabs
+          colorScheme="red"
+          // isFitted
+          align="center"
+          minW="100%"
+        >
+          <TabList
+          // maxW="70%"
+          // minW="70%"
+          >
             <Tab
               color="gray.400"
               _focus={{ outline: "none", boxShadow: "none" }}
@@ -280,6 +284,7 @@ const AccountPage = ({ userdata, users }) => {
                   pb="0.5rem"
                   m="0 2rem 0 2rem"
                   w="100%"
+                  align="flex-start"
                 >
                   <Heading fontSize="1.2rem" color="gray.600" mb="10px">
                     Bio

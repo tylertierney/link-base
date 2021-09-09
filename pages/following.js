@@ -35,8 +35,8 @@ const Following = ({ users }) => {
         {user.following.length > 0 ? (
           <>
             {" "}
-            <Heading w="100%" textAlign="left">
-              Following
+            <Heading w="100%" textAlign="left" fontFamily="Poppins">
+              Following ({followingArray.length})
             </Heading>
             {followingListItems}{" "}
           </>

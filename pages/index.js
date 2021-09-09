@@ -69,13 +69,27 @@ const Home = ({ users }) => {
             {user && (
               <>
                 <NewPost />
-                <Flex align="center" position="relative">
-                  <Divider padding="0.2rem" w="10rem"></Divider>
-                  <SortMenu sortingBy={sortingBy} setSortingBy={setSortingBy} />
-                  <TabMenu
-                    tabSelection={tabSelection}
-                    setTabSelection={setTabSelection}
-                  />
+                <Flex align="center" w="85%" justify="space-between">
+                  <Flex align="center" justify="center" w={["24%", "20%"]}>
+                    <TabMenu
+                      tabSelection={tabSelection}
+                      setTabSelection={setTabSelection}
+                    />
+                  </Flex>
+                  <Flex w={["52%", "60%"]} align="center" justify="center">
+                    <Flex
+                      w="96%"
+                      h="4px"
+                      borderRadius="lg"
+                      backgroundColor="whiteAlpha.800"
+                    ></Flex>
+                  </Flex>
+                  <Flex align="center" justify="center" w={["24%", "20%"]}>
+                    <SortMenu
+                      sortingBy={sortingBy}
+                      setSortingBy={setSortingBy}
+                    />
+                  </Flex>
                 </Flex>
                 {tabSelection === "Your Feed" ? (
                   <Feed

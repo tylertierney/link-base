@@ -38,14 +38,12 @@ import { BsImage } from "react-icons/bs";
 
 import { AiOutlineUser } from "react-icons/ai";
 
-const NewPost = () => {
+const NewPost_GuestUser = () => {
   const { user, authReady } = useUser();
 
   const [postText, setPostText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  // const [showPhotoURLinput, setShowPhotoURLinput] = useState(false);
-  // const [photoURL, setPhotoURL] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -53,55 +51,46 @@ const NewPost = () => {
   const [postPhotoFile, setPostPhotoFile] = useState(null);
   const [profileLinkIsLoading, setProfileLinkIsLoading] = useState(false);
 
-  const sendFileToS3 = (file, s3url) => {
-    let config = { headers: { "Content-Type": "multipart/form-data" } };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
 
-    axios
-      .put(s3url, file, config)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
+  //   axios.get("/api/s3").then((response) => {
+  //     sendFileToS3(postPhotoFile, response.data.url);
+  //     let new_url = response.data.url.split("?")[0];
+  //     const postObject = {
+  //       userid: user.id,
+  //       author: user.username,
+  //       text: postText,
+  //       photo_url: new_url,
+  //       location: location,
+  //     };
+  //     if (postObject.text === "" && postObject.photo_url === "") {
+  //       setIsLoading(false);
+  //       setError("Posts must have either a photo or a description");
+  //       console.log(error);
+  //       return;
+  //     }
+  //     createNewPost(postObject);
+  //     setPostText("");
+  //     setIsLoading(false);
+  //     setLocation("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
+  //     setPostPhotoPreviewURL("");
+  //   });
+  // };
 
-    axios.get("/api/s3").then((response) => {
-      sendFileToS3(postPhotoFile, response.data.url);
-      let new_url = response.data.url.split("?")[0];
-      const postObject = {
-        userid: user.id,
-        author: user.username,
-        text: postText,
-        photo_url: new_url,
-        location: location,
-      };
-      if (postObject.text === "" && postObject.photo_url === "") {
-        setIsLoading(false);
-        setError("Posts must have either a photo or a description");
-        console.log(error);
-        return;
-      }
-      createNewPost(postObject);
-      setPostText("");
-      setIsLoading(false);
-      setLocation("");
-
-      setPostPhotoPreviewURL("");
-    });
-  };
-
-  const createNewPost = (postObject) => {
-    axios
-      .post("/api/newpost", postObject)
-      .then((response) => {
-        console.log("addpost to user profile request received", response);
-        setShowConfirmation(true);
-      })
-      .catch((error) => {
-        console.log("error: ", error);
-      });
-  };
+  // const createNewPost = (postObject) => {
+  //   axios
+  //     .post("/api/newpost", postObject)
+  //     .then((response) => {
+  //       console.log("addpost to user profile request received", response);
+  //       setShowConfirmation(true);
+  //     })
+  //     .catch((error) => {
+  //       console.log("error: ", error);
+  //     });
+  // };
 
   const getLocation = () => {
     if (location) {
@@ -135,8 +124,6 @@ const NewPost = () => {
       setPostPhotoPreviewURL(url);
     }
   };
-
-  console.log(postPhotoPreviewURL);
 
   return (
     <Container
@@ -175,33 +162,33 @@ const NewPost = () => {
       ) : (
         <form onSubmit={(e) => handleSubmit(e)}>
           <Flex justify="space-between" align="center" p="inherit">
-            <Link href={`/user/${user.id}`} passHref>
-              <Flex
-                align="center"
-                cursor="pointer"
-                onClick={() => setProfileLinkIsLoading(true)}
-              >
-                <Avatar
-                  size="sm"
-                  src={user.prof_pic_url}
-                  boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.07)"
-                  fontSize="1.3rem"
-                  icon={<AiOutlineUser />}
-                ></Avatar>
-                <Text color="brand.text_dark" ml="0.6rem" mr="0.6rem">
-                  {user.username}
-                </Text>
-                {profileLinkIsLoading ? (
-                  <SpinnerIcon
-                    color="gray.400"
-                    className="spinnerIcon"
-                    fontSize="1rem"
-                  ></SpinnerIcon>
-                ) : (
-                  <></>
-                )}
-              </Flex>
-            </Link>
+            {/* <Link href={`/user/${user.id}`} passHref> */}
+            <Flex
+              align="center"
+              cursor="pointer"
+              onClick={() => setProfileLinkIsLoading(true)}
+            >
+              <Avatar
+                size="sm"
+                src=""
+                boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.07)"
+                fontSize="1.3rem"
+                icon={<AiOutlineUser />}
+              ></Avatar>
+              <Text color="brand.text_dark" ml="0.6rem" mr="0.6rem">
+                Guest
+              </Text>
+              {profileLinkIsLoading ? (
+                <SpinnerIcon
+                  color="gray.400"
+                  className="spinnerIcon"
+                  fontSize="1rem"
+                ></SpinnerIcon>
+              ) : (
+                <></>
+              )}
+            </Flex>
+            {/* </Link> */}
             {location ? (
               <Flex
                 fontSize="0.65rem"
@@ -332,7 +319,7 @@ const NewPost = () => {
               }}
               _focus={{ outline: "none" }}
               type="submit"
-              disabled={isLoading}
+              disabled={true}
               size="sm"
               p="0 1.2rem"
             >
@@ -353,4 +340,4 @@ const NewPost = () => {
   );
 };
 
-export default NewPost;
+export default NewPost_GuestUser;

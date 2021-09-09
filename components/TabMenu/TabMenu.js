@@ -24,14 +24,14 @@ const TabMenu = ({ tabSelection, setTabSelection }) => {
       {({ isOpen }) => (
         <>
           <MenuButton
-            position="absolute"
+            // position="absolute"
             // right="-60%"
-            top="0.4rem"
-            transform="translate(0, -50%)"
+            // top="0.4rem"
+            // transform="translate(0, -50%)"
             fontSize="0.7rem"
-            color={textcolor === "dark" ? "gray.400" : "whiteAlpha.600"}
+            color={textcolor === "dark" ? "gray.400" : "whiteAlpha.800"}
             _focus={{ outline: "none" }}
-            className={tabstyles.menubutton}
+            // className={tabstyles.menubutton}
           >
             <Flex align="center">
               <Text

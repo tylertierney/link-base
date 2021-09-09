@@ -28,19 +28,20 @@ const SortMenu = ({ textcolor, sortingBy, setSortingBy }) => {
       {({ isOpen }) => (
         <>
           <MenuButton
-            position="absolute"
-            // right="-60%"
-            top="0.4rem"
-            transform="translate(0, -50%)"
+            // position="absolute"
+            // top="0.4rem"
+            // transform="translate(0, -50%)"
             fontSize="0.7rem"
-            color={textcolor === "dark" ? "gray.400" : "whiteAlpha.600"}
+            color={textcolor === "dark" ? "gray.400" : "whiteAlpha.800"}
             _focus={{ outline: "none" }}
-            className={sortstyles.menubutton}
+            // className={sortstyles.menubutton}
           >
             <Flex align="center">
-              <Text>sort</Text>
+              <Text>Sort</Text>
               <Text>:&nbsp;</Text>
-              <Text className={sortstyles.menutext}>{sortingBy}</Text>
+              <Text className={sortstyles.menutext}>
+                {sortingBy === "new" ? "New" : "Popular"}
+              </Text>
               {isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
             </Flex>
           </MenuButton>

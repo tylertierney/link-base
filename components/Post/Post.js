@@ -32,6 +32,7 @@ import { FaRegComments, FaComments } from "react-icons/fa";
 import CommentSection from "../CommentSection/CommentSection";
 
 import { AiOutlineUser } from "react-icons/ai";
+import { SpinnerIcon } from "@chakra-ui/icons";
 
 const Post = ({ isSponsored, postedBy, post, isPanel }) => {
   const { user } = useUser();
@@ -139,6 +140,15 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
             <Text ml="0.8rem" mr="0.8rem">
               {post.author}
             </Text>
+            {isLoading ? (
+              <SpinnerIcon
+                color="gray.400"
+                className="spinnerIcon"
+                fontSize="1rem"
+              ></SpinnerIcon>
+            ) : (
+              <></>
+            )}
           </Flex>
         </Link>
         <Flex>
@@ -169,7 +179,12 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
           ) : (
             <></>
           )}
-          <PostMenu isHidden={isHidden} setIsHidden={setIsHidden} />
+          <PostMenu
+            user={user}
+            postedBy={postedBy}
+            isHidden={isHidden}
+            setIsHidden={setIsHidden}
+          />
         </Flex>
       </Flex>
 

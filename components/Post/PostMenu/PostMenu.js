@@ -12,12 +12,39 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { BsThreeDots } from "react-icons/bs";
+import { BsThreeDots, BsPersonPlus, BsPersonDashFill } from "react-icons/bs";
 
 import { ViewOffIcon } from "@chakra-ui/icons";
 import { ViewIcon } from "@chakra-ui/icons";
 
-const PostMenu = ({ isHidden, setIsHidden }) => {
+import { useState, useEffect } from "react";
+
+import axios from "axios";
+// import User from "../../../models/User";
+
+const PostMenu = ({ isHidden, setIsHidden, postedBy, user }) => {
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  useEffect(() => {
+    if (user.following.includes(postedBy.id)) {
+      setIsFollowing(true);
+    }
+  }, []);
+
+  const handleFollowOrUnfollow = () => {
+    let action = "remove";
+    if (isFollowing === false) {
+      action = "add";
+    }
+
+    axios.post(`/api/followuser/${postedBy.id}`, {
+      currentuser_id: user.id,
+      action: action,
+    });
+
+    setIsFollowing(!isFollowing);
+  };
+
   return (
     <Menu>
       <MenuButton
@@ -29,16 +56,7 @@ const PostMenu = ({ isHidden, setIsHidden }) => {
         p="0 0.2rem"
         m="0 0 0 0.3rem"
       >
-        {/* <Button
-          size="sm"
-          variant="ghost"
-          color="gray.500"
-          _focus={{ outline: "none" }}
-          p="0 0.2rem"
-          m="0 0 0 0.3rem"
-        > */}
         <Icon as={BsThreeDots} w={7} h={7} />
-        {/* </Button> */}
       </MenuButton>
       <MenuList>
         <MenuItem onClick={() => setIsHidden(!isHidden)}>
@@ -52,6 +70,21 @@ const PostMenu = ({ isHidden, setIsHidden }) => {
               <>
                 <ViewOffIcon></ViewOffIcon>
                 <Text>&nbsp;&nbsp;Hide Post</Text>
+              </>
+            )}
+          </Flex>
+        </MenuItem>
+        <MenuItem onClick={() => handleFollowOrUnfollow()}>
+          <Flex align="center">
+            {isFollowing ? (
+              <>
+                <BsPersonDashFill />
+                <Text>&nbsp;&nbsp;Unfollow</Text>
+              </>
+            ) : (
+              <>
+                <BsPersonPlus />
+                <Text>&nbsp;&nbsp;Follow</Text>
               </>
             )}
           </Flex>

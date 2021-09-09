@@ -186,7 +186,7 @@ const Feed = ({
         </Alert>
       )}
       {user && (
-        <VStack spacing={3} mt={1} w={["sm", "md", "lg"]}>
+        <VStack spacing={3} w={["sm", "md", "lg"]}>
           {determineFeedOrMessage()}
         </VStack>
       )}
