@@ -70,7 +70,8 @@ const SignUp = ({ users }) => {
           >
             <Stack spacing={4} m="0">
               <Heading
-                color={"gray.800"}
+                fontFamily="Poppins"
+                color="gray.600"
                 lineHeight={1.1}
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
               >

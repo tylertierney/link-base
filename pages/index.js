@@ -79,6 +79,7 @@ const Home = ({ users }) => {
                 </Flex>
                 {tabSelection === "Your Feed" ? (
                   <Feed
+                    user={user}
                     sortingBy={sortingBy}
                     isProfilePage={false}
                     users={users}
@@ -86,6 +87,7 @@ const Home = ({ users }) => {
                   />
                 ) : (
                   <Feed
+                    user={user}
                     sortingBy={sortingBy}
                     isProfilePage={false}
                     users={users}

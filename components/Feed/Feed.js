@@ -21,11 +21,15 @@ import { IoMdGlobe } from "react-icons/io";
 
 import { ads } from "../SponsoredPost/SponsoredPost";
 
-const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
-  // const [feedMessage, setFeedMessage] = useState(null);
-  const { user, authReady } = useUser();
-
-  const [filteredPostArray, setFilteredPostArray] = useState([]);
+const Feed = ({
+  users,
+  isProfilePage,
+  userdata,
+  sortingBy,
+  isDiscover,
+  user,
+}) => {
+  // const { user } = useUser();
 
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
@@ -93,7 +97,10 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
       });
     } else {
       users.forEach((person) => {
-        if (user.following.includes(person.id)) {
+        if (
+          user.following !== undefined &&
+          user.following.includes(person.id)
+        ) {
           person.posts.forEach((post) => {
             postArray.push(
               <Post
@@ -110,9 +117,6 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
     }
     sortPosts(postArray);
   }
-
-  console.log(user.following);
-  console.log(user.following.includes("65a61db3-b7b1-48c0-b7b5-5f8dd0b4d0b8"));
 
   // This determines whether to display the feed or to display the relevant message if the feed empty
   const determineFeedOrMessage = () => {

@@ -58,7 +58,8 @@ const Login = () => {
             >
               <Stack spacing={4}>
                 <Heading
-                  color={"gray.800"}
+                  color="gray.600"
+                  fontFamily="Poppins"
                   lineHeight={1.1}
                   fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
                 >
