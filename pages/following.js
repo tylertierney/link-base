@@ -1,6 +1,6 @@
 import { useUser } from "../context/authContext";
 import Layout from "../components/Layout/Layout";
-import { VStack, Heading } from "@chakra-ui/react";
+import { VStack, Heading, Icon } from "@chakra-ui/react";
 
 import clientPromise from "../utils/mongodb";
 
@@ -8,7 +8,7 @@ import FollowingListItem from "../components/FollowingListItem/FollowingListItem
 
 import { FiFrown } from "react-icons/fi";
 
-const following = ({ users }) => {
+const Following = ({ users }) => {
   const { user } = useUser();
 
   const followingArray = users.filter((person) => {
@@ -16,7 +16,12 @@ const following = ({ users }) => {
   });
 
   const followingListItems = followingArray.map((person) => {
-    return <FollowingListItem person={person} />;
+    return (
+      <FollowingListItem
+        key={Math.floor(Math.random() * 1000000)}
+        person={person}
+      />
+    );
   });
 
   return (
@@ -37,7 +42,7 @@ const following = ({ users }) => {
           </>
         ) : (
           <Heading w="100%" textAlign="center" fontSize="1.1rem">
-            You aren't following anyone
+            You aren&apos;t following anyone
             <br />
             <Icon as={FiFrown} fontSize="inherit" />
           </Heading>
@@ -47,7 +52,7 @@ const following = ({ users }) => {
   );
 };
 
-export default following;
+export default Following;
 
 export async function getServerSideProps(context) {
   const client = await clientPromise;

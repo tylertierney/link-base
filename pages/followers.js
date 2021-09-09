@@ -8,7 +8,7 @@ import FollowerListItem from "../components/FollowerListItem/FollowerListItem";
 
 import { FiFrown } from "react-icons/fi";
 
-const followers = ({ users }) => {
+const Followers = ({ users }) => {
   const { user } = useUser();
 
   const followersArray = users.filter((person) => {
@@ -16,7 +16,12 @@ const followers = ({ users }) => {
   });
 
   const followerListItems = followersArray.map((person) => {
-    return <FollowerListItem person={person} />;
+    return (
+      <FollowerListItem
+        key={Math.floor(Math.random() * 1000000)}
+        person={person}
+      />
+    );
   });
 
   return (
@@ -37,7 +42,7 @@ const followers = ({ users }) => {
           </>
         ) : (
           <Heading w="100%" textAlign="center" fontSize="1.1rem">
-            You don't have any followers
+            You don&apos;t have any followers
             <br />
             <Icon as={FiFrown} fontSize="inherit" />
           </Heading>
@@ -47,7 +52,7 @@ const followers = ({ users }) => {
   );
 };
 
-export default followers;
+export default Followers;
 
 export async function getServerSideProps(context) {
   const client = await clientPromise;

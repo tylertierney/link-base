@@ -121,7 +121,7 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
         <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
           {isProfilePage ? (
             <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
-              This user hasn't posted anything yet
+              This user hasn&apos;t posted anything yet
             </Heading>
           ) : (
             <>
