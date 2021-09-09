@@ -5,7 +5,7 @@ import NavbarControls from "./NavbarControls/NavbarControls";
 import UserMenu from "./UserMenu/UserMenu";
 
 const Navbar = () => {
-  const { user, login, signup, logout, authReady } = useUser();
+  const { user } = useUser();
 
   return (
     <>

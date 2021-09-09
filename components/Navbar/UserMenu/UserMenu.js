@@ -21,6 +21,8 @@ import { useUser } from "../../../context/authContext";
 
 import { useState } from "react";
 
+import { SpinnerIcon } from "@chakra-ui/icons";
+
 const UserMenu = () => {
   const { user, login, signup, error, logout } = useUser();
 
@@ -30,6 +32,8 @@ const UserMenu = () => {
   const signoutIcon = <Icon as={BiLogOut} fontSize="0.8rem" />;
   const followingIcon = <Icon as={FaUserFriends} fontSize="0.8rem" />;
   const followersIcon = <Icon as={HiOutlineUsers} fontSize="0.8rem" />;
+
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -48,7 +52,16 @@ const UserMenu = () => {
                 cursor="pointer"
                 userSelect="none"
               >
-                <Text as="span" color="inherit">
+                {isLoading ? (
+                  <SpinnerIcon
+                    color="brand.600"
+                    className="spinnerIcon"
+                    fontSize="1rem"
+                  ></SpinnerIcon>
+                ) : (
+                  ""
+                )}
+                <Text ml="0.4rem" as="span" color="inherit">
                   {user.username}
                 </Text>
                 {isOpen ? (
@@ -60,7 +73,11 @@ const UserMenu = () => {
             </MenuButton>
             <MenuList>
               <Link passHref href={`/user/${user.id}`}>
-                <MenuItem align="center" fontSize="0.8rem">
+                <MenuItem
+                  align="center"
+                  fontSize="0.8rem"
+                  onClick={() => setIsLoading(true)}
+                >
                   <Flex align="center">
                     {accountIcon}
                     &nbsp;&nbsp;Account
@@ -69,15 +86,15 @@ const UserMenu = () => {
               </Link>
               <MenuDivider />
               <Link passHref href="/following">
-                <MenuItem fontSize="0.8rem">
+                <MenuItem fontSize="0.8rem" onClick={() => setIsLoading(true)}>
                   <Flex align="center">
                     {followingIcon}&nbsp;&nbsp;Following
                   </Flex>
                 </MenuItem>
               </Link>
               <MenuDivider />
-              <Link passHref href="/">
-                <MenuItem fontSize="0.8rem">
+              <Link passHref href="/followers">
+                <MenuItem fontSize="0.8rem" onClick={() => setIsLoading(true)}>
                   <Flex align="center">
                     {followersIcon}&nbsp;&nbsp;Followers
                   </Flex>

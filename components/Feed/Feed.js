@@ -25,6 +25,8 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
   // const [feedMessage, setFeedMessage] = useState(null);
   const { user, authReady } = useUser();
 
+  const [filteredPostArray, setFilteredPostArray] = useState([]);
+
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
       return;
@@ -89,42 +91,24 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
           );
         });
       });
+    } else {
+      users.forEach((person) => {
+        if (user.following.includes(person.id)) {
+          person.posts.forEach((post) => {
+            postArray.push(
+              <Post
+                isSponsored={false}
+                isPanel={false}
+                postedBy={person}
+                key={post._id}
+                post={post}
+              />
+            );
+          });
+        }
+      });
     }
-    users.forEach((person) => {
-      if (user.following.includes(person.id)) {
-        person.posts.forEach((post) => {
-          postArray.push(
-            <Post
-              isSponsored={false}
-              isPanel={false}
-              postedBy={person}
-              key={post._id}
-              post={post}
-            />
-          );
-        });
-      }
-    });
     sortPosts(postArray);
-  }
-
-  // This performs ad insertion at a 1/6 rate within the feed;
-  // This function runs AFTER all other sorting and data-fetching
-  // functions have been completed
-
-  for (let i = 5, j = 0; i < postArray.length; i++) {
-    if (i % 6 === 0) {
-      postArray.splice(
-        i,
-        0,
-        <SponsoredPost
-          key={Math.floor(Math.random() * 1000000)}
-          postedBy={ads[j][0]}
-          post={ads[j][1]}
-        />
-      );
-      j += 1;
-    }
   }
 
   console.log(user.following);
@@ -169,6 +153,25 @@ const Feed = ({ users, isProfilePage, userdata, sortingBy, isDiscover }) => {
       return postArray;
     }
   };
+
+  // This performs ad insertion at a 1/6 rate within the feed;
+  // This function runs AFTER all other sorting and data-fetching
+  // functions have been completed
+
+  for (let i = 5, j = 0; i < postArray.length; i++) {
+    if (i % 6 === 0) {
+      postArray.splice(
+        i,
+        0,
+        <SponsoredPost
+          key={Math.floor(Math.random() * 1000000)}
+          postedBy={ads[j][0]}
+          post={ads[j][1]}
+        />
+      );
+      j += 1;
+    }
+  }
 
   return (
     <Box className="hideScrollbar" p="0 0 10rem 0">

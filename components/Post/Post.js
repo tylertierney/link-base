@@ -124,7 +124,11 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
         align="center"
       >
         <Link href={`/user/${post.userid}`} passHref>
-          <Flex align="center" cursor="pointer">
+          <Flex
+            align="center"
+            cursor="pointer"
+            onClick={() => setIsLoading(true)}
+          >
             <Avatar
               size="sm"
               outline="none"
@@ -133,7 +137,9 @@ const Post = ({ isSponsored, postedBy, post, isPanel }) => {
               boxShadow="0px 0px 14px 0px rgb(0, 0, 0, 0.1)"
               fontSize="1.3rem"
             ></Avatar>
-            <Text ml="0.8rem">{post.author}</Text>
+            <Text ml="0.8rem" mr="0.8rem">
+              {post.author}
+            </Text>
           </Flex>
         </Link>
         <Flex>

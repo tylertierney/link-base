@@ -1,22 +1,22 @@
 import { useUser } from "../context/authContext";
 import Layout from "../components/Layout/Layout";
-import { VStack, Heading } from "@chakra-ui/react";
+import { VStack, Heading, Icon } from "@chakra-ui/react";
 
 import clientPromise from "../utils/mongodb";
 
-import FollowingListItem from "../components/FollowingListItem/FollowingListItem";
+import FollowerListItem from "../components/FollowerListItem/FollowerListItem";
 
 import { FiFrown } from "react-icons/fi";
 
-const following = ({ users }) => {
+const followers = ({ users }) => {
   const { user } = useUser();
 
-  const followingArray = users.filter((person) => {
-    return user.following.includes(person.id);
+  const followersArray = users.filter((person) => {
+    return user.followers.includes(person.id);
   });
 
-  const followingListItems = followingArray.map((person) => {
-    return <FollowingListItem person={person} />;
+  const followerListItems = followersArray.map((person) => {
+    return <FollowerListItem person={person} />;
   });
 
   return (
@@ -27,17 +27,17 @@ const following = ({ users }) => {
         p="1rem 0.8rem 2rem 0.8rem"
       >
         {" "}
-        {user.following.length > 0 ? (
+        {user.followers.length > 0 ? (
           <>
             {" "}
             <Heading w="100%" textAlign="left">
-              Following
+              Followers
             </Heading>
-            {followingListItems}{" "}
+            {followerListItems}{" "}
           </>
         ) : (
           <Heading w="100%" textAlign="center" fontSize="1.1rem">
-            You aren't following anyone
+            You don't have any followers
             <br />
             <Icon as={FiFrown} fontSize="inherit" />
           </Heading>
@@ -47,7 +47,7 @@ const following = ({ users }) => {
   );
 };
 
-export default following;
+export default followers;
 
 export async function getServerSideProps(context) {
   const client = await clientPromise;
