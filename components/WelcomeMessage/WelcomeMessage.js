@@ -36,7 +36,55 @@ const WelcomeMessage = () => {
         other users.
       </Text>
       <br />
-      <Text fontSize="0.9rem">
+      {/* <div
+        style={{
+          position: "relative",
+          width: "100%",
+          border: "1px solid green",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      > */}
+      <Flex
+        position="relative"
+        w="120%"
+        alignSelf="center"
+        justify={["flex-start", "center"]}
+        mr={["0px", "80px"]}
+        // border="2px solid green"
+      >
+        <div
+          style={
+            {
+              // marginRight: "60px",
+            }
+          }
+        >
+          <Image
+            h="auto"
+            w={["200px", "300px"]}
+            border="1px solid black"
+            borderRadius="lg"
+            boxShadow="20px 20px 20px 1px rgb(0, 0, 0, 0.2)"
+            src="/screenshots/mobile_screenshot.png"
+            ml={["10px", "0px"]}
+          />
+          <Image
+            position="absolute"
+            top="40%"
+            left={["40%", "50%"]}
+            h="auto"
+            w={["200px", "300px"]}
+            border="1px solid black"
+            borderRadius="lg"
+            boxShadow="20px 20px 20px 1px rgb(0, 0, 0, 0.2)"
+            src="/screenshots/mobile_screenshot2.png"
+          />
+        </div>
+        {/* </div> */}
+      </Flex>
+      <br />
+      <Text fontSize="0.9rem" mt={["200px", "300px"]}>
         LinkBase is fully functional in a desktop web browser, but the platform
         is optimized for a mobile-first experience. As a progressive web
         application (PWA), LinkBase can

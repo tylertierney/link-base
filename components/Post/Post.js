@@ -114,7 +114,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
 
   return (
     <Container
-      maxW={["xs", "sm", "md"]}
+      maxW={["330px", "sm", "md"]}
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
       key={post._id}

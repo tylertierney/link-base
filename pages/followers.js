@@ -1,12 +1,16 @@
 import { useUser } from "../context/authContext";
 import Layout from "../components/Layout/Layout";
-import { VStack, Heading, Icon } from "@chakra-ui/react";
+import { VStack, Heading, Icon, Flex, Text } from "@chakra-ui/react";
 
 import clientPromise from "../utils/mongodb";
 
 import FollowerListItem from "../components/FollowerListItem/FollowerListItem";
 
 import { FiFrown } from "react-icons/fi";
+
+import { BsChevronLeft } from "react-icons/bs";
+
+import router from "next/router";
 
 const Followers = ({ users }) => {
   const { user } = useUser();
@@ -31,17 +35,33 @@ const Followers = ({ users }) => {
         className="hideScrollbar"
         p="1rem 0.8rem 2rem 0.8rem"
       >
-        {" "}
+        <Flex w="100%" align="center">
+          <Flex align="center" onClick={() => router.back()} cursor="pointer">
+            <Icon as={BsChevronLeft} color="white" />
+            <Text color="white">&nbsp;Profile</Text>
+          </Flex>
+        </Flex>{" "}
         {user.followers.length > 0 ? (
           <>
             {" "}
-            <Heading w="100%" textAlign="left" fontFamily="Poppins">
+            <Heading
+              userSelect="none"
+              w="100%"
+              textAlign="left"
+              fontFamily="Poppins"
+              fontSize="1.3rem"
+            >
               Followers ({followersArray.length})
             </Heading>
             {followerListItems}{" "}
           </>
         ) : (
-          <Heading w="100%" textAlign="center" fontSize="1.1rem">
+          <Heading
+            userSelect="none"
+            w="100%"
+            textAlign="center"
+            fontSize="1.2rem"
+          >
             You don&apos;t have any followers
             <br />
             <Icon as={FiFrown} fontSize="inherit" />

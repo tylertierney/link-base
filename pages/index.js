@@ -31,7 +31,7 @@ const Home = ({ users }) => {
           console.log(convertedfounduser);
           setUser(() => convertedfounduser);
         } else {
-          router.push("/login");
+          // router.push("/login");
         }
 
         console.log(convertedfounduser);

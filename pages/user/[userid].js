@@ -23,7 +23,7 @@ import accountPageStyles from "./accountPage.module.css";
 
 import SortMenu from "../../components/SortMenu/SortMenu";
 
-import { BsPersonPlus, BsPersonCheckFill } from "react-icons/bs";
+import { BsPersonPlus, BsPersonCheckFill, BsChevronLeft } from "react-icons/bs";
 
 import EditProfile from "../../components/EditProfile/EditProfile";
 
@@ -106,6 +106,15 @@ const AccountPage = ({ userdata, users }) => {
           mb="75px"
           className={accountPageStyles.header}
         >
+          <Icon
+            as={BsChevronLeft}
+            color="white"
+            position="absolute"
+            top="30px"
+            left="5px"
+            cursor="pointer"
+            onClick={() => router.push("/")}
+          />
           <Image
             alt="Cover Photo"
             maxH="300px"
@@ -235,8 +244,8 @@ const AccountPage = ({ userdata, users }) => {
                 <Flex
                   position="relative"
                   pb="0.5rem"
-                  m="0 2rem 0 2rem"
-                  alignSelf="flex-end"
+                  w="75%"
+                  justify="flex-end"
                 >
                   <SortMenu
                     textcolor="dark"

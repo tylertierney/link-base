@@ -66,6 +66,11 @@ const NewPost = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    if (user.username.includes("Guest")) {
+      setError("Guests cannot post content publicly");
+      return;
+    }
+
     axios.get("/api/s3").then((response) => {
       sendFileToS3(postPhotoFile, response.data.url);
       let new_url = response.data.url.split("?")[0];
@@ -140,7 +145,7 @@ const NewPost = () => {
 
   return (
     <Container
-      maxW={["xs", "sm", "md"]}
+      maxW={["330px", "sm", "md"]}
       backgroundColor="brand.text_light"
       boxShadow="2px 2px 15px 1px rgb(0, 0, 0, 0.2)"
       borderRadius="md"

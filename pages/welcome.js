@@ -1,6 +1,6 @@
 import Layout from "../components/Layout/Layout";
 
-import { VStack, Alert, AlertIcon, Flex } from "@chakra-ui/react";
+import { VStack, Alert, AlertIcon, Flex, Text } from "@chakra-ui/react";
 
 import NewPost_GuestUser from "../components/NewPost/NewPost_GuestUser";
 import TabMenu from "../components/TabMenu/TabMenu";
@@ -13,11 +13,11 @@ import Navbar from "../components/Navbar/Navbar";
 import { useState, useEffect } from "react";
 
 import clientPromise from "../utils/mongodb";
-import { EmailIcon } from "@chakra-ui/icons";
 
 const Welcome = ({ users, guest_pw }) => {
   const [sortingBy, setSortingBy] = useState("popular");
   const [tabSelection, setTabSelection] = useState("Discover");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { user, setUser, login } = useUser();
 
@@ -38,7 +38,11 @@ const Welcome = ({ users, guest_pw }) => {
 
   return (
     <>
-      <Navbar isGuest={true} />
+      <Navbar
+        isGuest={true}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+      />
       <Flex
         direction="column"
         maxW="100vw"
@@ -56,21 +60,24 @@ const Welcome = ({ users, guest_pw }) => {
           overflow="scroll"
           className="hideScrollbar"
           p="1rem 0.8rem 2rem 0.8rem"
-          minW="360px"
+          minW="330px"
         >
           <Alert
             borderRadius="lg"
             variant="subtle"
             status="info"
-            maxW={["xs", "sm", "md"]}
+            maxW={["330px", "sm", "md"]}
             fontSize="0.65rem"
-            p="2rem 0.8rem"
+            p="2.2rem 0.8rem"
+            // p="1rem"
             color="black"
             fontWeight="semibold"
           >
             <AlertIcon />
-            You are browsing LinkBase in Welcome Mode. As a guest user, you are
-            unable to post content, post comments, or follow other users.
+            <Text>
+              You are browsing LinkBase in Welcome Mode. As a guest user, you
+              are unable to post content, post comments, or follow other users.
+            </Text>
           </Alert>
           <NewPost_GuestUser />
           <Flex align="center" w="80%" justify="space-between">

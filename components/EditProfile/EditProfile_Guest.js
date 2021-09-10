@@ -44,6 +44,10 @@ const EditProfile_Guest = ({
   isEditable,
   showConfirmation,
   setShowConfirmation,
+  guest_prof_pic,
+  guest_cover_pic,
+  setGuest_prof_pic,
+  setGuest_cover_pic,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user } = useUser();
@@ -134,15 +138,11 @@ const EditProfile_Guest = ({
 
     const new_userobj = { ...user };
 
-    new_userobj["prof_pic_url"] = profilePicPreviewURL;
-    new_userobj["cover_pic_url"] = coverPhotoPreviewURL;
-    new_userobj["username"] = newUsername;
-    new_userobj["bio"] = aboutBio;
-
-    console.log(new_userobj);
+    setGuest_prof_pic(profilePicPreviewURL);
+    setGuest_cover_pic(coverPhotoPreviewURL);
 
     setIsLoading(false);
-    // onClose();
+    onClose();
   };
 
   return (
