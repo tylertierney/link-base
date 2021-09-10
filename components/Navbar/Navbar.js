@@ -4,7 +4,7 @@ import Logo from "../Logo/Logo";
 import NavbarControls from "./NavbarControls/NavbarControls";
 import UserMenu from "./UserMenu/UserMenu";
 
-const Navbar = () => {
+const Navbar = ({ isGuest }) => {
   const { user } = useUser();
 
   return (
@@ -23,9 +23,9 @@ const Navbar = () => {
           left="0"
           backgroundColor="brand.text_light"
         >
-          <Logo />
+          <Logo isGuest={isGuest} />
           <Flex justify="space-between" align="center">
-            {user && <UserMenu />}
+            {user && <UserMenu isGuest={isGuest} />}
             {!user && <NavbarControls />}
           </Flex>
         </Flex>

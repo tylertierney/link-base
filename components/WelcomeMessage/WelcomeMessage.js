@@ -27,6 +27,8 @@ const WelcomeMessage = () => {
         </Text>
       </Heading>
       <br />
+      <Text fontSize="0.9rem">Welcome!</Text>
+      <br />
       <Text fontSize="0.9rem">
         LinkBase is a social media platform. Think of it like an Instagram or
         Facebook clone. Users can post status updates, share photos, tag posts
@@ -37,12 +39,16 @@ const WelcomeMessage = () => {
       <Text fontSize="0.9rem">
         LinkBase is fully functional in a desktop web browser, but the platform
         is optimized for a mobile-first experience. As a progressive web
-        application (PWA), LinkBase can also be added to your phone's home
-        screen and will function like an app downloaded from the app store.
+        application (PWA), LinkBase can
+        <Text as="span" fontSize="0.9rem" fontStyle="italic">
+          &nbsp;also&nbsp;
+        </Text>
+        be added to your phone&apos;s home screen and will function like an app
+        downloaded from the app store.
       </Text>
       <br />
       <Text fontSize="0.9rem">
-        If you're not ready to create an account just yet, feel free to get
+        If you&apos;re not ready to create an account just yet, feel free to get
         started in{" "}
         <Link href="/welcome" passHref>
           <a style={{ color: "blue" }}>Welcome Mode</a>
@@ -51,12 +57,16 @@ const WelcomeMessage = () => {
       </Text>
       <br />
       <Text fontSize="0.9rem">
-        If you're a developer and want to learn about the tech stack behind
+        If you&apos;re a developer and want to learn about the tech stack behind
         LinkBase, check out the{" "}
         <Link href="https://github.com/tylertierney/link-base" passHref>
           <a style={{ color: "blue" }}>respository</a>
         </Link>{" "}
         on Github.
+      </Text>
+      <br />
+      <Text fontSize="0.9rem" textAlign="right">
+        - Tyler Tierney, Founder
       </Text>
     </Flex>
   );

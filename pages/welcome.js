@@ -8,6 +8,8 @@ import SortMenu from "../components/SortMenu/SortMenu";
 import Feed from "../components/Feed/Feed";
 import { useUser } from "../context/authContext";
 
+import Navbar from "../components/Navbar/Navbar";
+
 import { useState, useEffect } from "react";
 
 import clientPromise from "../utils/mongodb";
@@ -19,97 +21,97 @@ const Welcome = ({ users, guest_pw }) => {
 
   const { user, setUser, login } = useUser();
 
-  const guestuser_obj = {
-    id: 123456,
-    posts: [],
-    liked_posts: [],
-    prof_pic_url: "",
-    cover_pic_url: "",
-    followers: [],
-    following: [],
-    username: "Guest",
-    bio: "Excited to try out some of these cool features and connect with my friends!",
-  };
-
   useEffect(async () => {
     // login("Guest@email.com", guest_pw);
     login("Guest@email.com", guest_pw, true);
 
-    if (user) {
-      for (const person of users) {
-        if (person.id === user.id) {
-          await setUser(() => person);
-          //   localStorage.setItem("user", JSON.stringify(person));
-        }
+    // if (user) {
+    for (const person of users) {
+      if (person.id === "449f7966-9439-4f82-bf31-0abc9637b63b") {
+        setUser(person);
       }
     }
+    // }
 
     // return () => login("Guest@email.com", guest_pw, true);
   }, [user?.id]);
 
-  console.log(user);
-
   return (
-    <Layout>
-      <VStack
-        overflow="scroll"
-        className="hideScrollbar"
-        p="1rem 0.8rem 2rem 0.8rem"
-        minW="360px"
+    <>
+      <Navbar isGuest={true} />
+      <Flex
+        direction="column"
+        maxW="100vw"
+        minH="100vh"
+        maxH="100vh"
+        p="2rem 0rem 0rem 0rem"
+        justifyContent="flex-start"
+        alignItems="center"
+        backgroundColor="blue.300"
+        background="linear-gradient(180deg, rgba(237,69,81,1) 0%, rgba(249,200,206,1) 100%)"
+        overflowY="hidden"
+        overflow="hidden"
       >
-        <Alert
-          borderRadius="lg"
-          variant="subtle"
-          status="info"
-          maxW={["xs", "sm", "md"]}
-          fontSize="0.7rem"
-          p="2rem 0.8rem"
+        <VStack
+          overflow="scroll"
+          className="hideScrollbar"
+          p="1rem 0.8rem 2rem 0.8rem"
+          minW="360px"
         >
-          <AlertIcon />
-          You are browsing LinkBase in Welcome Mode. As a guest user, you are
-          unable to post content,
-        </Alert>
-        <NewPost_GuestUser />
-        <Flex align="center" w="80%" justify="space-between">
-          <Flex align="center" justify="center" w={["24%", "20%"]}>
-            <TabMenu
-              tabSelection={tabSelection}
-              setTabSelection={setTabSelection}
+          <Alert
+            borderRadius="lg"
+            variant="subtle"
+            status="info"
+            maxW={["xs", "sm", "md"]}
+            fontSize="0.65rem"
+            p="2rem 0.8rem"
+          >
+            <AlertIcon />
+            You are browsing LinkBase in Welcome Mode. As a guest user, you are
+            unable to post content, post comments, or follow other users.
+          </Alert>
+          <NewPost_GuestUser />
+          <Flex align="center" w="80%" justify="space-between">
+            <Flex align="center" justify="center" w={["24%", "20%"]}>
+              <TabMenu
+                tabSelection={tabSelection}
+                setTabSelection={setTabSelection}
+              />
+            </Flex>
+            <Flex w={["52%", "60%"]} align="center" justify="center">
+              <Flex
+                w="96%"
+                h="4px"
+                borderRadius="lg"
+                backgroundColor="whiteAlpha.800"
+              ></Flex>
+            </Flex>
+            <Flex align="center" justify="center" w={["24%", "20%"]}>
+              <SortMenu sortingBy={sortingBy} setSortingBy={setSortingBy} />
+            </Flex>
+          </Flex>
+          {tabSelection === "Your Feed" ? (
+            <Feed
+              isGuest={true}
+              user={user}
+              sortingBy={sortingBy}
+              isProfilePage={false}
+              users={users}
+              isDiscover={false}
             />
-          </Flex>
-          <Flex w={["52%", "60%"]} align="center" justify="center">
-            <Flex
-              w="96%"
-              h="4px"
-              borderRadius="lg"
-              backgroundColor="whiteAlpha.800"
-            ></Flex>
-          </Flex>
-          <Flex align="center" justify="center" w={["24%", "20%"]}>
-            <SortMenu sortingBy={sortingBy} setSortingBy={setSortingBy} />
-          </Flex>
-        </Flex>
-        {tabSelection === "Your Feed" ? (
-          <Feed
-            isGuest={true}
-            user={user}
-            sortingBy={sortingBy}
-            isProfilePage={false}
-            users={users}
-            isDiscover={false}
-          />
-        ) : (
-          <Feed
-            isGuest={true}
-            user={user}
-            sortingBy={sortingBy}
-            isProfilePage={false}
-            users={users}
-            isDiscover={true}
-          />
-        )}
-      </VStack>
-    </Layout>
+          ) : (
+            <Feed
+              isGuest={true}
+              user={user}
+              sortingBy={sortingBy}
+              isProfilePage={false}
+              users={users}
+              isDiscover={true}
+            />
+          )}
+        </VStack>
+      </Flex>
+    </>
   );
 };
 

@@ -23,7 +23,7 @@ import { useState } from "react";
 
 import { SpinnerIcon } from "@chakra-ui/icons";
 
-const UserMenu = () => {
+const UserMenu = ({ isGuest }) => {
   const { user, login, signup, error, logout } = useUser();
 
   const [menuIsOpen, setMenuIsOpen] = useState();
@@ -72,18 +72,33 @@ const UserMenu = () => {
               </Flex>
             </MenuButton>
             <MenuList>
-              <Link passHref href={`/user/${user.id}`}>
-                <MenuItem
-                  align="center"
-                  fontSize="0.8rem"
-                  onClick={() => setIsLoading(true)}
-                >
-                  <Flex align="center">
-                    {accountIcon}
-                    &nbsp;&nbsp;Account
-                  </Flex>
-                </MenuItem>
-              </Link>
+              {isGuest ? (
+                <Link passHref href={`/user/guest`}>
+                  <MenuItem
+                    align="center"
+                    fontSize="0.8rem"
+                    onClick={() => setIsLoading(true)}
+                  >
+                    <Flex align="center">
+                      {accountIcon}
+                      &nbsp;&nbsp;Account
+                    </Flex>
+                  </MenuItem>
+                </Link>
+              ) : (
+                <Link passHref href={`/user/${user.id}`}>
+                  <MenuItem
+                    align="center"
+                    fontSize="0.8rem"
+                    onClick={() => setIsLoading(true)}
+                  >
+                    <Flex align="center">
+                      {accountIcon}
+                      &nbsp;&nbsp;Account
+                    </Flex>
+                  </MenuItem>
+                </Link>
+              )}
               <MenuDivider />
               <Link passHref href="/Following">
                 <MenuItem fontSize="0.8rem" onClick={() => setIsLoading(true)}>

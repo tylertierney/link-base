@@ -2,11 +2,11 @@ import { Flex, Text } from "@chakra-ui/react";
 import Link from "next/link";
 import Head from "next/head";
 
-const Logo = () => {
+const Logo = ({ isGuest }) => {
   return (
     <>
       <Flex justify="center" align="center" h={2} userSelect="none">
-        <Link href="/" passHref>
+        <Link href={isGuest ? "/welcome" : "/"} passHref>
           <a style={{ textDecoration: "none" }}>
             <Text
               fontSize={22}

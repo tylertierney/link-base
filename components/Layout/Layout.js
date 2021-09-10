@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 export default function Layout({ children }) {
   return (
     <>
-      <Navbar />
+      <Navbar isGuest={false} />
       <Flex
         direction="column"
         maxW="100vw"
