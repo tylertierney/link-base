@@ -33,7 +33,6 @@ const handler = async (req, res) => {
       id: req.body.author_id,
     });
 
-    console.log(founduser);
     res
       .status(200)
       .json({ message: "Mongo DB has added this post to the user's profile" });

@@ -6,7 +6,7 @@ const Comment = ({ author_username, author_prof_pic, date, text }) => {
 
   return (
     <>
-      <Flex direction="column">
+      <Flex direction="column" backgroundColor="brand.text_light">
         <Flex p="0.8rem 0.3rem 0.8rem 0.5rem">
           <Flex direction="column" w="100%">
             <Flex

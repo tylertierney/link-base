@@ -19,8 +19,6 @@ const s3 = new aws.S3({
 const generateUploadURL = async () => {
   const randomNumber = Math.floor(Math.random() * 10000);
 
-  console.log("random number: ", randomNumber);
-
   const imageName = randomNumber.toString();
 
   const params = {
@@ -43,7 +41,7 @@ const handler = async (req, res) => {
 
   if (req.method === "GET") {
     const url = await generateUploadURL();
-    console.log(url);
+
     res.send({ url });
   }
 };

@@ -10,7 +10,6 @@ const handler = async (req, res) => {
   mongoose.connect(process.env.MONGODB_URI);
 
   if (req.method === "POST") {
-    console.log(req.body);
     const newuser_obj = new User({
       username: req.body.user_metadata.username,
       following: [],
@@ -27,7 +26,6 @@ const handler = async (req, res) => {
 
     newuser_obj.save((err, result) => {
       if (err) console.log(err);
-      console.log(result);
     });
 
     res.status(200).json({

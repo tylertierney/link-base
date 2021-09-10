@@ -44,16 +44,7 @@ const PostPanel = ({
     let box = e.currentTarget;
     let newBoxY;
     if (boxIsMoving) {
-      //   if (e.clientY) {
-      //     console.log("mouse movement true");
-      //     // MOUSE movement
-      //     let boxY = parseInt(box.style.top, 10);
-      //     setModalYValue(boxY);
-      //     newBoxY = boxY + e.movementY + "px";
-      //   } else {
-      // TOUCH movement
       newBoxY = e.changedTouches[0].clientY - e.target.clientHeight / 2 + "px";
-      //   }
       box.style.setProperty("top", newBoxY);
     }
   };
@@ -62,13 +53,11 @@ const PostPanel = ({
     e.stopPropagation();
     let box = e.currentTarget;
     setBoxIsMoving(false);
-    // console.log(modalYValue, parseInt(box.style.top, 10));
 
     if (parseInt(box.style.top, 10) > modalYValue) {
       setSlideAnimation(postpanelstyles.slideout);
       window.setTimeout(() => {
         setPanelIsShowing(false);
-        // hidePanel(e);
         setSlideAnimation(postpanelstyles.slidein);
       }, 200);
     } else {
@@ -76,9 +65,7 @@ const PostPanel = ({
     }
   };
 
-  let eventHandlers;
-
-  eventHandlers = {
+  const eventHandlers = {
     // mousedown: (e) => startMoving(e),
     touchstart: (e) => startMoving(e),
     // mouseup: (e) => stopMoving(e),
@@ -86,6 +73,8 @@ const PostPanel = ({
     // mousemove: (e) => handleMouseMove(e),
     touchmove: (e) => handleMouseMove(e),
   };
+
+  console.log(panelIsShowing);
 
   return (
     <>

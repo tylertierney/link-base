@@ -77,7 +77,7 @@ const EditProfile = ({ isEditable, showConfirmation, setShowConfirmation }) => {
   };
   const handleCoverPhotoUpload = (e) => {
     let imagefile = e.target.files[0];
-    console.log(e.target.files[0]);
+
     if (imagefile) {
       setCoverPhotoFile(() => imagefile);
       let url = URL.createObjectURL(imagefile);
@@ -93,7 +93,6 @@ const EditProfile = ({ isEditable, showConfirmation, setShowConfirmation }) => {
       axios
         .get("/api/s3")
         .then((response) => {
-          console.log(response.data.url);
           sendFileToS3(profilePicFile, response.data.url);
           let new_url = response.data.url.split("?")[0];
           axios.post("/api/updateuser", {

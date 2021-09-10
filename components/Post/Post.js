@@ -7,6 +7,7 @@ import {
   Icon,
   Image,
   Button,
+  Box,
 } from "@chakra-ui/react";
 
 import { useState, useEffect } from "react";
@@ -34,6 +35,8 @@ import CommentSection from "../CommentSection/CommentSection";
 import { AiOutlineUser } from "react-icons/ai";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
+import { TiArrowLeftOutline } from "react-icons/ti";
+
 const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
   // const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +47,9 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
   const [needsTruncation, setNeedsTruncation] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [panelIsShowing, setPanelIsShowing] = useState(false);
+
+  const [boxIsMoving, setBoxIsMoving] = useState(false);
+  const [modalYValue, setModalYValue] = useState(0);
 
   useEffect(() => {
     for (const likedby of post.likes) {
@@ -112,6 +118,13 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
   //   }
   // };
 
+  const hidePostOnScroll = (e) => {
+    console.log(e.currentTarget);
+    if (e.currentTarget.scrollLeft > 260) {
+      setIsHidden(true);
+    }
+  };
+
   return (
     <Container
       maxW={["330px", "sm", "md"]}
@@ -124,8 +137,8 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
       p="0.5rem 0rem"
     >
       <Flex
-        p="0 0.8rem 0rem 0.8"
-        m="0rem 0.3rem 0.3rem 0.3rem"
+        p="0 0.8rem 0.3rem 0.8"
+        m="0rem 0.3rem 0rem 0.3rem"
         justify="space-between"
         align="center"
       >
@@ -197,82 +210,134 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
 
       {!isHidden && (
         <>
-          {post.text && <Divider m="0.3rem 0" />}
-          <Flex direction="column" position="relative">
-            {post.text && (
-              <>
-                <Text
-                  className={`${poststyles.postText} ${
-                    seeingMore ? poststyles.noclamp : poststyles.clamp
-                  }`}
-                  pl="0.8rem"
-                  pr="0.6rem"
-                  pb="0rem"
-                  mb="0.3rem"
-                  maxW="100%"
-                  userSelect="none"
-                  onClick={() => setPanelIsShowing(true)}
-                  textAlign="left"
-                >
-                  {post.text}
-                </Text>
-                {needsTruncation && (
-                  <Text
-                    p="0 0.8rem 0 0.8rem"
-                    textAlign="right"
-                    decoration="underline"
-                    color="gray.500"
-                    userSelect="none"
-                  >
+          {post.text && (
+            <Divider
+              // m="0.3rem 0"
+              p="0.2rem 0"
+            />
+          )}
+          <Flex
+            direction="column"
+            position="relative"
+            background="linear-gradient(90deg, rgba(69,233,237,1) 0%, rgba(102,127,255,1) 100%)"
+          >
+            <Flex
+              position="absolute"
+              top="50%"
+              transform="translate(-50%,-80%)"
+              right="10px"
+              align="center"
+              direction="column"
+            >
+              <Icon as={TiArrowLeftOutline} fontSize="1.7rem" color="white" />
+              <Text color="white" fontSize="1rem">
+                Hide
+              </Text>
+            </Flex>
+            <Box
+              overflowX="scroll"
+              position="relative"
+              w="100%"
+              h="auto"
+              maxW="100%"
+              display="flex"
+              className="hideScrollbar"
+              style={{
+                scrollSnapType: "x mandatory",
+              }}
+              onScroll={(e) => hidePostOnScroll(e)}
+              // visibility="hidden"
+            >
+              <Box w="100%" flexShrink="0" style={{ scrollSnapAlign: "start" }}>
+                {post.text && (
+                  <>
                     <Text
-                      as="span"
-                      cursor="pointer"
-                      onClick={() => setSeeingMore(!seeingMore)}
-                      fontSize="0.6rem"
+                      className={`${poststyles.postText} ${
+                        seeingMore ? poststyles.noclamp : poststyles.clamp
+                      }`}
+                      pl="0.6rem"
+                      pr="0.6rem"
+                      pb="0.3rem"
+                      pt="0.3rem"
+                      maxW="100%"
+                      userSelect="none"
+                      onClick={() => setPanelIsShowing(true)}
+                      textAlign="left"
+                      backgroundColor="brand.text_light"
                     >
-                      See {seeingMore ? "less" : "more"}
+                      {post.text}
                     </Text>
-                  </Text>
+                    {needsTruncation && (
+                      <Text
+                        p="0 0.8rem 0 0.8rem"
+                        textAlign="right"
+                        decoration="underline"
+                        color="gray.500"
+                        userSelect="none"
+                        backgroundColor="brand.text_light"
+                      >
+                        <Text
+                          as="span"
+                          cursor="pointer"
+                          onClick={() => setSeeingMore(!seeingMore)}
+                          fontSize="0.6rem"
+                        >
+                          See {seeingMore ? "less" : "more"}
+                        </Text>
+                      </Text>
+                    )}
+                  </>
                 )}
-              </>
-            )}
-            {post.photoURL && (
-              <>
-                <Image
-                  alt="user uploaded image"
-                  width="100%"
-                  src={post.photoURL}
-                  onClick={() => setPanelIsShowing(true)}
-                />
-                {isSponsored && (
-                  // <Flex justify="flex-end" p="0.1rem 0.4rem">
-                  <Button
-                    position="absolute"
-                    bottom={isPanel ? "90px" : "50px"}
-                    right="10px"
-                    p="0 0.6rem"
-                    backgroundColor="blackAlpha.500"
-                    color="white"
-                    _focus={{ backgroundColor: "transparent" }}
-                    _active={{ backgroundColor: "transparent" }}
-                    _hover={{ backgroundColor: "inherit" }}
-                    fontSize="0.7rem"
-                    size="sm"
-                    variant="outline"
-                  >
-                    Buy Now
-                  </Button>
-                  // </Flex>
+                {post.photoURL && (
+                  <>
+                    <Image
+                      alt="user uploaded image"
+                      maxW="100%"
+                      width="100%"
+                      h="auto"
+                      src={post.photoURL}
+                      onClick={() => setPanelIsShowing(true)}
+                    />
+                    {isSponsored && (
+                      <Button
+                        position="absolute"
+                        bottom={isPanel ? "90px" : "50px"}
+                        right="10px"
+                        p="0 0.6rem"
+                        backgroundColor="blackAlpha.500"
+                        color="white"
+                        _focus={{ backgroundColor: "transparent" }}
+                        _active={{ backgroundColor: "transparent" }}
+                        _hover={{ backgroundColor: "inherit" }}
+                        fontSize="0.7rem"
+                        size="sm"
+                        variant="outline"
+                      >
+                        Buy Now
+                      </Button>
+                    )}
+                  </>
                 )}
-              </>
-            )}
+              </Box>
+              <Box
+                flexShrink="0"
+                h="auto"
+                w="100%"
+                visibility="hidden"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <Flex h="100%" w="100%">
+                  <Text fontSize="1.3rem">Swipe to hide post</Text>
+                </Flex>
+              </Box>
+            </Box>
             <Flex
               justify="space-between"
               align="center"
               color="gray.400"
-              m="0.6rem 0 0 0"
               userSelect="none"
-              p="0 0.8rem"
+              p="0.6rem 0.8rem 0 0.8rem"
+              backgroundColor="brand.text_light"
             >
               <Flex justify="space-between" align="flex-start">
                 <Flex onClick={() => handleLike()}>
@@ -316,7 +381,11 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
                 {convertDate(post.posted_at)}
               </Text>
             </Flex>
-            <Divider p="0.2rem 0" />
+            <Divider
+              p="0.2rem 0"
+              opacity="1"
+              backgroundColor="brand.text_light"
+            />
             <CommentSection
               isGuest={isGuest}
               isSponsored={isSponsored}

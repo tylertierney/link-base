@@ -24,17 +24,16 @@ const Home = ({ users }) => {
     const getUserFromLocalStorage = () => {
       if (localStorage.getItem("user")) {
         let founduser = localStorage.getItem("user");
-        console.log(founduser);
+
         let convertedfounduser;
         if (founduser) {
           convertedfounduser = JSON.parse(founduser);
-          console.log(convertedfounduser);
+
           setUser(() => convertedfounduser);
         } else {
-          // router.push("/login");
+          router.push("/welcome");
         }
 
-        console.log(convertedfounduser);
         return convertedfounduser;
       }
     };

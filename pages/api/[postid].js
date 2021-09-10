@@ -35,8 +35,6 @@ const handler = async (req, res) => {
     }
     founduser.save();
 
-    console.log(foundpost);
-
     res.status(200).json({
       message: "A like or comment on this post has changed",
     });

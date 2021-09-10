@@ -100,7 +100,6 @@ const NewPost = () => {
     axios
       .post("/api/newpost", postObject)
       .then((response) => {
-        console.log("addpost to user profile request received", response);
         setShowConfirmation(true);
       })
       .catch((error) => {
@@ -140,8 +139,6 @@ const NewPost = () => {
       setPostPhotoPreviewURL(url);
     }
   };
-
-  console.log(postPhotoPreviewURL);
 
   return (
     <Container

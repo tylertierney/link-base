@@ -34,11 +34,12 @@ const Following = ({ users }) => {
         overflow="scroll"
         className="hideScrollbar"
         p="1rem 0.8rem 2rem 0.8rem"
+        minW={["100vw", "500px"]}
       >
         <Flex w="100%" align="center">
           <Flex align="center" onClick={() => router.back()} cursor="pointer">
             <Icon as={BsChevronLeft} color="white" />
-            <Text color="white">&nbsp;Profile</Text>
+            <Text color="white">&nbsp;Back</Text>
           </Flex>
         </Flex>{" "}
         {user.following.length > 0 ? (

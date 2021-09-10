@@ -10,12 +10,6 @@ const handler = async (req, res) => {
   mongoose.connect(process.env.MONGODB_URI);
 
   if (req.method === "POST") {
-    console.log(req.body);
-
-    // const updateuser_obj = {};
-
-    console.log(req.body.prof_pic_url);
-
     const founduser = await User.findOneAndUpdate(
       {
         id: req.body.userid,

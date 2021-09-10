@@ -32,7 +32,6 @@ const SignUp = ({ users }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password, username);
 
     signup(email, password, username);
     localStorage.setItem(

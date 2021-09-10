@@ -32,8 +32,6 @@ const Feed = ({
 }) => {
   // const { user } = useUser();
 
-  console.log(isGuest);
-
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
       return;

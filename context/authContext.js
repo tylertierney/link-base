@@ -2,9 +2,6 @@ import { useState, useEffect, createContext, useContext } from "react";
 import GoTrue from "gotrue-js";
 import { useRouter } from "next/router";
 import axios from "axios";
-// import clientPromise from "../utils/mongodb";
-
-// console.log(clientPromise);
 
 const auth = new GoTrue({
   APIUrl: "https://link-base.netlify.app/.netlify/identity",
@@ -35,8 +32,6 @@ const AuthContextProvider = ({ children }) => {
 
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
-
-  console.log("AUTH current user is: ", auth.currentUser());
 
   const login = (email, password, isGuest) => {
     setIsLoading(true);
@@ -69,7 +64,6 @@ const AuthContextProvider = ({ children }) => {
       .currentUser()
       .logout()
       .then((response) => {
-        console.log("User logged out");
         setIsLoading(false);
         setUser(null);
         window.localStorage.clear();
@@ -107,11 +101,9 @@ const AuthContextProvider = ({ children }) => {
         username: username,
       })
       .then((response) => {
-        console.log("please god tell me this appears, line 108");
-        console.log("Confirmation email sent", response);
         setIsLoading(false);
         addUserToDatabase(response);
-        console.log(email, password);
+
         login(email, password);
         setUser(response);
         // router.push(`/user/${response.id}`);
