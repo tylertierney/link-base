@@ -65,6 +65,8 @@ const Welcome = ({ users, guest_pw }) => {
             maxW={["xs", "sm", "md"]}
             fontSize="0.65rem"
             p="2rem 0.8rem"
+            color="black"
+            fontWeight="semibold"
           >
             <AlertIcon />
             You are browsing LinkBase in Welcome Mode. As a guest user, you are
