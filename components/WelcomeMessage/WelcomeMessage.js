@@ -111,7 +111,7 @@ const WelcomeMessage = () => {
         If you&apos;re a developer and want to learn about the tech stack behind
         LinkBase, check out the{" "}
         <Link href="https://github.com/tylertierney/link-base" passHref>
-          <a style={{ color: "blue" }}>respository</a>
+          <a style={{ color: "blue" }}>repository</a>
         </Link>{" "}
         on Github.
       </Text>
