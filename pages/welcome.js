@@ -29,6 +29,7 @@ const Welcome = ({ users, guest_pw }) => {
     for (const person of users) {
       if (person.id === "449f7966-9439-4f82-bf31-0abc9637b63b") {
         setUser(person);
+        localStorage.setItem("user", JSON.stringify(person));
       }
     }
     // }
