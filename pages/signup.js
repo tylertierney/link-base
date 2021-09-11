@@ -8,8 +8,9 @@ import {
   Text,
   Container,
   Input,
+  InputGroup,
+  InputRightElement,
   Button,
-  SimpleGrid,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -26,9 +27,9 @@ const SignUp = ({ users }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  const { user, login, signup, logout, authReady, error, isLoading } =
-    useUser();
+  const { signup, error, isLoading } = useUser();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,7 +108,7 @@ const SignUp = ({ users }) => {
                       autoComplete="username"
                       placeholder="coolguy96"
                       bg={"gray.100"}
-                      border={0}
+                      // border={0}
                       color={"gray.500"}
                       _placeholder={{
                         color: "gray.300",
@@ -147,20 +148,38 @@ const SignUp = ({ users }) => {
                     Password
                   </FormLabel>
                   <FormControl isRequired id="password" isInvalid={error}>
-                    <Input
-                      autoComplete="new-password"
-                      placeholder="*******"
-                      bg={"gray.100"}
-                      border={0}
-                      color={"gray.500"}
-                      _placeholder={{
-                        color: "gray.300",
-                      }}
-                      type="password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      value={password}
-                      disabled={isLoading}
-                    />
+                    <InputGroup>
+                      <Input
+                        autoComplete="new-password"
+                        placeholder="*******"
+                        bg={"gray.100"}
+                        border={0}
+                        color={"gray.500"}
+                        _placeholder={{
+                          color: "gray.300",
+                        }}
+                        type={showPassword ? "text" : "password"}
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        disabled={isLoading}
+                      />
+                      <InputRightElement>
+                        <Button
+                          fontSize="0.8rem"
+                          variant="ghost"
+                          _focus={{
+                            outline: "none",
+                          }}
+                          _active={{
+                            backgroundColor: "transparent",
+                          }}
+                          mr="1rem"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          Show
+                        </Button>
+                      </InputRightElement>
+                    </InputGroup>
                     <FormErrorMessage fontSize="inherit">
                       {error?.message}
                     </FormErrorMessage>

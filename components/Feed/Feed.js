@@ -32,6 +32,8 @@ const Feed = ({
 }) => {
   // const { user } = useUser();
 
+  let isOwnPost;
+
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
       return;
@@ -57,6 +59,7 @@ const Feed = ({
         postArray = user.posts.map((post) => {
           return (
             <Post
+              isOwnPost={true}
               isGuest={isGuest}
               user={user}
               isSponsored={false}
@@ -73,6 +76,7 @@ const Feed = ({
       postArray = userdata.posts.map((post) => {
         return (
           <Post
+            isOwnPost={false}
             isGuest={isGuest}
             user={user}
             isSponsored={false}
@@ -88,9 +92,13 @@ const Feed = ({
   } else {
     if (isDiscover === true) {
       users.forEach((person) => {
+        if (person.id === user?.id) {
+          isOwnPost = true;
+        }
         person.posts.forEach((post) => {
           postArray.push(
             <Post
+              isOwnPost={isOwnPost}
               isGuest={isGuest}
               user={user}
               isSponsored={false}
@@ -108,9 +116,13 @@ const Feed = ({
           user.following !== undefined &&
           user.following.includes(person.id)
         ) {
+          if (person.id === user?.id) {
+            isOwnPost = true;
+          }
           person.posts.forEach((post) => {
             postArray.push(
               <Post
+                isOwnPost={isOwnPost}
                 isGuest={isGuest}
                 user={user}
                 isSponsored={false}
@@ -177,6 +189,7 @@ const Feed = ({
         i,
         0,
         <SponsoredPost
+          isOwnPost={false}
           isGuest={isGuest}
           user={user}
           key={Math.floor(Math.random() * 1000000)}

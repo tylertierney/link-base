@@ -37,7 +37,17 @@ import { SpinnerIcon } from "@chakra-ui/icons";
 
 import { TiArrowLeftOutline } from "react-icons/ti";
 
-const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
+const Post = ({
+  isSponsored,
+  postedBy,
+  post,
+  isPanel,
+  user,
+  isGuest,
+  isOwnPost,
+}) => {
+  console.log(isOwnPost);
+
   // const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -210,12 +220,10 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
 
       {!isHidden && (
         <>
-          {post.text && (
-            <Divider
-              // m="0.3rem 0"
-              p="0.2rem 0"
-            />
-          )}
+          {/* {post.text && 
+          <Divider p="0.2rem 0" opacity="1" />
+          } */}
+          <Divider p="0.2rem 0" opacity="1" />
           <Flex
             direction="column"
             position="relative"
@@ -223,8 +231,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
           >
             <Flex
               position="absolute"
-              top="50%"
-              transform="translate(-50%,-80%)"
+              top="14px"
               right="10px"
               align="center"
               direction="column"
@@ -301,7 +308,7 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
                     {isSponsored && (
                       <Button
                         position="absolute"
-                        bottom={isPanel ? "90px" : "50px"}
+                        bottom="0.7rem"
                         right="10px"
                         p="0 0.6rem"
                         backgroundColor="blackAlpha.500"
@@ -313,7 +320,8 @@ const Post = ({ isSponsored, postedBy, post, isPanel, user, isGuest }) => {
                         size="sm"
                         variant="outline"
                       >
-                        Buy Now
+                        {/* Buy Now */}
+                        {post.cta}
                       </Button>
                     )}
                   </>

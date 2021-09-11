@@ -121,28 +121,40 @@ const GuestAccount = ({ users }) => {
             mb="75px"
             className={accountPageStyles.header}
           >
-            <Icon
-              as={BsChevronLeft}
-              color="white"
+            <Flex
               position="absolute"
-              top="30px"
-              left="5px"
-              cursor="pointer"
-              onClick={() => router.push("/welcome")}
-            />
-
-            <Image
-              alt="Cover Photo"
-              maxH="300px"
-              minH="300px"
-              minW="600px"
+              top="1.6rem"
+              left="0.8rem"
               align="center"
-              fallbackSrc="https://linkbase.s3.us-east-2.amazonaws.com/brand-gradient.png"
-              src={guest_cover_pic}
-              className={accountPageStyles.coverPhoto}
-              borderRadius="lg"
-              boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
-            ></Image>
+              onClick={() => router.back()}
+              cursor="pointer"
+            >
+              <Icon as={BsChevronLeft} color="white" />
+              <Text color="white">&nbsp;Back</Text>
+            </Flex>
+            <Box>
+              <Image
+                alt="Cover Photo"
+                maxH="300px"
+                minH="300px"
+                minW="600px"
+                align="center"
+                fallbackSrc="https://linkbase.s3.us-east-2.amazonaws.com/brand-gradient.png"
+                src={guest_cover_pic}
+                className={accountPageStyles.coverPhoto}
+                borderRadius="lg"
+                boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
+              ></Image>
+              <Box
+                borderRadius="lg"
+                position="absolute"
+                top="0"
+                left="0"
+                minW="100%"
+                minH="100%"
+                background="linear-gradient(180deg, rgba(0,0,0,0.6558998599439776) 0%, rgba(255,255,255,0) 16%)"
+              ></Box>
+            </Box>
             <Avatar
               size="full"
               boxSize="150px"

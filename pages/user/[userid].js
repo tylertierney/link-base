@@ -106,27 +106,52 @@ const AccountPage = ({ userdata, users }) => {
           mb="75px"
           className={accountPageStyles.header}
         >
-          <Icon
+          {/* <Icon
             as={BsChevronLeft}
             color="white"
             position="absolute"
             top="30px"
             left="5px"
             cursor="pointer"
-            onClick={() => router.push("/")}
-          />
-          <Image
-            alt="Cover Photo"
-            maxH="300px"
-            minH="300px"
-            minW="600px"
-            align="center"
-            fallbackSrc="https://linkbase.s3.us-east-2.amazonaws.com/brand-gradient.png"
-            src={userdata.cover_pic_url}
-            className={accountPageStyles.coverPhoto}
-            borderRadius="lg"
-            boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
-          ></Image>
+            onClick={() => router.back()}
+          /> */}
+          <Box>
+            <Flex
+              zIndex="2"
+              position="fixed"
+              top="2.7rem"
+              left="1rem"
+              className={accountPageStyles.backButton}
+              align="center"
+              onClick={() => router.back()}
+              cursor="pointer"
+            >
+              <Icon as={BsChevronLeft} />
+              <Text>&nbsp;Back</Text>
+            </Flex>
+            <Image
+              alt="Cover Photo"
+              maxH="300px"
+              minH="300px"
+              minW="600px"
+              align="center"
+              fallbackSrc="https://linkbase.s3.us-east-2.amazonaws.com/brand-gradient.png"
+              src={userdata.cover_pic_url}
+              className={accountPageStyles.coverPhoto}
+              borderRadius="lg"
+              boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
+            ></Image>
+            <Box
+              zIndex="1"
+              borderRadius="lg"
+              position="absolute"
+              top="0"
+              left="0"
+              minW="100%"
+              minH="100%"
+              background="linear-gradient(180deg, rgba(0,0,0,0.6558998599439776) 0%, rgba(255,255,255,0) 16%)"
+            ></Box>
+          </Box>
           <Avatar
             size="full"
             boxSize="150px"
@@ -209,12 +234,7 @@ const AccountPage = ({ userdata, users }) => {
             </Flex>
           </Flex>
         )}
-        <Tabs
-          colorScheme="red"
-          // isFitted
-          align="center"
-          minW="100%"
-        >
+        <Tabs colorScheme="red" align="center" minW="100%">
           <TabList>
             <Tab
               color="gray.400"
@@ -274,14 +294,29 @@ const AccountPage = ({ userdata, users }) => {
                   position="relative"
                   direction="column"
                   pb="0.5rem"
-                  m="0 2rem 0 2rem"
+                  // m="0 2rem 0 2rem"
                   w="100%"
                   align="flex-start"
                 >
-                  <Heading fontSize="1.2rem" color="gray.600" mb="10px">
+                  <Heading
+                    w="100%"
+                    fontSize="1.2rem"
+                    color="gray.600"
+                    // mb="10px"
+                    maxW="600px"
+                    textAlign="left"
+                    p="0 0 1rem 0"
+                  >
                     Bio
                   </Heading>
-                  <Text fontSize="0.9rem" color="gray.600">
+
+                  <Text
+                    w="100%"
+                    fontSize="0.9rem"
+                    color="gray.600"
+                    maxW="600px"
+                    textAlign="left"
+                  >
                     {userdata.bio}
                   </Text>
                 </Flex>

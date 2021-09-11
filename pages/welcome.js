@@ -21,7 +21,7 @@ const Welcome = ({ users, guest_pw }) => {
 
   const { user, setUser, login } = useUser();
 
-  useEffect(async () => {
+  useEffect(() => {
     // login("Guest@email.com", guest_pw);
     login("Guest@email.com", guest_pw, true);
 

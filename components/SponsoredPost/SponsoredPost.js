@@ -22,6 +22,7 @@ export const ads = [
       text: "",
       userid: "9",
       _id: 123456789,
+      cta: "Get Started",
     },
   ],
   [
@@ -42,13 +43,15 @@ export const ads = [
       text: "",
       userid: "747ef251-dd2a-4408-a904-e89e9b131379",
       _id: 12345678,
+      cta: "Buy Online",
     },
   ],
 ];
 
-const SponsoredPost = ({ post, postedBy, user, isGuest }) => {
+const SponsoredPost = ({ post, postedBy, user, isGuest, isOwnPost }) => {
   return (
     <Post
+      isOwnPost={isOwnPost}
       isGuest={isGuest}
       user={user}
       isSponsored={true}

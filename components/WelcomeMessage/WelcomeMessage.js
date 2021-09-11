@@ -15,6 +15,7 @@ const WelcomeMessage = () => {
       color="gray.600"
       maxW="700px"
       mb="50vh"
+      userSelect="none"
     >
       <Heading fontFamily="Poppins" fontSize="1.4rem">
         Looks like you&apos;re new here
@@ -61,6 +62,7 @@ const WelcomeMessage = () => {
           }
         >
           <Image
+            alt="Screenshot of LinkBase"
             h="auto"
             w={["200px", "300px"]}
             border="1px solid black"
@@ -70,6 +72,7 @@ const WelcomeMessage = () => {
             ml={["10px", "0px"]}
           />
           <Image
+            alt="Screenshot of LinkBase"
             position="absolute"
             top="40%"
             left={["40%", "50%"]}
