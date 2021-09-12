@@ -37,7 +37,7 @@ const Home = ({ users }) => {
         return convertedfounduser;
       }
     };
-    // setUser(() => getUserFromLocalStorage());
+    setUser(() => getUserFromLocalStorage());
 
     if (user) {
       for (const person of users) {
@@ -47,7 +47,15 @@ const Home = ({ users }) => {
         }
       }
     }
+
+    console.log(user);
+
+    // if (user === null) {
+    //   router.push("/welcome");
+    // }
   }, [user?.id]);
+
+  console.log(user);
 
   return (
     <>

@@ -32,7 +32,7 @@ const Feed = ({
 }) => {
   // const { user } = useUser();
 
-  let isOwnPost;
+  let isOwnPost = false;
 
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
@@ -92,10 +92,10 @@ const Feed = ({
   } else {
     if (isDiscover === true) {
       users.forEach((person) => {
-        if (person.id === user?.id) {
-          isOwnPost = true;
-        }
         person.posts.forEach((post) => {
+          if (person.id === user?.id) {
+            isOwnPost = true;
+          }
           postArray.push(
             <Post
               isOwnPost={isOwnPost}
@@ -143,7 +143,7 @@ const Feed = ({
   const determineFeedOrMessage = () => {
     if (postArray.length === 0) {
       return (
-        <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
+        <>
           {isProfilePage ? (
             <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
               This user hasn&apos;t posted anything yet
@@ -172,7 +172,7 @@ const Feed = ({
               </Heading>
             </>
           )}
-        </Heading>
+        </>
       );
     } else {
       return postArray;
@@ -183,23 +183,30 @@ const Feed = ({
   // This function runs AFTER all other sorting and data-fetching
   // functions have been completed
 
-  for (let i = 5, j = 0; i < postArray.length; i++) {
-    if (i % 6 === 0) {
-      postArray.splice(
-        i,
-        0,
-        <SponsoredPost
-          isOwnPost={false}
-          isGuest={isGuest}
-          user={user}
-          key={Math.floor(Math.random() * 1000000)}
-          postedBy={ads[j][0]}
-          post={ads[j][1]}
-        />
-      );
-      j += 1;
+  const insertAds = () => {
+    for (let i = 5, j = 0; i < postArray.length; i++) {
+      if (i % 6 === 0) {
+        if (ads[j] === undefined || ads[j] === null) {
+          return;
+        }
+        postArray.splice(
+          i,
+          0,
+          <SponsoredPost
+            isOwnPost={false}
+            isGuest={isGuest}
+            user={user}
+            key={Math.floor(Math.random() * 1000000)}
+            postedBy={ads[j][0]}
+            post={ads[j][1]}
+          />
+        );
+        j += 1;
+      }
     }
-  }
+  };
+
+  insertAds();
 
   return (
     <Box className="hideScrollbar" p="0 0 10rem 0">

@@ -149,7 +149,7 @@ const AccountPage = ({ userdata, users }) => {
               left="0"
               minW="100%"
               minH="100%"
-              background="linear-gradient(180deg, rgba(0,0,0,0.6558998599439776) 0%, rgba(255,255,255,0) 16%)"
+              background="linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0) 16%)"
             ></Box>
           </Box>
           <Avatar

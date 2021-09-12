@@ -26,9 +26,9 @@ const AuthContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // if (auth.currentUser()) {
-    //   setUser(auth.currentUser());
-    // }
+    if (auth.currentUser()) {
+      setUser(auth.currentUser());
+    }
 
     setUser(JSON.parse(localStorage.getItem("user")));
   }, []);
@@ -103,8 +103,8 @@ const AuthContextProvider = ({ children }) => {
       .then((response) => {
         setIsLoading(false);
         addUserToDatabase(response);
-
-        login(email, password);
+        console.log("auth context line 106: ", response);
+        login(email, password, false);
         setUser(response);
         // router.push(`/user/${response.id}`);
         router.push("/");

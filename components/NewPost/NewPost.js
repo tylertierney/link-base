@@ -325,7 +325,7 @@ const NewPost = () => {
               </Button>
             </Flex>
             <Button
-              fontFamily={"heading"}
+              fontFamily="Poppins"
               bgGradient="linear(to-r, red.400,pink.400)"
               color={"white"}
               _hover={{

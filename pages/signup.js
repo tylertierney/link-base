@@ -16,12 +16,15 @@ import {
   FormLabel,
   Flex,
   FormHelperText,
+  Icon,
 } from "@chakra-ui/react";
 
 import Layout from "../components/Layout/Layout";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
 import signupstyles from "./signup.module.css";
+
+import { BsChevronLeft } from "react-icons/bs";
 
 const SignUp = ({ users }) => {
   const [email, setEmail] = useState("");
@@ -54,6 +57,12 @@ const SignUp = ({ users }) => {
 
   return (
     <Layout>
+      <Flex w="100%" align="center" mb="20px">
+        <Flex align="center" onClick={() => router.push("/")} cursor="pointer">
+          <Icon as={BsChevronLeft} color="white" />
+          <Text color="white">&nbsp;Welcome</Text>
+        </Flex>
+      </Flex>
       <Container
         p="1rem 0 2rem 0"
         overflowY="scroll"
@@ -63,7 +72,7 @@ const SignUp = ({ users }) => {
         <form onSubmit={(e) => handleSubmit(e)}>
           <Stack
             bg={"gray.50"}
-            rounded={"xl"}
+            rounded="xl"
             p={{ base: 4, sm: 6, md: 8 }}
             spacing={{ base: 8 }}
             maxW={{ lg: "lg" }}

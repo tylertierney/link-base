@@ -9,6 +9,7 @@ import Post from "../Post/Post";
 import postpanelstyles from "./postpanel.module.css";
 
 const PostPanel = ({
+  isOwnPost,
   isGuest,
   isSponsored,
   panelIsShowing,
@@ -73,8 +74,6 @@ const PostPanel = ({
     // mousemove: (e) => handleMouseMove(e),
     touchmove: (e) => handleMouseMove(e),
   };
-
-  console.log(panelIsShowing);
 
   return (
     <>
@@ -153,6 +152,7 @@ const PostPanel = ({
               overflowX="hidden"
             >
               <Post
+                isOwnPost={isOwnPost}
                 isGuest={isGuest}
                 user={user}
                 isSponsored={isSponsored}

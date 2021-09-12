@@ -86,7 +86,7 @@ const UserMenu = ({ isGuest }) => {
                   </MenuItem>
                 </Link>
               ) : (
-                <Link passHref href={`/user/${user.id}`}>
+                <Link href={`/user/${user.id}`} passHref>
                   <MenuItem
                     align="center"
                     fontSize="0.8rem"

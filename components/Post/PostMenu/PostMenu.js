@@ -21,7 +21,7 @@ import { useState, useEffect } from "react";
 
 import axios from "axios";
 
-const PostMenu = ({ isHidden, setIsHidden, postedBy, user }) => {
+const PostMenu = ({ isHidden, setIsHidden, postedBy, user, isOwnPost }) => {
   const [isFollowing, setIsFollowing] = useState(false);
 
   useEffect(() => {
@@ -76,21 +76,23 @@ const PostMenu = ({ isHidden, setIsHidden, postedBy, user }) => {
             )}
           </Flex>
         </MenuItem>
-        <MenuItem onClick={() => handleFollowOrUnfollow()}>
-          <Flex align="center">
-            {isFollowing ? (
-              <>
-                <BsPersonDashFill />
-                <Text>&nbsp;&nbsp;Unfollow</Text>
-              </>
-            ) : (
-              <>
-                <BsPersonPlus />
-                <Text>&nbsp;&nbsp;Follow</Text>
-              </>
-            )}
-          </Flex>
-        </MenuItem>
+        {!isOwnPost && (
+          <MenuItem onClick={() => handleFollowOrUnfollow()}>
+            <Flex align="center">
+              {isFollowing ? (
+                <>
+                  <BsPersonDashFill />
+                  <Text>&nbsp;&nbsp;Unfollow</Text>
+                </>
+              ) : (
+                <>
+                  <BsPersonPlus />
+                  <Text>&nbsp;&nbsp;Follow</Text>
+                </>
+              )}
+            </Flex>
+          </MenuItem>
+        )}
       </MenuList>
     </Menu>
   );

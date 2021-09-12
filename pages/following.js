@@ -62,10 +62,11 @@ const Following = ({ users }) => {
             w="100%"
             textAlign="center"
             fontSize="1.2rem"
+            fontFamily="Poppins"
           >
             You aren&apos;t following anyone
             <br />
-            <Icon as={FiFrown} fontSize="inherit" />
+            <Icon as={FiFrown} fontSize="2rem" />
           </Heading>
         )}
       </VStack>

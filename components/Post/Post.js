@@ -209,6 +209,7 @@ const Post = ({
             <></>
           )}
           <PostMenu
+            isOwnPost={isOwnPost}
             isGuest={isGuest}
             user={user}
             postedBy={postedBy}
@@ -403,6 +404,7 @@ const Post = ({
               isPanel={isPanel}
             />
             <PostPanel
+              isOwnPost={isOwnPost}
               isGuest={isGuest}
               panelIsShowing={panelIsShowing}
               setPanelIsShowing={setPanelIsShowing}

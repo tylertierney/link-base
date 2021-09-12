@@ -58,6 +58,7 @@ const Followers = ({ users }) => {
           </>
         ) : (
           <Heading
+            fontFamily="Poppins"
             userSelect="none"
             w="100%"
             textAlign="center"
@@ -65,7 +66,7 @@ const Followers = ({ users }) => {
           >
             You don&apos;t have any followers
             <br />
-            <Icon as={FiFrown} fontSize="inherit" />
+            <Icon as={FiFrown} fontSize="2rem" />
           </Heading>
         )}
       </VStack>

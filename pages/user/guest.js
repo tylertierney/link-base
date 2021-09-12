@@ -121,18 +121,20 @@ const GuestAccount = ({ users }) => {
             mb="75px"
             className={accountPageStyles.header}
           >
-            <Flex
-              position="absolute"
-              top="1.6rem"
-              left="0.8rem"
-              align="center"
-              onClick={() => router.back()}
-              cursor="pointer"
-            >
-              <Icon as={BsChevronLeft} color="white" />
-              <Text color="white">&nbsp;Back</Text>
-            </Flex>
             <Box>
+              <Flex
+                zIndex="2"
+                position="fixed"
+                top="2.7rem"
+                left="1rem"
+                className={accountPageStyles.backButton}
+                align="center"
+                onClick={() => router.back()}
+                cursor="pointer"
+              >
+                <Icon as={BsChevronLeft} />
+                <Text>&nbsp;Back</Text>
+              </Flex>
               <Image
                 alt="Cover Photo"
                 maxH="300px"
@@ -146,13 +148,14 @@ const GuestAccount = ({ users }) => {
                 boxShadow="0px 5px 20px 1px rgb(0, 0, 0, 0.5)"
               ></Image>
               <Box
+                zIndex="1"
                 borderRadius="lg"
                 position="absolute"
                 top="0"
                 left="0"
                 minW="100%"
                 minH="100%"
-                background="linear-gradient(180deg, rgba(0,0,0,0.6558998599439776) 0%, rgba(255,255,255,0) 16%)"
+                background="linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(255,255,255,0) 16%)"
               ></Box>
             </Box>
             <Avatar

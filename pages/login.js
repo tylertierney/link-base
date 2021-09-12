@@ -19,7 +19,10 @@ import {
   Flex,
   FormLabel,
   Icon,
+  Text,
 } from "@chakra-ui/react";
+
+import { BsChevronLeft } from "react-icons/bs";
 
 import router from "next/router";
 
@@ -50,6 +53,17 @@ const Login = () => {
         className="hideScrollbar"
         w={[300, 400, 500]}
       >
+        <Flex w="100%" align="center">
+          <Flex
+            align="center"
+            onClick={() => router.push("/")}
+            cursor="pointer"
+            mb="20px"
+          >
+            <Icon as={BsChevronLeft} color="white" />
+            <Text color="white">&nbsp;Welcome</Text>
+          </Flex>
+        </Flex>
         <Container as={SimpleGrid}>
           <form onSubmit={(e) => handleSubmit(e)}>
             <Stack
