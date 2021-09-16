@@ -100,7 +100,7 @@ const UserMenu = ({ isGuest }) => {
                 </Link>
               )}
               <MenuDivider />
-              <Link passHref href="/Following">
+              <Link passHref href="/following">
                 <MenuItem fontSize="0.8rem" onClick={() => setIsLoading(true)}>
                   <Flex align="center">
                     {followingIcon}&nbsp;&nbsp;Following
@@ -108,7 +108,7 @@ const UserMenu = ({ isGuest }) => {
                 </MenuItem>
               </Link>
               <MenuDivider />
-              <Link passHref href="/Followers">
+              <Link passHref href="/followers">
                 <MenuItem fontSize="0.8rem" onClick={() => setIsLoading(true)}>
                   <Flex align="center">
                     {followersIcon}&nbsp;&nbsp;Followers
