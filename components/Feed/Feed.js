@@ -158,7 +158,6 @@ const Feed = ({
               {" "}
               <br />
               <Heading
-                maxW="90vw"
                 textAlign="center"
                 fontSize="1.2rem"
                 color="gray.700"
