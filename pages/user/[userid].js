@@ -134,6 +134,8 @@ const AccountPage = ({ userdata, users }) => {
         >
           <Box>
             <Flex
+              as="button"
+              _focus={{ opacity: "0.5" }}
               zIndex="2"
               position="fixed"
               top="2.7rem"
@@ -147,6 +149,7 @@ const AccountPage = ({ userdata, users }) => {
               <Text>&nbsp;Back</Text>
             </Flex>
             <Image
+              fit="cover"
               alt="Cover Photo"
               maxH="300px"
               minH="300px"
@@ -170,6 +173,7 @@ const AccountPage = ({ userdata, users }) => {
             ></Box>
           </Box>
           <Avatar
+            // objectFit="cover"
             size="full"
             boxSize="150px"
             src={userdata.prof_pic_url}

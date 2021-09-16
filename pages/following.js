@@ -37,7 +37,13 @@ const Following = ({ users }) => {
         minW={["100vw", "500px"]}
       >
         <Flex w="100%" align="center">
-          <Flex align="center" onClick={() => router.back()} cursor="pointer">
+          <Flex
+            as="button"
+            _focus={{ opacity: "0.5" }}
+            align="center"
+            onClick={() => router.back()}
+            cursor="pointer"
+          >
             <Icon as={BsChevronLeft} color="white" />
             <Text color="white">&nbsp;Back</Text>
           </Flex>
