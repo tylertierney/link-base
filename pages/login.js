@@ -48,23 +48,32 @@ const Login = () => {
   return (
     <Layout>
       <Box
+        w="100%"
+        h="100%"
+        maxW="100vw"
+        maxH="100vh"
         overflowY="scroll"
-        p="2rem 0 2rem 0"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
         className="hideScrollbar"
-        w={[300, 400, 500]}
       >
         <Flex w="100%" align="center">
           <Flex
             align="center"
             onClick={() => router.push("/")}
             cursor="pointer"
-            mb="20px"
+            p="20px 0 6px 10px"
+            as="button"
+            _focus={{ opacity: "0.5" }}
           >
+            {/* <Button> */}
             <Icon as={BsChevronLeft} color="white" />
             <Text color="white">&nbsp;Welcome</Text>
+            {/* </Button> */}
           </Flex>
         </Flex>
-        <Container as={SimpleGrid}>
+        <Container as={SimpleGrid} p="1rem 0.6rem 2rem 0.6rem">
           <form onSubmit={(e) => handleSubmit(e)}>
             <Stack
               bg={"gray.50"}

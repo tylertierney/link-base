@@ -39,7 +39,7 @@ const AuthContextProvider = ({ children }) => {
     auth
       .login(email, password, true)
       .then((response) => {
-        console.log("login event detected");
+        // console.log("login event detected");
 
         setIsLoading(false);
         if (isGuest) {
@@ -103,10 +103,27 @@ const AuthContextProvider = ({ children }) => {
       .then((response) => {
         setIsLoading(false);
         addUserToDatabase(response);
-        console.log("auth context line 106: ", response);
+        // console.log("auth context line 106: ", response);
         login(email, password, false);
-        setUser(response);
-        // router.push(`/user/${response.id}`);
+
+        let user_obj = {
+          username: response.user_metadata.username,
+          email: response.email,
+          prof_pic_url: "",
+          cover_pic_url: "",
+          followers: [],
+          following: [],
+          posts: [],
+          liked_posts: [],
+          id: response.id,
+          bio: "",
+        };
+
+        // setUser(response);
+        setUser(user_obj);
+
+        localStorage.setItem("user", JSON.stringify(user_obj));
+
         router.push("/");
       })
       .catch((error) => {

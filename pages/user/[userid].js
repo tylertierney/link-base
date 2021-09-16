@@ -43,21 +43,47 @@ const AccountPage = ({ userdata, users }) => {
 
   const { user, setUser, logout } = useUser();
   useEffect(() => {
-    setUser(() => JSON.parse(localStorage.getItem("user")));
+    console.log(user);
+    console.log(localStorage.getItem("user"));
 
-    if (userdata.id === user.id) {
+    const getUserFromLocalStorage = () => {
+      if (localStorage.getItem("user")) {
+        let founduser = localStorage.getItem("user");
+        let convertedfounduser;
+        if (founduser) {
+          convertedfounduser = JSON.parse(founduser);
+
+          setUser(() => convertedfounduser);
+        }
+        return convertedfounduser;
+      }
+    };
+
+    setUser(() => getUserFromLocalStorage());
+
+    // if (user) {
+    //   for (const person of users) {
+    //     if (person.id === user.id) {
+    //       setUser(person);
+    //     }
+    //   }
+    // }
+
+    console.log(user);
+
+    if (userdata.id === user?.id) {
       setIsEditable(true);
       setIsFollowing(false);
     }
 
-    if (user.following.includes(userdata.id)) {
+    if (user?.following.includes(userdata.id)) {
       setIsFollowing(true);
     } else {
       setIsFollowing(false);
     }
 
-    return () => localStorage.setItem("user", JSON.stringify(user));
-  }, []);
+    // return () => localStorage.setItem("user", JSON.stringify(user));
+  }, [user?.id]);
 
   let usernameLength = userdata.username.length;
 
@@ -106,15 +132,6 @@ const AccountPage = ({ userdata, users }) => {
           mb="75px"
           className={accountPageStyles.header}
         >
-          {/* <Icon
-            as={BsChevronLeft}
-            color="white"
-            position="absolute"
-            top="30px"
-            left="5px"
-            cursor="pointer"
-            onClick={() => router.back()}
-          /> */}
           <Box>
             <Flex
               zIndex="2"

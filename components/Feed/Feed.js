@@ -30,9 +30,9 @@ const Feed = ({
   user,
   isGuest,
 }) => {
-  // const { user } = useUser();
-
   let isOwnPost = false;
+
+  console.log(user);
 
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
@@ -54,7 +54,7 @@ const Feed = ({
 
   let postArray = [];
   if (isProfilePage) {
-    if (user.id === userdata.id) {
+    if (user?.id === userdata.id) {
       if (user.posts) {
         postArray = user.posts.map((post) => {
           return (

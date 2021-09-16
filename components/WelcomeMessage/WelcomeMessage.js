@@ -63,6 +63,7 @@ const WelcomeMessage = () => {
         >
           <Image
             alt="Screenshot of LinkBase"
+            minH="400px"
             h="auto"
             w={["200px", "300px"]}
             border="1px solid black"

@@ -199,6 +199,7 @@ const EditProfile = ({ isEditable, showConfirmation, setShowConfirmation }) => {
                   <Image
                     src={profilePicPreviewURL}
                     alt="User profile image"
+                    fit="cover"
                     boxSize="200px"
                     borderRadius="full"
                     mb="20px"
