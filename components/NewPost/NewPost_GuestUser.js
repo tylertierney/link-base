@@ -312,7 +312,7 @@ const NewPost_GuestUser = () => {
             <Button
               fontFamily="Poppins"
               bgGradient="linear(to-r, red.400,pink.400)"
-              color={"white"}
+              color="white"
               _hover={{
                 bgGradient: "linear(to-r, red.400,pink.400)",
                 boxShadow: "xl",

@@ -16,37 +16,30 @@ import clientPromise from "../utils/mongodb";
 import router from "next/router";
 
 const Welcome = ({ users, guest_pw }) => {
-  const [sortingBy, setSortingBy] = useState("popular");
+  const [sortingBy, setSortingBy] = useState("new");
   const [tabSelection, setTabSelection] = useState("Discover");
   const [isLoading, setIsLoading] = useState(false);
 
   const { user, setUser, login } = useUser();
 
-  useEffect(
-    () => {
-      console.log("login event should happen here");
-      login("Guest@email.com", guest_pw, true);
+  useEffect(() => {
+    console.log("login event should happen here");
+    login("Guest@email.com", guest_pw, true);
 
-      // if (user) {
-      for (const person of users) {
-        if (person.id === "449f7966-9439-4f82-bf31-0abc9637b63b") {
-          console.log(person);
-          setUser(() => person);
-          // localStorage.setItem("user", JSON.stringify(person));
-        }
-        console.log(user);
+    for (const person of users) {
+      if (person.id === "449f7966-9439-4f82-bf31-0abc9637b63b") {
+        setUser(() => person);
       }
+    }
 
-      // if (user === null || user === undefined) {
-      //   router.push("/");
-      // }
-      // }
+    setTimeout(() => {
+      if (user === null) {
+        router.push("/");
+      }
+    }, 1000);
+  }, []);
 
-      // return () => login("Guest@email.com", guest_pw, true);
-    },
-    // [user?.id]
-    []
-  );
+  console.log(!user);
 
   return (
     <>

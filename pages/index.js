@@ -13,12 +13,13 @@ import SortMenu from "../components/SortMenu/SortMenu";
 import TabMenu from "../components/TabMenu/TabMenu";
 import router from "next/router";
 import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage";
+import HintMessage from "../components/HintMessage/HintMessage";
 
 const Home = ({ users }) => {
   const { user, setUser, login, logout, signup, error, authReady } = useUser();
 
-  const [sortingBy, setSortingBy] = useState("popular");
-  const [tabSelection, setTabSelection] = useState("Your Feed");
+  const [sortingBy, setSortingBy] = useState("new");
+  const [tabSelection, setTabSelection] = useState("Discover");
 
   useEffect(() => {
     const getUserFromLocalStorage = () => {
@@ -50,8 +51,8 @@ const Home = ({ users }) => {
 
     console.log(user);
 
-    // if (user === null) {
-    //   router.push("/welcome");
+    // if (user.username.includes("Guest")) {
+    //   logout();
     // }
   }, [user?.id]);
 
@@ -79,6 +80,7 @@ const Home = ({ users }) => {
           >
             {user ? (
               <>
+                <HintMessage />
                 <NewPost />
                 <Flex align="center" w="85%" justify="space-between">
                   <Flex align="center" justify="center" w={["24%", "20%"]}>

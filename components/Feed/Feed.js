@@ -145,7 +145,12 @@ const Feed = ({
       return (
         <>
           {isProfilePage ? (
-            <Heading textAlign="center" fontSize="1.2rem" color="gray.700">
+            <Heading
+              maxW={["330px", "sm", "md"]}
+              textAlign="center"
+              fontSize="1.2rem"
+              color="gray.700"
+            >
               This user hasn&apos;t posted anything yet
             </Heading>
           ) : (
@@ -157,6 +162,7 @@ const Feed = ({
                 textAlign="center"
                 fontSize="1.2rem"
                 color="gray.700"
+                maxW={["330px", "sm", "md"]}
               >
                 Follow some users to populate your feed.
               </Heading>

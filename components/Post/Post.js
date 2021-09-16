@@ -46,8 +46,6 @@ const Post = ({
   isGuest,
   isOwnPost,
 }) => {
-  console.log(isOwnPost);
-
   // const { user } = useUser();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -129,7 +127,6 @@ const Post = ({
   // };
 
   const hidePostOnScroll = (e) => {
-    console.log(e.currentTarget);
     if (e.currentTarget.scrollLeft > 260) {
       setIsHidden(true);
     }
@@ -272,6 +269,7 @@ const Post = ({
                       onClick={() => setPanelIsShowing(true)}
                       textAlign="left"
                       backgroundColor="brand.text_light"
+                      minH="2.2rem"
                     >
                       {post.text}
                     </Text>
@@ -345,8 +343,9 @@ const Post = ({
               align="center"
               color="gray.400"
               userSelect="none"
-              p="0.6rem 0.8rem 0 0.8rem"
+              p="0.6rem 0.8rem 0.4rem 0.8rem"
               backgroundColor="brand.text_light"
+              zIndex="2"
             >
               <Flex justify="space-between" align="flex-start">
                 <Flex onClick={() => handleLike()}>
