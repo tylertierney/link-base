@@ -43,9 +43,6 @@ const AccountPage = ({ userdata, users }) => {
 
   const { user, setUser, logout } = useUser();
   useEffect(() => {
-    console.log(user);
-    console.log(localStorage.getItem("user"));
-
     const getUserFromLocalStorage = () => {
       if (localStorage.getItem("user")) {
         let founduser = localStorage.getItem("user");
@@ -68,8 +65,6 @@ const AccountPage = ({ userdata, users }) => {
     //     }
     //   }
     // }
-
-    console.log(user);
 
     if (userdata.id === user?.id) {
       setIsEditable(true);
@@ -250,7 +245,7 @@ const AccountPage = ({ userdata, users }) => {
             <Flex align="center">
               <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
               <Text fontSize="0.7rem" color="gray.600">
-                It may take a few minutes to view your changes.
+                You may need to reload the page to view your changes
               </Text>
             </Flex>
           </Flex>

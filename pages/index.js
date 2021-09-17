@@ -20,6 +20,7 @@ const Home = ({ users }) => {
 
   const [sortingBy, setSortingBy] = useState("new");
   const [tabSelection, setTabSelection] = useState("Discover");
+  const [showHint, setShowHint] = useState(true);
 
   useEffect(() => {
     const getUserFromLocalStorage = () => {
@@ -38,6 +39,9 @@ const Home = ({ users }) => {
         return convertedfounduser;
       }
     };
+
+    console.log(getUserFromLocalStorage());
+
     setUser(() => getUserFromLocalStorage());
 
     if (user) {
@@ -63,6 +67,7 @@ const Home = ({ users }) => {
       <Head>
         <title>Linkbase</title>
         <link rel="icon" href="/linkbase_logo_ico.ico" />
+        <link rel="shortcut icon" href="/linkbase_logo_ico.ico" />
 
         <meta
           name="viewport"
@@ -80,7 +85,7 @@ const Home = ({ users }) => {
           >
             {user ? (
               <>
-                <HintMessage />
+                <HintMessage showHint={showHint} setShowHint={setShowHint} />
                 <NewPost />
                 <Flex align="center" w="85%" justify="space-between">
                   <Flex align="center" justify="center" w={["24%", "20%"]}>

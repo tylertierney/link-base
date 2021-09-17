@@ -161,12 +161,12 @@ const NewPost = () => {
           <Flex align="center">
             <CheckCircleIcon fontSize="1rem" mr="0.4rem" />
             <Text fontSize="0.7rem" color="gray.600">
-              Your&nbsp;
-              <Link href={`/user/${user.id}`} passHref>
+              Your post
+              {/* <Link href={`/user/${user.id}`} passHref>
                 <a style={{ textDecoration: "underline", color: "blue" }}>
                   post
                 </a>
-              </Link>
+              </Link> */}
               &nbsp;is live!
             </Text>
           </Flex>

@@ -32,8 +32,6 @@ const Feed = ({
 }) => {
   let isOwnPost = false;
 
-  console.log(user);
-
   const sortPosts = (postArray) => {
     if (postArray === undefined) {
       return;
@@ -150,6 +148,8 @@ const Feed = ({
               textAlign="center"
               fontSize="1.2rem"
               color="gray.700"
+              fontFamily="Poppins"
+              fontWeight="500"
             >
               This user hasn&apos;t posted anything yet
             </Heading>
@@ -162,6 +162,7 @@ const Feed = ({
                 fontSize="1.2rem"
                 color="gray.700"
                 maxW={["330px", "sm", "md"]}
+                fontFamily="Poppins"
               >
                 Follow some users to populate your feed.
               </Heading>
@@ -171,6 +172,7 @@ const Feed = ({
                 textAlign="center"
                 fontSize="1.2rem"
                 color="gray.700"
+                fontFamily="Poppins"
               >
                 View the Discover <Icon as={IoMdGlobe} /> tab to find users and
                 popular content!

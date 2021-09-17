@@ -103,7 +103,7 @@ const AuthContextProvider = ({ children }) => {
       .then((response) => {
         setIsLoading(false);
         addUserToDatabase(response);
-        // console.log("auth context line 106: ", response);
+        console.log("auth context line 106: ", response);
         login(email, password, false);
 
         let user_obj = {
