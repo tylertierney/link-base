@@ -55,9 +55,9 @@ const Home = ({ users }) => {
 
     console.log(user);
 
-    // if (user.username.includes("Guest")) {
-    //   logout();
-    // }
+    if (user?.username.includes("Guest123")) {
+      logout();
+    }
   }, [user?.id]);
 
   console.log(user);

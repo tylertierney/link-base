@@ -32,11 +32,12 @@ const Welcome = ({ users, guest_pw }) => {
       }
     }
 
-    setTimeout(() => {
-      if (user === null) {
-        router.push("/");
-      }
-    }, 1000);
+    // setTimeout(() => {
+    //   if (user === null) {
+    //     localStorage.clear();
+    //     router.push("/");
+    //   }
+    // }, 2000);
   }, []);
 
   console.log(!user);

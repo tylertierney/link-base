@@ -5,7 +5,14 @@ import Head from "next/head";
 const Logo = ({ isGuest }) => {
   return (
     <>
-      <Flex justify="center" align="center" h={2} userSelect="none">
+      <Flex
+        as="button"
+        _focus={{ outline: "none", boxShadow: "none" }}
+        justify="center"
+        align="center"
+        h={2}
+        userSelect="none"
+      >
         <Link href={isGuest ? "/welcome" : "/"} passHref>
           <a style={{ textDecoration: "none" }}>
             <Text

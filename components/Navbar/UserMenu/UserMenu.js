@@ -24,7 +24,7 @@ import { useState } from "react";
 import { SpinnerIcon } from "@chakra-ui/icons";
 
 const UserMenu = ({ isGuest }) => {
-  const { user, login, signup, error, logout } = useUser();
+  const { user, login, signup, error, logout, setUser } = useUser();
 
   const [menuIsOpen, setMenuIsOpen] = useState();
 
@@ -117,7 +117,11 @@ const UserMenu = ({ isGuest }) => {
               </Link>
               <MenuDivider />
               <Link passHref href="/">
-                <MenuItem fontSize="0.8rem" onClick={logout}>
+                <MenuItem
+                  fontSize="0.8rem"
+                  // onClick={isGuest ? setUser(null) : logout}
+                  onClick={logout}
+                >
                   <Flex align="center">{signoutIcon}&nbsp;&nbsp;Log Out</Flex>
                 </MenuItem>
               </Link>
