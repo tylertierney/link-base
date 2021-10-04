@@ -92,7 +92,7 @@ const Login = () => {
                 </Heading>
               </Stack>
               <Box mt={10}>
-                <Stack spacing={4}>
+                <Stack spacing={4} color="gray.400">
                   <Flex direction="column" fontSize="0.8rem">
                     <FormLabel fontSize="inherit" m={0}>
                       Email

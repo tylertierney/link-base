@@ -25,6 +25,7 @@ const NavbarControls = () => {
         onClick={() => setSignupIsLoading(true)}
         variant="ghost"
         colorScheme="gray"
+        color="brand.text_dark"
         size="xs"
         fontSize="0.7rem"
         _focus={{ outline: "none" }}
@@ -44,7 +45,7 @@ const NavbarControls = () => {
       <Button
         size="xs"
         bgGradient="linear(to-r, red.400,pink.400)"
-        color={"white"}
+        color="white"
         _hover={{
           bgGradient: "linear(to-r, red.400,pink.400)",
           boxShadow: "xl",

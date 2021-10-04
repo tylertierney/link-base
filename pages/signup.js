@@ -27,6 +27,8 @@ import signupstyles from "./signup.module.css";
 
 import { BsChevronLeft } from "react-icons/bs";
 
+import router from "next/router";
+
 const SignUp = ({ users }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -121,13 +123,13 @@ const SignUp = ({ users }) => {
                 </Text>
               </Stack>
               <Box>
-                <Stack spacing={3}>
+                <Stack spacing={3} color="gray.400">
                   <Flex direction="column" fontSize="0.8rem">
                     <Flex align="center" justify="space-between">
-                      <FormLabel fontSize="inherit" m={0}>
+                      <FormLabel color="inherit" fontSize="inherit" m={0}>
                         Username
                       </FormLabel>
-                      <Text fontSize="0.6rem" color="gray.400">
+                      <Text fontSize="0.6rem">
                         Min 6 characters, max 20; no spaces
                       </Text>
                     </Flex>
@@ -147,7 +149,7 @@ const SignUp = ({ users }) => {
                       />
                     </FormControl>
                   </Flex>
-                  <Flex direction="column" fontSize="0.8rem">
+                  <Flex direction="column" fontSize="0.8rem" color="gray.400">
                     <FormLabel fontSize="inherit" m={0}>
                       Email
                     </FormLabel>
@@ -166,7 +168,7 @@ const SignUp = ({ users }) => {
                         onChange={(e) => setEmail(e.target.value)}
                         disabled={isLoading}
                       />
-                      <FormHelperText>
+                      <FormHelperText color="inherit">
                         Your email address will never be shared publicly.
                       </FormHelperText>
                     </FormControl>
@@ -203,6 +205,7 @@ const SignUp = ({ users }) => {
                             }}
                             mr="1rem"
                             onClick={() => setShowPassword(!showPassword)}
+                            color="gray.400"
                           >
                             Show
                           </Button>

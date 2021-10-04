@@ -364,7 +364,7 @@ const Post = ({
                 <Text p="0 0 0 0.2rem" fontSize="0.8rem" mr="0.5rem">
                   {numberOfLikes.toLocaleString("en-us")}
                 </Text>
-                <Flex>
+                <Flex onClick={() => setPanelIsShowing(true)}>
                   {hasCommented ? (
                     <Icon
                       color="blue.600"
